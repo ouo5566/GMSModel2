@@ -20,7 +20,7 @@
 			<%-- <a href="<%=ctx %>/admin.do?action=move&page=admin-login"><button class="butt">ADMIN</button></a><br> --%>
 			<a href="<%=ctx %>/member.do?action=move&page=update-form"><button class="butt">UPDATE</button></a><br>
 			<a href="<%=ctx %>/member.do?action=move&page=delete-form"><button class="butt">DELETE</button></a><br>
-			<a href="<%=ctx %>/member.do?action=member-list&page=member-list"><button class="butt">MEMBER</button></a><br>
+			<a href="<%=ctx %>/member.do?action=list&page=member-list"><button class="butt">MEMBER</button></a><br>
 			<a href="<%=ctx %>/member.do?action=move&page=search-team-form"><button class="butt">TEAM</button></a><br>
 			<a href="<%=ctx %>/member.do?action=move&page=search-id-form"><button class="butt">ID</button></a>
 			</td>
