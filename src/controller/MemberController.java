@@ -1,11 +1,19 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import command.Carrier;
+import command.Sentry;
+import domain.*;
+import enums.Action;
+import service.*;
 
 // @ annotation
 /*"/member/join-form.do","/member/join-result.do","/member/delete-form.do","/member/delete-result.do","/member/member-list.do",
@@ -18,11 +26,84 @@ public class MemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("--MemberController--");
-		String action = request.getParameter("action");
-		String page = request.getParameter("page");
-		switch(action) {
-			case "move" : 
-				request.getRequestDispatcher("/WEB-INF/view/member/"+ page +".jsp").forward(request, response);
+		Sentry.init(request);
+		System.out.println("action : "+Sentry.cmd.getAction());
+		//String action = request.getParameter("action"); // DB접근방식에 대해 제한을 둘 수 있다. 인터페이스에 정의되어있는 메소드 수 + move = case 가짓 수
+		//String page = request.getParameter("page");
+		List<MemberBean> list = null;
+		MemberBean member = null;
+		switch(Action.valueOf(Sentry.cmd.getAction())) { 
+			case MOVE : 
+				System.out.println("--go move--");
+				try {Carrier.send(request, response); // 이동시켜주는 Carrier
+				} catch (Exception e) {e.printStackTrace();}
+				break;
+			case JOIN:
+				member = new MemberBean();
+				member.setMemberId(request.getParameter("userid"));
+				member.setName(request.getParameter("username"));
+				member.setPassword(request.getParameter("password"));
+				member.setSsn(request.getParameter("userssn"));
+				if(!MemberServiceImpl.getInstance().findByUser(member)) {
+					System.out.println("가입된 계정이 있습니다.");
+				}else if(!MemberServiceImpl.getInstance().findByOverlabId(member.getMemberId())) {
+					System.out.println("줃복되는 아이디 입니다.");
+				}else {
+					System.out.println("환영합니다.");
+					MemberServiceImpl.getInstance().createMember(member);
+				}
+				break;
+			case "member-list":
+				list = MemberServiceImpl.getInstance().list();
+				System.out.println("member-list-size : "+list.size());
+				break;
+			case "search-member-team":
+				list = MemberServiceImpl.getInstance().findByTeamId(request.getParameter("team-id"));
+				System.out.println("team-list-size : "+list.size());
+				break;
+			case "search-member-id":
+				member = MemberServiceImpl.getInstance().findById(request.getParameter("member-id"));
+				System.out.println("member-name : "+member.getName());
+				break;
+			case "search-member-count":
+				String count = MemberServiceImpl.getInstance().memberCount();
+				System.out.println("member-count : " + count);
+				break;
+			case "update-member":
+				System.out.println("--update--");
+				String pw = request.getParameter("userpw");
+				String newPW = request.getParameter("new-userpw");
+				member = new MemberBean();
+				member.setMemberId(request.getParameter("userid"));
+				member.setPassword(pw);
+				if(!pw.equals(newPW) && MemberServiceImpl.getInstance().login(member)) {
+					member.setPassword(pw+"/"+newPW);
+					MemberServiceImpl.getInstance().modifyMember(member);
+					System.out.println("비밀번호가 변경되었습니다.");
+				}
+				break;
+			case "delete-member":
+				String userPW = request.getParameter("userpw");
+				String confirmPW = request.getParameter("confirm-pw");
+				member = new MemberBean();
+				member.setMemberId(request.getParameter("userid"));
+				member.setPassword(userPW);
+				if(userPW.equals(confirmPW) && MemberServiceImpl.getInstance().login(member)) {
+					MemberServiceImpl.getInstance().removeMember(member);
+					System.out.println("계정이 삭제되었습니다.");
+				}
+				break;
+			case "login":
+				member = new MemberBean();
+				member.setMemberId(request.getParameter("userid"));
+				member.setName(request.getParameter("username"));
+				member.setPassword(request.getParameter("password"));
+				member.setSsn(request.getParameter("userssn"));
+				if(MemberServiceImpl.getInstance().login(member)) {
+					System.out.println("어서오세요");
+				}else {
+					System.out.println("아이디 혹은 비밀번호가 정확하지 않습니다.");
+				}
 				break;
 		}
 		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/member/join-form.jsp");

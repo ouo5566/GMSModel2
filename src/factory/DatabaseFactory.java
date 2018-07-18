@@ -1,5 +1,4 @@
 package factory;
-import java.sql.Connection;
 
 import enums.Vendor;
 import pool.DBConstants;

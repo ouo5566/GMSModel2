@@ -17,7 +17,7 @@
 			<td>
 				<h4>회원탈퇴</h4>
 				<form action="<%=ctx%>/member.do">
-				<input type="hidden" name="action" value="move" />
+				<input type="hidden" name="action" value="delete-member" />
 				<input type="hidden" name="page" value="delete-result" />	
 					ID : <input type="text" name="userid"/><br>
 					PW : <input type="text" name="userpw"/><br>

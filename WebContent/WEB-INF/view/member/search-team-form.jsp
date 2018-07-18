@@ -17,7 +17,7 @@
 			<td>
 				<form action="<%=ctx%>/member.do">
 					SEARCH<br> <input type="text" name="team-id"/> <br>
-					<input type="hidden" name="action" value="move" />
+					<input type="hidden" name="action" value="search-member-team" />
 					<input type="hidden" name="page" value="search-team-result" />
 					<input type="submit" value="NEXT"/>
 				</form>

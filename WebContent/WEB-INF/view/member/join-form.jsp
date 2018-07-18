@@ -17,10 +17,10 @@
 			<td class="width-70per"><img class="width-60per margin-auto" src="../../img/home/lighthouse.jpg" alt="" /></td>
 			<td>
 			<form id="user-join-layout" action="<%=ctx %>/member.do" class="align-left">
-			<input type="hidden" name="action" value="move" />
+			<input type="hidden" name="action" value="join" />
 			<input type="hidden" name="page" value="join-result" />
 				회원가입<br>
-				ID : <input type="text" name="joinid" /><br>
+				ID : <input type="text" name="userid" /><br>
 				PW : <input type="text" name="password" /><br>
 				NAME : <input type="text" name="username" /><br>
 				SSN : <input type="text" name="userssn" /><br>	

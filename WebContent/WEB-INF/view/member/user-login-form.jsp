@@ -16,7 +16,7 @@
 			<td class="width-70per"><img class="width-60per margin-auto" src="../../img/home/lighthouse.jpg" alt="" /></td>
 			<td>
 			<form id="user-login-layout" action="<%=ctx%>/member.do" class="align-left">
-			<input type="hidden" name="action" value="move" />
+			<input type="hidden" name="action" value="login" />
 			<input type="hidden" name="page" value="user-login-result" />
 			로그인 <br>
 			ID

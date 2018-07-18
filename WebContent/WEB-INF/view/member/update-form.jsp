@@ -16,8 +16,8 @@
 			<td class="width-70per"><img class="width-60per margin-auto" src="../../img/home/lighthouse.jpg" alt="" /></td>
 			<td>
 				<h4>비밀번호 변경</h4>
-				<form action="<%=ctx%> %>/member.do">
-				<input type="hidden" name="action" value="move" />
+				<form action="<%=ctx%>/member.do">
+				<input type="hidden" name="action" value="update-member" />
 				<input type="hidden" name="page" value="update-result" />
 				ID : <input type="text" name="userid"/><br>
 				PW : <input type="text" name="userpw"/><br>
