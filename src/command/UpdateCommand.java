@@ -31,6 +31,5 @@ public class UpdateCommand extends Command{
 			break;
 		default: break;
 		}
-		super.execute();
 	}
 }

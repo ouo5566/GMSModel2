@@ -9,6 +9,7 @@ import enums.Domain;
 import service.MemberServiceImpl;
 
 public class SearchCommand extends Command{
+	List<MemberBean> search;
 	public SearchCommand(HttpServletRequest request) {
 		setRequest(request);
 		setDomain(request.getServletPath().substring(1, request.getServletPath().indexOf(".")));
@@ -21,12 +22,15 @@ public class SearchCommand extends Command{
 		switch (Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
 		case MEMBER:
 			System.out.println("--Search execute--");
-			List<MemberBean> list = MemberServiceImpl.getInstance().findByTeamId(request.getParameter("team-id"));
-			System.out.println("team-list-size : "+list.size());
+			this.search = MemberServiceImpl.getInstance().findByTeamId(request.getParameter("team-id"));
 			break;
 		default:
 			break;
 		}
 		super.execute();
 	}
+	public List<MemberBean> getSearch() {
+		return search;
+	}
+	
 }

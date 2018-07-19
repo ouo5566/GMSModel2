@@ -25,11 +25,11 @@ public class MemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("--MemberController--");
 		Sentry.init(request);
-
-		//String action = request.getParameter("action"); // DB접근방식에 대해 제한을 둘 수 있다. 인터페이스에 정의되어있는 메소드 수 + move = case 가짓 수
-		//String page = request.getParameter("page");
 		List<MemberBean> list = null;
 		MemberBean member = null;
+		//String action = request.getParameter("action"); // DB접근방식에 대해 제한을 둘 수 있다. 인터페이스에 정의되어있는 메소드 수 + move = case 가짓 수
+		//String page = request.getParameter("page");
+		System.out.println("Controller Action :" + Sentry.cmd.getAction());
 		switch(Action.valueOf(Sentry.cmd.getAction().toUpperCase())) { 
 			case MOVE : 
 				System.out.println("--Controller_move--");
@@ -49,14 +49,20 @@ public class MemberController extends HttpServlet {
 				break;
 			case LIST:
 				System.out.println("--Controller_list--");
+				list = ((ListCommand) Sentry.cmd).getList();
+				System.out.println("List size : "+list.size());
 				Carrier.redirect(request, response, "");
 				break;
 			case SEARCH:
 				System.out.println("--Controller_search--");
+				list = ((SearchCommand) Sentry.cmd).getSearch();
+				System.out.println(list.size());
 				Carrier.redirect(request, response, "");
 				break;
 			case RETRIEVE:
 				System.out.println("--Controller_retrieve--");
+				member = ((RetrieveCommand) Sentry.cmd).getRetrieve();
+				System.out.println("member-name : "+member.getName());
 				Carrier.redirect(request, response, "");
 				break;
 			case COUNT:

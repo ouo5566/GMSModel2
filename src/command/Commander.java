@@ -29,7 +29,7 @@ public class Commander{
 			break;
 		case LIST :
 			System.out.println("--Commander list--");
-			cmd = new ListCommander(request);
+			cmd = new ListCommand(request);
 			break;
 		case SEARCH :
 			System.out.println("--Commander search--");
