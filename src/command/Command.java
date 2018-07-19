@@ -1,11 +1,11 @@
 package command;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class Command implements Order{
 	protected String action, domain, page, view;
 	protected HttpServletRequest request;
-	
 	public String getAction() {
 		return action;
 	}
@@ -45,7 +45,7 @@ public class Command implements Order{
 	public void setRequest(HttpServletRequest request) {
 		this.request = request;
 	}
-
+	
 	@Override
 	public void execute() {
 		this.view = "/WEB-INF/view/"+domain+"/"+page+".jsp";

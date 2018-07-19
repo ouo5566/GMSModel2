@@ -7,7 +7,6 @@ import enums.Domain;
 import service.MemberServiceImpl;
 
 public class RetrieveCommand extends Command{
-	MemberBean member;
 	public RetrieveCommand(HttpServletRequest request) {
 		setRequest(request);
 		setDomain(request.getServletPath().substring(1, request.getServletPath().indexOf(".")));
@@ -20,14 +19,10 @@ public class RetrieveCommand extends Command{
 		switch(Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
 			case MEMBER :
 				System.out.println("--Retrieve execute--");
-				this.member = MemberServiceImpl.getInstance().findById(request.getParameter("member-id"));
+				request.setAttribute("retrieve", MemberServiceImpl.getInstance().findById(request.getParameter("member-id")));
 				break;
 			default : break;
 		}
 		super.execute();
 	}
-	public MemberBean getRetrieve() {
-		return member;
-	}
-	
 }

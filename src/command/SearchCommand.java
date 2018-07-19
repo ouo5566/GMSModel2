@@ -22,7 +22,7 @@ public class SearchCommand extends Command{
 		switch (Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
 		case MEMBER:
 			System.out.println("--Search execute--");
-			this.search = MemberServiceImpl.getInstance().findByTeamId(request.getParameter("team-id"));
+			request.setAttribute("search", MemberServiceImpl.getInstance().findByTeamId(request.getParameter("team-id")));
 			break;
 		default:
 			break;

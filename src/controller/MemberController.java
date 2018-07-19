@@ -49,20 +49,14 @@ public class MemberController extends HttpServlet {
 				break;
 			case LIST:
 				System.out.println("--Controller_list--");
-				list = ((ListCommand) Sentry.cmd).getList();
-				System.out.println("List size : "+list.size());
 				Carrier.redirect(request, response, "");
 				break;
 			case SEARCH:
 				System.out.println("--Controller_search--");
-				list = ((SearchCommand) Sentry.cmd).getSearch();
-				System.out.println(list.size());
 				Carrier.redirect(request, response, "");
 				break;
 			case RETRIEVE:
 				System.out.println("--Controller_retrieve--");
-				member = ((RetrieveCommand) Sentry.cmd).getRetrieve();
-				System.out.println("member-name : "+member.getName());
 				Carrier.redirect(request, response, "");
 				break;
 			case COUNT:
