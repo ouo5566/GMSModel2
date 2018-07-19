@@ -6,8 +6,8 @@ import domain.MemberBean;
 import enums.Domain;
 import service.MemberServiceImpl;
 
-public class DeleteCommand extends Command{
-	public DeleteCommand(HttpServletRequest request) {
+public class LoginCommand extends Command{
+	public LoginCommand(HttpServletRequest request) {
 		setRequest(request);
 		setDomain(request.getServletPath().substring(1, request.getServletPath().indexOf(".")));
 		setAction(request.getParameter("action"));
@@ -18,17 +18,20 @@ public class DeleteCommand extends Command{
 	public void execute() {
 		switch (Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
 		case MEMBER:
-			String userPW = request.getParameter("userpw");
-			String confirmPW = request.getParameter("confirm-pw");
 			MemberBean member = new MemberBean();
 			member.setMemberId(request.getParameter("userid"));
-			member.setPassword(userPW);
-			if(userPW.equals(confirmPW) && MemberServiceImpl.getInstance().login(member)) {
-			MemberServiceImpl.getInstance().removeMember(member);
-			System.out.println("계정이 삭제되었습니다.");
+			member.setName(request.getParameter("username"));
+			member.setPassword(request.getParameter("password"));
+			member.setSsn(request.getParameter("userssn"));
+			System.out.println("어서오세요");
+			if(MemberServiceImpl.getInstance().login(member)) {
+				System.out.println("어서오세요");
+			}else {
+				System.out.println("아이디 혹은 비밀번호가 정확하지 않습니다.");
 			}
 			break;
-		default: break;
+		default:
+			break;
 		}
 		super.execute();
 	}

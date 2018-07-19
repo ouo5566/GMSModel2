@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% String ctx = application.getContextPath(); %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 	<link rel="stylesheet" href="../../css/style.css" />
 </head>
 <body class="align-center">
-	<a href="../../main.jsp"><button class="butt">MAIN</button></a>
+	<a href="<%=ctx%>/member.do?action=list"><button class="butt">MAIN</button></a>
 	<table id="main-tab-Layout"  class="margin-auto">
 		<tr>
 			<th>ID</th>

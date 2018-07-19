@@ -9,11 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import command.Carrier;
-import command.Sentry;
+import command.*;
 import domain.*;
 import enums.Action;
-import service.*;
 
 // @ annotation
 /*"/member/join-form.do","/member/join-result.do","/member/delete-form.do","/member/delete-result.do","/member/member-list.do",
@@ -32,22 +30,15 @@ public class MemberController extends HttpServlet {
 		//String page = request.getParameter("page");
 		List<MemberBean> list = null;
 		MemberBean member = null;
-		System.out.println(Sentry.cmd.getAction().toUpperCase());
 		switch(Action.valueOf(Sentry.cmd.getAction().toUpperCase())) { 
 			case MOVE : 
 				System.out.println("--Controller_move--");
-				try {Carrier.send(request, response); // 이동시켜주는 Carrier
-				} catch (Exception e) {e.printStackTrace();}
+				Carrier.forward(request, response); // 이동시켜주는 Carrier
 				break;
 			case JOIN:
 				System.out.println("--Controller_join--");
-				member = new MemberBean();
-				member.setMemberId(request.getParameter("userid"));
-				member.setName(request.getParameter("username"));
-				member.setPassword(request.getParameter("password"));
-				member.setSsn(request.getParameter("userssn"));
-				response.sendRedirect(request.getContextPath()+"/member.do?action=move&page=user-login-form");
-				System.out.println("-- login form 이동--");
+				Carrier.redirect(request, response,"/member.do?action=move&page=user-login-form");
+				//response.sendRedirect(request.getContextPath()+"/member.do?action=move&page=user-login-form");
 				//response 응답 sendRedirect 다이렉트로 다시 보낸다. /member.do? 를 통해 request를 가지고 다시 서블릿으로 들어온다.
 				//ContextPath = domain ex_www.naver.com
 				//ServletPath = domain 뒤의 주소 /member.do?action&page
@@ -55,30 +46,18 @@ public class MemberController extends HttpServlet {
 				//request 를 쓰지 않고 response 를 쓰는 이유는, request 는 스크립틀릿에서 출발하였으니, 끝에는 스크립틀릿으로 돌아간다.
 				//response 는 서블릿 안에서 생겨나 서블릿으로 돌아간다.
 				//=> 서블릿 안에서 돈다면 response를 쓰고, 스크립틀릿에서 가져올 값이 있다면 request를 쓴다.
-				
-				/*if(!MemberServiceImpl.getInstance().findByUser(member)) {
-					System.out.println("가입된 계정이 있습니다.");
-				}else if(!MemberServiceImpl.getInstance().findByOverlabId(member.getMemberId())) {
-					System.out.println("줃복되는 아이디 입니다.");
-				}else {
-					System.out.println("환영합니다.");
-					MemberServiceImpl.getInstance().createMember(member);
-				}*/
 				break;
 			case LIST:
 				System.out.println("--Controller_list--");
-				list = MemberServiceImpl.getInstance().list();
-				System.out.println("member-list-size : "+list.size());
+				Carrier.redirect(request, response, "");
 				break;
 			case SEARCH:
 				System.out.println("--Controller_search--");
-				/*list = MemberServiceImpl.getInstance().findByTeamId(request.getParameter("team-id"));
-				System.out.println("team-list-size : "+list.size());*/
+				Carrier.redirect(request, response, "");
 				break;
 			case RETRIEVE:
 				System.out.println("--Controller_retrieve--");
-				/*member = MemberServiceImpl.getInstance().findById(request.getParameter("member-id"));
-				System.out.println("member-name : "+member.getName());*/
+				Carrier.redirect(request, response, "");
 				break;
 			case COUNT:
 				System.out.println("--Controller_count--");
@@ -87,44 +66,15 @@ public class MemberController extends HttpServlet {
 				break;
 			case UPDATE:
 				System.out.println("--Controller_update--");
-				String pw = request.getParameter("userpw");
-				String newPW = request.getParameter("new-userpw");
-				member = new MemberBean();
-				member.setMemberId(request.getParameter("userid"));
-				member.setPassword(pw);
-				response.sendRedirect(request.getContextPath());
-				/*if(!pw.equals(newPW) && MemberServiceImpl.getInstance().login(member)) {
-					member.setPassword(pw+"/"+newPW);
-					MemberServiceImpl.getInstance().modifyMember(member);
-					System.out.println("비밀번호가 변경되었습니다.");
-				}*/
+				Carrier.redirect(request, response, "");
 				break;
 			case DELETE:
 				System.out.println("--Controller_delete--");
-				String userPW = request.getParameter("userpw");
-				String confirmPW = request.getParameter("confirm-pw");
-				member = new MemberBean();
-				member.setMemberId(request.getParameter("userid"));
-				member.setPassword(userPW);
-				response.sendRedirect(request.getContextPath());
-				/*if(userPW.equals(confirmPW) && MemberServiceImpl.getInstance().login(member)) {
-					MemberServiceImpl.getInstance().removeMember(member);
-					System.out.println("계정이 삭제되었습니다.");
-				}*/
+				Carrier.redirect(request, response, "");
 				break;
 			case LOGIN:
 				System.out.println("--Controller_login--");
-				member = new MemberBean();
-				member.setMemberId(request.getParameter("userid"));
-				member.setName(request.getParameter("username"));
-				member.setPassword(request.getParameter("password"));
-				member.setSsn(request.getParameter("userssn"));
-				response.sendRedirect(request.getContextPath());
-				/*if(MemberServiceImpl.getInstance().login(member)) {
-					System.out.println("어서오세요");
-				}else {
-					System.out.println("아이디 혹은 비밀번호가 정확하지 않습니다.");
-				}*/
+				Carrier.redirect(request, response, "");
 				break;
 		}
 		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/member/join-form.jsp");
