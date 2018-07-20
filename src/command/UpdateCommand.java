@@ -16,14 +16,14 @@ public class UpdateCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		switch (Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
+		switch (Domain.valueOf(domain.toUpperCase())) {
 		case MEMBER:
 			String pw = request.getParameter("userpw");
 			String newPW = request.getParameter("new-userpw");
 			MemberBean member = new MemberBean();
 			member.setMemberId(request.getParameter("userid"));
 			member.setPassword(pw);
-			if(!pw.equals(newPW) && MemberServiceImpl.getInstance().login(member)) {
+			if(!pw.equals(newPW) && MemberServiceImpl.getInstance().loginFlag(member)) {
 				member.setPassword(pw+"/"+newPW);
 				MemberServiceImpl.getInstance().modifyMember(member);
 				System.out.println("비밀번호가 변경되었습니다.");

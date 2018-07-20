@@ -49,13 +49,16 @@ public class MemberServiceImpl implements MemberService{
 		MemberDAOImpl.getInstance().deleteMember(member);
 	}
 	@Override
-	public boolean login(MemberBean member) {
-		return (MemberDAOImpl.getInstance().login(member)!=null);
+	public boolean loginFlag(MemberBean member) {
+		return (login(member)!=null);
 		// null 도 주소값을 가지고 있다. 직접 그 주소값에 가서 뒤져야 하기 때문에 null을 Script까지 가져가는건 좋지 않다.
+	}
+	@Override
+	public MemberBean login(MemberBean member) {
+		return MemberDAOImpl.getInstance().login(member);
 	}
 	@Override
 	public boolean findByUser(MemberBean member){
 		return (MemberDAOImpl.getInstance().selectUser(member)==null);
 	}
-
 }

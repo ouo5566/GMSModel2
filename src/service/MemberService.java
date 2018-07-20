@@ -10,7 +10,8 @@ public interface MemberService {
 	public String memberCount();
 	public void modifyMember(MemberBean member);
 	public void removeMember(MemberBean member);
-	public boolean login(MemberBean member);
+	public boolean loginFlag(MemberBean member);
+	public MemberBean login(MemberBean member);
 	public boolean findByUser(MemberBean member);
 	public List<MemberBean> findByTeamId(String team);
 }

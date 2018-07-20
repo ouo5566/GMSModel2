@@ -16,7 +16,7 @@ public class CreateCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		switch(Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
+		switch(Domain.valueOf(domain.toUpperCase())) {
 		case MEMBER : 
 			System.out.println("--CreateCommand execute MEMBER--");
 			MemberBean member = new MemberBean();

@@ -16,14 +16,14 @@ public class DeleteCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		switch (Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
+		switch (Domain.valueOf(getDomain().toUpperCase())) {
 		case MEMBER:
 			String userPW = request.getParameter("userpw");
 			String confirmPW = request.getParameter("confirm-pw");
 			MemberBean member = new MemberBean();
 			member.setMemberId(request.getParameter("userid"));
 			member.setPassword(userPW);
-			if(userPW.equals(confirmPW) && MemberServiceImpl.getInstance().login(member)) {
+			if(userPW.equals(confirmPW) && MemberServiceImpl.getInstance().loginFlag(member)) {
 			MemberServiceImpl.getInstance().removeMember(member);
 			System.out.println("계정이 삭제되었습니다.");
 			}

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import command.*;
 import domain.*;
 import enums.Action;
+import enums.Domain;
 
 // @ annotation
 /*"/member/join-form.do","/member/join-result.do","/member/delete-form.do","/member/delete-result.do","/member/member-list.do",
@@ -24,7 +25,7 @@ public class MemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("--MemberController--");
-		Sentry.init(request);
+		Sentry.init(request); // Sentry.init()을 통해 Sentry.cmd 가 만들어졌다.
 		List<MemberBean> list = null;
 		MemberBean member = null;
 		//String action = request.getParameter("action"); // DB접근방식에 대해 제한을 둘 수 있다. 인터페이스에 정의되어있는 메소드 수 + move = case 가짓 수
@@ -33,7 +34,11 @@ public class MemberController extends HttpServlet {
 		switch(Action.valueOf(Sentry.cmd.getAction().toUpperCase())) { 
 			case MOVE : 
 				System.out.println("--Controller_move--");
-				Carrier.forward(request, response); // 이동시켜주는 Carrier
+				if(Sentry.cmd.getPage().equals(Sentry.cmd.getAction())) {
+					Carrier.redirect(request, response, ""); // 데이터 없이 새로운 페이지로 이동한다.
+				}else {
+					Carrier.forward(request, response); // JSP에서 request를 통해 데이터를 유지한 채 페이지 이동한다.
+				}
 				break;
 			case JOIN:
 				System.out.println("--Controller_join--");
@@ -49,7 +54,7 @@ public class MemberController extends HttpServlet {
 				break;
 			case LIST:
 				System.out.println("--Controller_list--");
-				Carrier.redirect(request, response, "");
+				Carrier.redirect(request, response, "/member.do?action=move&page=member-list");
 				break;
 			case SEARCH:
 				System.out.println("--Controller_search--");
@@ -74,7 +79,11 @@ public class MemberController extends HttpServlet {
 				break;
 			case LOGIN:
 				System.out.println("--Controller_login--");
-				Carrier.redirect(request, response, "");
+				if(request.getAttribute("match").equals("TRUE")) {
+					Carrier.forward(request, response);
+				}else {
+					Carrier.redirect(request, response, "/member.do?action=move&page=loginForm");
+				}
 				break;
 		}
 		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/member/join-form.jsp");

@@ -19,7 +19,7 @@ public class ListCommand extends Command{
 	
 	@Override
 	public void execute() {
-		switch (Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
+		switch (Domain.valueOf(domain.toUpperCase())) {
 		case MEMBER:
 			request.setAttribute("list", MemberServiceImpl.getInstance().list());
 			System.out.println("--List execute--");

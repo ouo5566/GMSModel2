@@ -16,22 +16,18 @@ public class LoginCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		switch (Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
-		case MEMBER:
-			MemberBean member = new MemberBean();
-			member.setMemberId(request.getParameter("userid"));
-			member.setName(request.getParameter("username"));
-			member.setPassword(request.getParameter("password"));
-			member.setSsn(request.getParameter("userssn"));
-			System.out.println("어서오세요");
-			if(MemberServiceImpl.getInstance().login(member)) {
-				System.out.println("어서오세요");
-			}else {
-				System.out.println("아이디 혹은 비밀번호가 정확하지 않습니다.");
-			}
-			break;
-		default:
-			break;
+		MemberBean member = new MemberBean();
+		member.setMemberId(request.getParameter("userid"));
+		member.setPassword(request.getParameter("password"));
+		if(MemberServiceImpl.getInstance().loginFlag(member)) {
+			// Attribute 는 key와 value로 처리를 하며, 이 것을 mapping이라고 한다. 사상구조로 내부는 무한하다. (extends HashMap)
+			// key값만 unique하면 무한대로(메모리용량) 값을 적재할 수 있다.
+			// JSP -> request(action="*.do":주소지, parameter:값) -> Servlet
+			// JSP <- request(Attribute) <- Servlet
+			request.setAttribute("match", "TRUE");
+			request.setAttribute("user", MemberServiceImpl.getInstance().login(member));
+		}else {
+			request.setAttribute("match", "FALSE");
 		}
 		super.execute();
 	}

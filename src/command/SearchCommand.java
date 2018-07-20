@@ -19,7 +19,7 @@ public class SearchCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		switch (Domain.valueOf(Sentry.cmd.domain.toUpperCase())) {
+		switch (Domain.valueOf(domain.toUpperCase())) {
 		case MEMBER:
 			System.out.println("--Search execute--");
 			request.setAttribute("search", MemberServiceImpl.getInstance().findByTeamId(request.getParameter("team-id")));

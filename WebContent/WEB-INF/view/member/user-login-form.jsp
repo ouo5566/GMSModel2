@@ -17,7 +17,7 @@
 			<td>
 			<form id="user-login-layout" action="<%=ctx%>/member.do" class="align-left">
 			<input type="hidden" name="action" value="login" />
-			<input type="hidden" name="page" value="user-login-result" />
+			<input type="hidden" name="page" value="mypage" />
 			로그인 <br>
 			ID
 			<input type="text" name="userid" />
