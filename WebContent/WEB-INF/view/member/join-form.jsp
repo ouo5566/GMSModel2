@@ -1,37 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% String ctx = application.getContextPath(); %>
 <!-- memberId, name, ssn(800101-1), password -->
 <!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<title>회원가입화면</title>
-	<link rel="stylesheet" href="../../css/style.css"/>
-</head>
+<jsp:include page="../common/head.jsp"/>
 <body>
-<table id="main-tab-Layout" class="width-80per height-650px margin-auto">
-		<tr class="height-100px">
-			<th colspan="2">GMS</th>
-		</tr>
-		<tr>
-			<td class="width-70per"><img class="width-60per margin-auto" src="../../img/home/lighthouse.jpg" alt="" /></td>
-			<td>
-			<form id="user-join-layout" action="<%=ctx %>/member.do" class="align-left">
-			<input type="hidden" name="action" value="join" />
-			<input type="hidden" name="page" value="join-result" />
-				회원가입<br>
+<jsp:include page="../common/functions.jsp"/>
+<div id="wrapper">
+	<div id="header">
+		<jsp:include page="../common/title-box.jsp"/>
+		<jsp:include page="../common/login-box.jsp"/>
+		<jsp:include page="../common/menu-box.jsp"/>
+	</div>
+	<div id="content">
+		<div id="content-box">
+			<form action="${context}/member.do" onsubmit="return sendForm()" method="get">
+				<h3>JOIN PAGE</h3>
+				<input type="hidden" name="action" value="join"/>
+				<input type="hidden" name="page" value="user-login-form"/>
 				ID : <input type="text" name="userid" /><br>
 				PW : <input type="text" name="password" /><br>
 				NAME : <input type="text" name="username" /><br>
 				SSN : <input type="text" name="userssn" /><br>	
 				<input type="submit" value="JOIN" />
 			</form>
-			</td>
-		</tr>
-		<tr class="height-100px">
-			<td colspan="2">ADDRESS</td>
-		</tr>
-	</table>
-	
+		</div>
+	</div>
+	<div id="footer">
+		<jsp:include page="../common/footer.jsp"/> 
+	</div>
+</div>
 </body>
 </html>

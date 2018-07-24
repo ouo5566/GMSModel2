@@ -98,6 +98,7 @@ div#content{
 	min-height: 400px;
 }
 div#content-box{
+	color:#000;
 	clear:both;
 	margin-top: 40px;
 }
@@ -110,8 +111,6 @@ div#footer{
 	line-height: normal;
 	font-size: 1.5em;
 }
-
-
 
 .height-100px {height:100px}
 .height-650px {height:650px}

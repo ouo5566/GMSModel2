@@ -3,3 +3,4 @@
 	<h1>★  초 코 우 유 빛 깔 최 소 진 ★</h1>
 	<h1> GRADE MANAGEMENT SYSTEM </h1>
 </div>
+

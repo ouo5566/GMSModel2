@@ -1,33 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%String ctx = application.getContextPath(); %>
 <!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<title>main</title>
-	<link rel="stylesheet" href="<%=ctx %>/resources/css/style.css" />
-</head>
+<jsp:include page="../common/head.jsp"/>
 <body>
-	<table id="main-tab-Layout" class="width-80per height-650px margin-auto">
-		<tr class="height-100px">
-			<th colspan="2">GMS</th>
-		</tr>
-		<tr>
-			<td class="width-70per"><img class="width-60per margin-auto" src="<%=ctx %>/resources/img/home/lighthouse.jpg" alt="" /></td>
-			<td>
-			<form id="user-login-layout" action="<%=ctx%>/member.do" class="align-left">
-			<input type="hidden" name="action" value="login" />
-			<input type="hidden" name="page" value="mypage" />
-			로그인 <br>
-			ID <input type="text" name="userid" /><br>
-			PASSWORD <input type="text" name="password" /><br>
-			<input type="submit" value="전송" />
+<jsp:include page="../common/functions.jsp"/>
+<div id="wrapper">
+	<div id="header">
+		<jsp:include page="../common/title-box.jsp"/>
+		<jsp:include page="../common/login-box.jsp"/>
+		<jsp:include page="../common/menu-box.jsp"/>
+	</div>
+	<div id="content">
+		<div id="content-box">
+			<h3>LOGIN PAGE</h3>
+			<form action="${context}/member.do" onsubmit="return sendForm()" method="get">
+				<input type="hidden" name="action" value="login"/>
+				<input type="hidden" name="page" value="mypage"/>
+				ID &nbsp;<input type="text" name="userid"/> <br>
+				PW <input type="text" name="password"/>
+					<input type="submit" value="LOGIN"/>
 			</form>
-			</td>
-		</tr>
-		<tr class="height-100px">
-			<td colspan="2">ADDRESS</td>
-		</tr>
-	</table>
+		</div>
+	</div>
+	<div id="footer">
+		<jsp:include page="../common/footer.jsp"/> 
+	</div>
+</div>
 </body>
 </html>

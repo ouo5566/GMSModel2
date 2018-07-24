@@ -3,19 +3,20 @@
 <html lang="en">
 <jsp:include page="common/head.jsp"/>
 <body>
+<jsp:include page="common/functions.jsp"/>
 <!-- 최상위의 div -->
 <div id="wrapper">
 	<div id="header">
 		<jsp:include page="common/title-box.jsp"/>
 		<jsp:include page="common/login-box.jsp"/>
-		<div id="menu-box">
-			<jsp:include page="common/menu-box.jsp"/>
-		</div>
+		<jsp:include page="common/menu-box.jsp"/>
 	</div>
 	<div id="content">
 		<jsp:include page="common/content-box.jsp"/>
 	</div>
-	<jsp:include page="common/footer.jsp"/> 
+	<div id="footer">
+		<jsp:include page="common/footer.jsp"/> 
+	</div>
 </div>
 </body>
 </html>

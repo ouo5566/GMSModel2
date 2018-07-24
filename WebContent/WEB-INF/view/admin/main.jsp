@@ -3,13 +3,12 @@
 <html lang="en">
 <jsp:include page="../common/head.jsp"/>
 <body>
+<jsp:include page="../common/functions.jsp"/>
 <!-- 최상위의 div -->
 <div id="wrapper">
 	<div id="header">
 		<jsp:include page="../common/title-box.jsp"/>
-		<div id="menu-box">
-			<jsp:include page="menu-box.jsp"/>
-		</div>
+		<jsp:include page="menu-box.jsp"/>
 	</div>
 	<div id="content">
 		<jsp:include page="content-box.jsp"/>
