@@ -22,7 +22,6 @@ public class ListCommand extends Command{
 		switch (Domain.valueOf(domain.toUpperCase())) {
 		case MEMBER:
 			request.setAttribute("list", MemberServiceImpl.getInstance().list());
-			System.out.println("--List execute--");
 			break;
 		default:
 			break;

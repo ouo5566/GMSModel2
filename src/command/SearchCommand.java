@@ -21,7 +21,6 @@ public class SearchCommand extends Command{
 	public void execute() {
 		switch (Domain.valueOf(domain.toUpperCase())) {
 		case MEMBER:
-			System.out.println("--Search execute--");
 			request.setAttribute("search", MemberServiceImpl.getInstance().findByTeamId(request.getParameter("team-id")));
 			break;
 		default:

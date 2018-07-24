@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Carrier {
 	public static void forward(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("view : "+Sentry.cmd.getView());
 		try {
 			request.getRequestDispatcher(Sentry.cmd.getView()).forward(request, response);
 		} catch (Exception e) {e.printStackTrace();}

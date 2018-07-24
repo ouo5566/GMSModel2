@@ -1,22 +1,16 @@
 package domain;
 
+import lombok.Data;
+
+@Data
 public class SubjectBean {
 	private String subjectSeq, subjectName;
 
-	public String getSubjectSeq() {
-		return subjectSeq;
+	@Override
+	public String toString() {
+		return "SubjectBean"
+				+ "\n subjectSeq=" + subjectSeq
+				+ "\n subjectName=" + subjectName;
 	}
-
-	public void setSubjectSeq(String subjectSeq) {
-		this.subjectSeq = subjectSeq;
-	}
-
-	public String getSubjectName() {
-		return subjectName;
-	}
-
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
-	}
-
+	
 }

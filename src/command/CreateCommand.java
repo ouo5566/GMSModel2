@@ -18,13 +18,11 @@ public class CreateCommand extends Command{
 	public void execute() {
 		switch(Domain.valueOf(domain.toUpperCase())) {
 		case MEMBER : 
-			System.out.println("--CreateCommand execute MEMBER--");
 			MemberBean member = new MemberBean();
 			member.setMemberId(request.getParameter("userid"));
 			member.setName(request.getParameter("username"));
 			member.setPassword(request.getParameter("password"));
 			member.setSsn(request.getParameter("userssn"));
-			
 			if(!MemberServiceImpl.getInstance().findByUser(member)) {
 				System.out.println("가입된 계정이 있습니다.");
 			}else if(!MemberServiceImpl.getInstance().findByOverlabId(member.getMemberId())) {

@@ -18,7 +18,6 @@ public class RetrieveCommand extends Command{
 	public void execute() {
 		switch(Domain.valueOf(domain.toUpperCase())) {
 			case MEMBER :
-				System.out.println("--Retrieve execute--");
 				request.setAttribute("retrieve", MemberServiceImpl.getInstance().findById(request.getParameter("member-id")));
 				break;
 			default : break;

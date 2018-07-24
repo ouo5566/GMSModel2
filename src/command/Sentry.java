@@ -5,9 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 public class Sentry {
 	public static Command cmd = new Command();
 	public static void init(HttpServletRequest request) {
-		String servletPath = request.getServletPath(); //여기서는 통일한 ServletPath 인 /member.do
-		System.out.println("센트리 : " + servletPath.substring(1, servletPath.indexOf("."))); // 센트리 : member -> domain
 		cmd = Commander.order(request);
-		// action 과 page 의 값을 전달하고서는 끝.
 	}
 }

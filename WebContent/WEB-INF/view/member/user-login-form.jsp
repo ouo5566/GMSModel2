@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>main</title>
-	<link rel="stylesheet" href="../../css/style.css" />
+	<link rel="stylesheet" href="<%=ctx %>/resources/css/style.css" />
 </head>
 <body>
 	<table id="main-tab-Layout" class="width-80per height-650px margin-auto">
@@ -13,18 +13,14 @@
 			<th colspan="2">GMS</th>
 		</tr>
 		<tr>
-			<td class="width-70per"><img class="width-60per margin-auto" src="../../img/home/lighthouse.jpg" alt="" /></td>
+			<td class="width-70per"><img class="width-60per margin-auto" src="<%=ctx %>/resources/img/home/lighthouse.jpg" alt="" /></td>
 			<td>
 			<form id="user-login-layout" action="<%=ctx%>/member.do" class="align-left">
 			<input type="hidden" name="action" value="login" />
 			<input type="hidden" name="page" value="mypage" />
 			로그인 <br>
-			ID
-			<input type="text" name="userid" />
-			<br>
-			PASSWORD
-			<input type="text" name="password" />
-			<br>
+			ID <input type="text" name="userid" /><br>
+			PASSWORD <input type="text" name="password" /><br>
 			<input type="submit" value="전송" />
 			</form>
 			</td>
