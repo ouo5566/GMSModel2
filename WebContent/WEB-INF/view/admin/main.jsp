@@ -3,7 +3,7 @@
 <html lang="en">
 <jsp:include page="../common/head.jsp"/>
 <body>
-<jsp:include page="../common/functions.jsp"/>
+<jsp:include page="../common/head-function.jsp"/>
 <!-- 최상위의 div -->
 <div id="wrapper">
 	<div id="header">

@@ -3,8 +3,8 @@
 <!doctype html>
 <html lang="en">
 <jsp:include page="../common/head.jsp"/>
+<jsp:include page="../common/head-function.jsp"/>
 <body>
-<jsp:include page="../common/functions.jsp"/>
 <div id="wrapper">
 	<div id="header">
 		<jsp:include page="../common/title-box.jsp"/>

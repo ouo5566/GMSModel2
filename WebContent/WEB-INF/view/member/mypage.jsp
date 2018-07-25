@@ -7,8 +7,8 @@
 <!doctype html>
 <html lang="en">
 <jsp:include page="../common/head.jsp"/>
+<jsp:include page="../common/head-function.jsp"/>
 <body>
-<jsp:include page="../common/functions.jsp"/>
 <div id="wrapper">
 	<div id="header">
 		<jsp:include page="../common/title-box.jsp"/>
@@ -19,7 +19,7 @@
 		<div id="content-box">
 				<h4>★어서오세요★</h4>
 				<h4><%=user.getName() %>님</h4>
-				<a onclick="move('common','','')">
+				<a onclick="common.move('common','','')">
 					<button>LOGOUT</button>
 				</a>
 		</div>
