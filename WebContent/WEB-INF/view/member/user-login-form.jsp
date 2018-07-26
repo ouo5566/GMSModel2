@@ -34,6 +34,7 @@ document.getElementById('login-form-btn').addEventListener('click',
 	alert('입력한 아이디 : ' + userid); */
 	form.action = "${context}/member.do";
 	form.method = "post";
+	var member = new Member();
 	member.setMemberId(form.userid.value);
 	member.setPassword(form.password.value);
 	if(member.loginValidation()){
