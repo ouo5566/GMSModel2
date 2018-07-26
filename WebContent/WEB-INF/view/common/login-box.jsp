@@ -12,10 +12,12 @@
 
 document.getElementById('move-login-form')
 .addEventListener('click',function(){ //콜백함수 : 연이어서 호출되는 함수
-	new Common().move('${context}','member','move','user-login-form')
+	// var x = ['${context}','member','move','user-login-form'];
+	router.move(['${context}','member','move','user-login-form'])
+	
 });
 document.getElementById('move-join-form')
 .addEventListener('click',function(){ 
-	new Common().move('${context}','member','move','join-form')
+	router.move(['${context}','member','move','join-form'])
 });
 </script>

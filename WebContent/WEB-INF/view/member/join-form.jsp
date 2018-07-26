@@ -35,11 +35,12 @@ document.getElementById('join-form-btn').addEventListener('click',
 	var form = document.getElementById('join-form');
 	form.action = "${context}/member.do";
 	form.method = "post";
+	var member = new Member();
 	member.setMemberId(form.userid.value);
 	member.setPassword(form.password.value);
 	member.setName(form.username.value);
 	member.setSsn(form.userssn.value);
-	if(member.joinValidation()){
+	if(service.joinValidation(member)){
 		form.submit();
 	}
 });

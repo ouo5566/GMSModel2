@@ -1,10 +1,49 @@
 // New - others - JavaScript - JavaScriptSource
-	function Common(){
-		this.move = function (context, domain, action, page){
-			location.href = context+"/"+domain+".do?action="+action+"&page="+page;
-		}
-	};
-	
+	var router = (()=>{
+		return {move : x =>{
+			location.href = x[0]+"/"+x[1]+".do?action="+x[2]+"&page="+x[3];
+		}};
+	})();
+	var service = (()=>{
+		return {
+			loginValidation : x => {
+				if(x.getMemberId() === ""){
+					alert('ID를 입력하세요.');
+					document.getElementById('login-form').userid.focus();
+					return false;
+				}else if(x.getPassword() === ""){
+					alert('PW를 입력하세요.');
+					document.getElementById('login-form').password.focus();
+					return false;
+				}else{
+					return true;
+				}
+			},
+			joinValidation : x => {
+				if(x.getMemberId() === ""){
+					alert('ID를 입력하세요.');
+					document.getElementById('join-form').userid.focus();
+					return false;
+				}else if(x.getPassword() === ""){
+					alert('PW를 입력하세요.');
+					document.getElementById('join-form').password.focus();
+					return false;
+				}else if(x.getName() === ""){
+					alert('이름을 입력하세요.');
+					document.getElementById('join-form').username.focus();
+					return false;
+				}else if(x.getSsn() === ""){
+					alert('생년월일을 입력하세요.');
+					document.getElementById('join-form').userssn.focus();
+					return false;
+				}else{
+					return true;
+				}
+			}
+		};
+	})();
+	// Java 에서의 서비스객체, DAO객체를 싱글톤으로 만들어 한 번만 만들어지게끔 하는 방식
+	// Member()같은 경우는 여러 번 만들어야하기 때문에 기존 방식
 	function Member(){
 		var memberId, password, ssn, name;
 		this.setMemberId = function(x){
@@ -31,42 +70,8 @@
 		this.getName = function(){
 			return this.name;
 		}
-		this.loginValidation = function(){
-			if(this.memberId === ""){
-				alert('ID를 입력하세요.');
-				document.getElementById('login-form').userid.focus();
-				return false;
-			}else if(this.password === ""){
-				alert('PW를 입력하세요.');
-				document.getElementById('login-form').password.focus();
-				return false;
-			}else{
-				return true;
-			}
-		}
-		this.overlabValidation = function(){
-			return true;
-		}
-		this.joinValidation = function(){
-			if(this.memberId === ""){
-				alert('ID를 입력하세요.');
-				document.getElementById('join-form').userid.focus();
-				return false;
-			}else if(this.overlabValidation){
-				//alert('중복된 ID입니다.');
-				//return false;
-			}else if(this.password === ""){
-				alert('PW를 입력하세요.');
-				document.getElementById('join-form').password.focus();
-				return false;
-			}else if(this.name === ""){
-				alert('이름을 입력하세요.');
-				document.getElementById('join-form').username.focus();
-				return false;
-			}else if(this.ssn === ""){
-				alert('생년월일을 입력하세요.');
-				document.getElementById('join-form').userssn.focus();
-				return false;
-			}else{}
-		}
-	};
+	}
+	// function(){}() // syntax error
+	// (function(){})(); // Goofy!
+	// (function(){}()); // Groovy!
+	

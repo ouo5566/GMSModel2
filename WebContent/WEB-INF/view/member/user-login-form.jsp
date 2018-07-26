@@ -37,7 +37,7 @@ document.getElementById('login-form-btn').addEventListener('click',
 	var member = new Member();
 	member.setMemberId(form.userid.value);
 	member.setPassword(form.password.value);
-	if(member.loginValidation()){
+	if(service.loginValidation(member)){
 		form.submit();
 	}
 });
