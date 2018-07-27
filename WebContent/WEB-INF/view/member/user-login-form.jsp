@@ -29,16 +29,16 @@
 <script>
 document.getElementById('login-form-btn').addEventListener('click',
 		function(){
-	var form = document.getElementById('login-form');
 /* 	var userid = form.userid.value;
 	alert('입력한 아이디 : ' + userid); */
-	form.action = "${context}/member.do";
-	form.method = "post";
-	var member = new Member();
-	member.setMemberId(form.userid.value);
-	member.setPassword(form.password.value);
-	if(service.loginValidation(member)){
+	var form = document.getElementById('login-form');
+	var x = service.nullChecker([form.userid.value, form.password.value]);
+	if(x.checker){
+		form.action = "${context}/member.do";
+		form.method = "post";
 		form.submit();
+	}else{
+		alert(x.text);
 	}
 });
 </script>

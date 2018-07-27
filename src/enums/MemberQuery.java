@@ -12,19 +12,21 @@ public enum MemberQuery {
 			case LOGIN :
 				sql = "  SELECT MEMBER_ID USERID, " +
 					    "  TEAM_ID TEAMID, " +
+					    "  ROLL, " +
+					    "  MEMBER_PW PW, " +
 					    "  NAME, " +
 					    "  SSN, " +
-					    "  ROLL, " +
-					    "  MEMBER_PW PW " +
+					    "  GENDER, " +
+					    "  AGE " +
 						"  FROM MEMBER " +
 						"  WHERE MEMBER_ID LIKE '%s' " +
 					    "  AND MEMBER_PW LIKE '%s'";
 				break;
 			case INSERT_MEMBER :
 				sql = " INSERT INTO MEMBER "
-						+ " (MEMBER_ID, MEMBER_PW, NAME, SSN) "
+						+ " (MEMBER_ID, MEMBER_PW, NAME, SSN, AGE, GENDER, TEAM_ID, ROLL) "
 						+ " VALUES "
-						+ " ('%s','%s','%s','%s') ";
+						+ " ('%s','%s','%s','%s','%s','%s','%s','%s') ";
 				break;
 			case SELECT_ID :
 				sql = "  SELECT "

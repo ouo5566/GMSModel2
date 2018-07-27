@@ -2,8 +2,7 @@ package dao;
 
 import java.util.*;
 import domain.*;
-import enums.MemberQuery;
-import enums.Vendor;
+import enums.*;
 import factory.DatabaseFactory;
 import pool.DBConstants;
 
@@ -20,7 +19,8 @@ public class MemberDAOImpl implements MemberDAO{
 			DatabaseFactory.createDatabase(Vendor.ORACLE, DBConstants.USERNAME, DBConstants.PASSWORD)
 					.getConnection().createStatement().executeUpdate(
 							String.format(MemberQuery.INSERT_MEMBER.toString(),
-									member.getMemberId(), member.getPassword(), member.getName(), member.getSsn()));
+									member.getMemberId(), member.getPassword(), member.getName(), member.getSsn()
+									, member.getAge(), member.getGender(), member.getTeamId(), member.getRoll()));
 		} catch (Exception e) {e.printStackTrace();}
 	}
 	
@@ -142,6 +142,8 @@ public class MemberDAOImpl implements MemberDAO{
 					mem.setSsn(rs.getString("SSN"));
 					mem.setRoll(rs.getString("ROLL"));
 					mem.setPassword(rs.getString("PW"));
+					mem.setGender(rs.getString("GENDER"));
+					mem.setAge(rs.getString("AGE"));
 				}while(rs.next());
 			}			
 		} catch (Exception e) {e.printStackTrace();}

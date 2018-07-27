@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MemberBean {
-	private String memberId, teamId, name, ssn, roll, password;
+	private String memberId, teamId, name, ssn, roll, password, age, gender, subject;
 
 	@Override
 	public String toString() {
@@ -14,7 +14,10 @@ public class MemberBean {
 				+ "\n name=" + name
 				+ "\n ssn=" + ssn
 				+ "\n roll="+ roll
-				+ "\n password=" + password;
+				+ "\n password=" + password
+				+ "\n age=" + age
+				+ "\n gender=" + gender
+				;
 	}
 }
 

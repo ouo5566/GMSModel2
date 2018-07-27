@@ -23,16 +23,12 @@ public class CreateCommand extends Command{
 			member.setName(request.getParameter("username"));
 			member.setPassword(request.getParameter("password"));
 			member.setSsn(request.getParameter("userssn"));
-			if(!MemberServiceImpl.getInstance().findByUser(member)) {
-				request.getSession().setAttribute("overlabUser", "FALSE");
-				System.out.println("가입된 계정이 있습니다.");
-			}else if(!MemberServiceImpl.getInstance().findByOverlabId(member.getMemberId())) {
-				request.getSession().setAttribute("overlabId", "FALSE");
-				System.out.println("중복되는 아이디 입니다.");
-			}else {
-				System.out.println("환영합니다.");
-				MemberServiceImpl.getInstance().createMember(member);
-			}
+			member.setAge(request.getParameter("age"));
+			member.setGender(request.getParameter("gender"));
+			member.setTeamId(request.getParameter("teamid"));
+			member.setRoll(request.getParameter("roll"));
+			member.setSubject(ParamMap.getValues(request, "subject"));
+			MemberServiceImpl.getInstance().createMember(member);
 			break;
 		default : break;
 		}

@@ -23,8 +23,6 @@ public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// doGet, doPost를 service로 한 곳에 받을 수 있다.
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("MemberController");
-		System.out.println(request.getParameter("action"));
 		Sentry.init(request); // Sentry.init()을 통해 Sentry.cmd 가 만들어졌다.
 		//String action = request.getParameter("action"); // DB접근방식에 대해 제한을 둘 수 있다. 인터페이스에 정의되어있는 메소드 수 + move = case 가짓 수
 		//String page = request.getParameter("page");

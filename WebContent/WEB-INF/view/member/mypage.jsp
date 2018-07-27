@@ -17,8 +17,14 @@
 	</div>
 	<div id="content">
 		<div id="content-box">
-				<h4>★어서오세요★</h4>
-				<h4><%=user.getName() %>님</h4>
+				<h4><%=user.getMemberId() %></h4>
+				<h4><%=user.getPassword() %></h4>
+				<h4><%=user.getTeamId() %></h4>
+				<h4><%=user.getRoll() %></h4>
+				<h4><%=user.getName() %></h4>
+				<h4><%=user.getSsn() %></h4>
+				<h4><%=user.getGender()%></h4>
+				<h4><%=user.getAge() %></h4>
 				<a onclick="common.move('common','','')">
 					<button>LOGOUT</button>
 				</a>

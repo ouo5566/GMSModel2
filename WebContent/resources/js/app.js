@@ -1,77 +1,91 @@
 // New - others - JavaScript - JavaScriptSource
 	var router = (()=>{
-		return {move : x =>{
-			location.href = x[0]+"/"+x[1]+".do?action="+x[2]+"&page="+x[3];
-		}};
+		return {
+			move : x =>{
+				location.href = x[0]+"/"+x[1]+".do?action="+x[2]+"&page="+x[3];
+			}
+		};
 	})();
 	var service = (()=>{
 		return {
-			loginValidation : x => {
-				if(x.getMemberId() === ""){
-					alert('ID를 입력하세요.');
-					document.getElementById('login-form').userid.focus();
-					return false;
-				}else if(x.getPassword() === ""){
-					alert('PW를 입력하세요.');
-					document.getElementById('login-form').password.focus();
-					return false;
-				}else{
-					return true;
+			nullChecker : x => {
+				var i;
+				var j = {
+						checker : true,
+						text : '빈칸을 채워주세요.'
+				};
+				for(i in x){
+					if(x[i] === ""){
+						j.checker = false;
+					}
 				}
+				return j;
+				
+/*				var i, check;
+				for(i = 0; i < x.length ; i++){
+					check = true;
+					if(x[i] === ""){
+						alert('빈칸을 채워주세요.');
+						//document.getElementById().x[i].focus();
+						check = false;
+					}
+				}
+				return check;*/
+				
 			},
-			joinValidation : x => {
-				if(x.getMemberId() === ""){
-					alert('ID를 입력하세요.');
-					document.getElementById('join-form').userid.focus();
-					return false;
-				}else if(x.getPassword() === ""){
-					alert('PW를 입력하세요.');
-					document.getElementById('join-form').password.focus();
-					return false;
-				}else if(x.getName() === ""){
-					alert('이름을 입력하세요.');
-					document.getElementById('join-form').username.focus();
-					return false;
-				}else if(x.getSsn() === ""){
-					alert('생년월일을 입력하세요.');
-					document.getElementById('join-form').userssn.focus();
-					return false;
-				}else{
-					return true;
-				}
-			}
+			validation : x => {}
 		};
 	})();
 	// Java 에서의 서비스객체, DAO객체를 싱글톤으로 만들어 한 번만 만들어지게끔 하는 방식
 	// Member()같은 경우는 여러 번 만들어야하기 때문에 기존 방식
-	function Member(){
-		var memberId, password, ssn, name;
-		this.setMemberId = function(x){
-			this.memberId = x;
+	var member = (()=>{
+		var _memberId, _password, _ssn, _name, _gender, _roll, _teamId, _age;
+		var setMemberId = (memberId)=>{this._memberId = memberId;}
+		var setSsn = (ssn)=>{this._ssn = ssn;}
+		var setPassword = (password)=>{this._password = password;}
+		var setName = (name)=>{this._name = name;}
+		var setGender = x => {
+			var gender;
+			switch(Number(x.substr(7,1))){
+				case 1 : 
+				case 3 : gender = "남" ; break;
+				case 2 :
+				case 4 : gender = "여" ; break;
+			}
+			this._gender = gender;
 		}
-		this.setSsn = function(x){
-			this.ssn = x;
+		var setRoll = (roll) => {this._roll = roll;}
+		var setTeamId = (teamId) => {this._teamId = teamId;}
+		var setAge = x => {this._age = new Date().getFullYear() - (1900 + Number(x.substr(0,2))) + 1;}
+		var getMemberId = ()=>{return this._memberId;}
+		var getSsn = ()=>{return this._ssn;}
+		var getPassword = ()=>{return this._password;}
+		var getName = ()=>{return this._name;}
+		var getGender = () => {return this._gender;}
+		var getRoll = () => {return this._roll;}
+		var getTeamId = () => {return this._teamId;}
+		var getAge = () => {return this._age;}
+		return{
+			setMemberId : setMemberId,
+			setSsn : setSsn,
+			setPassword : setPassword,
+			setName : setName,
+			setGender : setGender,
+			setRoll : setRoll,
+			setTeamId : setTeamId,
+			setAge : setAge,
+			getMemberId : getMemberId,
+			getSsn : getSsn,
+			getPassword : getPassword,
+			getName : getName,
+			getGender : getGender,
+			getRoll : getRoll,
+			getTeamId : getTeamId,
+			getAge : getAge,
+			join : x => {
+				member.setAge(x[3]);
+				member.setGender(x[3]);
+			}
 		}
-		this.setPassword = function(x){
-			this.password = x;
-		}
-		this.setName = function(x){
-			this.name = x;
-		}
-		this.getMemberId = function(){
-			return this.memberId;
-		}
-		this.getSsn = function(){
-			return this.ssn;
-		}
-		this.getPassword = function(){
-			return this.password;
-		}
-		this.getName = function(){
-			return this.name;
-		}
-	}
-	// function(){}() // syntax error
-	// (function(){})(); // Goofy!
-	// (function(){}()); // Groovy!
-	
+	})();
+		

@@ -25,6 +25,7 @@ public class LoginCommand extends Command{
 			// JSP -> request(action="*.do":주소지, parameter:값) -> Servlet
 			// JSP <- request(Attribute) <- Servlet
 			request.setAttribute("match", "TRUE");
+			System.out.println(MemberServiceImpl.getInstance().login(member));
 			request.setAttribute("user", MemberServiceImpl.getInstance().login(member));
 		}else {
 			request.setAttribute("match", "FALSE");
