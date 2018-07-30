@@ -108,11 +108,10 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	@Override
 	public void updateMember(MemberBean member) {
-		String[] arr = member.getPassword().split("/");
 		try {
 			DatabaseFactory.createDatabase(Vendor.ORACLE, DBConstants.USERNAME, DBConstants.PASSWORD)
 					.getConnection().createStatement().executeUpdate(String.format(MemberQuery.UPDATE_MEMBER.toString(),
-							arr[1],member.getMemberId(),arr[0]));
+							member.getPassword(), member.getTeamId(), member.getRoll(), member.getMemberId()));
 		} catch (Exception e) {e.printStackTrace();}
 	}
 	

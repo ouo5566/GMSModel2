@@ -15,7 +15,6 @@
 			<h3>LOGIN PAGE</h3>
 			<form id="login-form">
 				<input type="hidden" name="action" value="login"/>
-				<input type="hidden" name="page" value="mypage"/>
 				ID &nbsp;<input type="text" name="userid"/> <br>
 				PW <input type="text" name="password"/>
 				<input id="login-form-btn" type="button" value="LOGIN"/>

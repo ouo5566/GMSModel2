@@ -27,7 +27,8 @@ public class MemberController extends HttpServlet {
 		//String action = request.getParameter("action"); // DB접근방식에 대해 제한을 둘 수 있다. 인터페이스에 정의되어있는 메소드 수 + move = case 가짓 수
 		//String page = request.getParameter("page");
 		switch(Action.valueOf(Sentry.cmd.getAction().toUpperCase())) { 
-			case MOVE : 
+			case MOVE :
+				System.out.println("=MOVE=");
 				if(Sentry.cmd.getPage().equals(Sentry.cmd.getAction())) {
 					Carrier.redirect(request, response, ""); // 데이터 없이 새로운 페이지로 이동한다.
 				}else {
@@ -59,13 +60,19 @@ public class MemberController extends HttpServlet {
 				System.out.println("member-count : " + count);*/
 				break;
 			case UPDATE:
-				Carrier.redirect(request, response, "");
+				System.out.println("=UPDATE=");
+				request.getSession().setAttribute("user", request.getAttribute("user"));
+				System.out.println("세션업데이트확인\n"+request.getSession().getAttribute("user"));
+				Carrier.forward(request, response);
 				break;
 			case DELETE:
 				Carrier.redirect(request, response, "");
 				break;
 			case LOGIN:
+				System.out.println("=LOGIN=");
 				if(request.getAttribute("match").equals("TRUE")) {
+					request.getSession().setAttribute("user", request.getAttribute("user"));
+					// Controller 가 Servlet이기 때문에 LoginCommand에서 session을 걸지않고서 Controller에서 건다.
 					Carrier.forward(request, response);
 				}else {
 					Carrier.redirect(request, response, "/member.do?action=move&page=user-login-form");

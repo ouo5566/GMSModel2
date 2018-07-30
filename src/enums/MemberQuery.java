@@ -50,9 +50,11 @@ public enum MemberQuery {
 						+ " FROM MEMBER ";
 				break;
 			case UPDATE_MEMBER :
-				sql = " UPDATE MEMBER SET MEMBER_PW = '%s' "
-						+ " WHERE MEMBER_ID LIKE '%s' "
-						+ " AND MEMBER_PW LIKE '%s' ";
+				sql = " UPDATE MEMBER SET "
+						+ " MEMBER_PW = '%s', "
+						+ " TEAM_ID = '%s' ,"
+						+ " ROLL = '%s' "
+						+ " WHERE MEMBER_ID LIKE '%s' ";
 				break;
 			case DELETE_MEMBER:
 				sql = " DELETE FROM MEMBER "

@@ -25,9 +25,15 @@ public class LoginCommand extends Command{
 			// JSP -> request(action="*.do":주소지, parameter:값) -> Servlet
 			// JSP <- request(Attribute) <- Servlet
 			request.setAttribute("match", "TRUE");
-			System.out.println(MemberServiceImpl.getInstance().login(member));
 			request.setAttribute("user", MemberServiceImpl.getInstance().login(member));
+			setPage("mypage");
+			// 로그인 성공 -> 마이페이지로 이동과 함께 사용자 스펙 랜더링
+			// 그럼 화면에서 다시 정보를 조회해야 한다. => login을 반복하지 않아야한다.
+			// 단, 로그아웃시에는 개인정보를 제거하며 로그인이 유지되는 동안만 개인정보를 가지고 있는 한 객체가 필요하다.
+			// 이 객체의 스콥(컨텍스트 = 설정값)은 로그인과 로그아웃사이 시간차에서만 유효하다. = 시간에 따른 스콥
+			// 시간은 이벤트에 따른 상대적인 시간을 말한다.
 		}else {
+			
 			request.setAttribute("match", "FALSE");
 		}
 		super.execute();

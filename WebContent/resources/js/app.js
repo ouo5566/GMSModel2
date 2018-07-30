@@ -1,8 +1,10 @@
 // New - others - JavaScript - JavaScriptSource
+"use strict" //에러가 나면 보여주겠다.
 	var router = (()=>{
 		return {
 			move : x =>{
-				location.href = x[0]+"/"+x[1]+".do?action="+x[2]+"&page="+x[3];
+				location.href = x.context +"/"
+					+ x.domain + ".do?action=" + x.action + "&page=" + x.page;
 			}
 		};
 	})();
@@ -32,6 +34,9 @@
 				}
 				return check;*/
 				
+			},
+			updateChecker : x => {
+				var i;
 			},
 			validation : x => {}
 		};

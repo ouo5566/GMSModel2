@@ -111,7 +111,16 @@ div#footer{
 	line-height: normal;
 	font-size: 1.5em;
 }
+table#mypage-table td, tr{
+	width:90px;
+	text-align: center;
+	font-size: 0.8em;
+	border: 1px solid black;
+}
 
+td#mypage-img{
+	width:180px;
+}
 .height-100px {height:100px}
 .height-650px {height:650px}
 .height-full {height:100%}
@@ -126,8 +135,6 @@ div#footer{
 .align-center{text-align:center}
 .border-black{border : 1px solid black}
 .butt{background-color:#ffe6e6; width:150px; height:50px; color:white; font-size:100%}
-table, th, td {border : 1px solid white;}
-th, td{font-size : 200%;text-align : center;}
 /* main */
 #main-tab-Layout {background-color:#e6f9ff}
 /* user */
