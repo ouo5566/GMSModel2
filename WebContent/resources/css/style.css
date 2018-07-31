@@ -112,10 +112,11 @@ div#footer{
 	font-size: 1.5em;
 }
 table#mypage-table td, tr{
-	width:90px;
+	width:120px;
+	height:50px;
 	text-align: center;
-	font-size: 0.8em;
-	border: 1px solid black;
+	font-size: 1.1em;
+	border: 1px solid black;	
 }
 
 td#mypage-img{

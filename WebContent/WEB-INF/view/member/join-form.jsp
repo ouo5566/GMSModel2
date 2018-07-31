@@ -15,10 +15,6 @@
 		<div id="content-box">
 			<form id="join-form">
 				<h3>JOIN PAGE</h3>
-				<input type="hidden" name="action" value="join"/>
-				<input type="hidden" name="page" value="user-login-form"/>
-				<input type="hidden" name="gender"/>
-				<input type="hidden" name="age"/>
 				ID : <input type="text" name="userid" /><br>
 				PW : <input type="text" name="password" /><br>
 				NAME : <input type="text" name="username" /><br>
@@ -62,18 +58,44 @@ document.getElementById('join-form-btn').addEventListener('click',
 	var x = service.nullChecker(arr)
 	if(x.checker){
 		member.join(arr);
-		form.gender.value = member.getGender();
-		form.age.value = member.getAge();
+		
+		//form.gender.value = member.getGender();
+		//form.age.value = member.getAge();
+		
+		/* var nameArr = ["action","page","gender","age"];
+		var valueArr = ["join","user-login-form",member.getGender(),member.getAge()];
+		for(var i=0;i<4;i++){
+			var node = document.createElement('input');
+			node.innerHTML = '<input type="hidden" name="'+nameArr[i]+'" value="'+valueArr[i]+'"/>';
+			form.appendChild(node);
+		}*/
+			
+		var arr = [{name : "action", value : "join"},
+				{name : "gender", value : member.getGender()},
+				{name : "age", value : member.getAge()}];
+		
+		for(var i in arr){
+			var node = document.createElement('input');
+			// node.innerHTML = '<input type="hidden" name="'+arr[i].name+'" value="'+arr[i].value+'"/>';
+			// String값은 덜 쓰도록 한다.
+			node.setAttribute('type', 'hidden');
+			node.setAttribute('name', arr[i].name);
+			node.setAttribute('value', arr[i].value);
+			form.appendChild(node);
+		}
+			/* alert(form.action.value);
+			alert(form.page.value);
+			alert(form.gender.value);
+			alert(form.age.value); */
+			
 		form.action = "${context}/member.do";
-		form.method = "post";
-		alert("form.gender.value : "+form.gender.value
-				+"\n form.age.value"+form.age.value
-				);
+		form.method = "post";	
 		form.submit();
 	}else{
 		alert(x.text);
 	}
 });
+	
 </script>
 </body>
 </html>

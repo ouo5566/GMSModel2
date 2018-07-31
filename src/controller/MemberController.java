@@ -29,12 +29,8 @@ public class MemberController extends HttpServlet {
 		switch(Action.valueOf(Sentry.cmd.getAction().toUpperCase())) { 
 			case MOVE :
 				System.out.println("=MOVE=");
-				if(Sentry.cmd.getPage().equals(Sentry.cmd.getAction())) {
-					Carrier.redirect(request, response, ""); // 데이터 없이 새로운 페이지로 이동한다.
-				}else {
 					Carrier.forward(request, response); // JSP에서 request를 통해 데이터를 유지한 채 페이지 이동한다.
-				}
-				break;
+					break;
 			case JOIN:
 				Carrier.redirect(request, response,"/member.do?action=move&page=user-login-form");
 				//response.sendRedirect(request.getContextPath()+"/member.do?action=move&page=user-login-form");
@@ -61,8 +57,7 @@ public class MemberController extends HttpServlet {
 				break;
 			case UPDATE:
 				System.out.println("=UPDATE=");
-				request.getSession().setAttribute("user", request.getAttribute("user"));
-				System.out.println("세션업데이트확인\n"+request.getSession().getAttribute("user"));
+				// request.getSession().setAttribute("user", request.getAttribute("user")); //Command에서 session에 값을 담지 않았을 경우
 				Carrier.forward(request, response);
 				break;
 			case DELETE:
@@ -71,7 +66,7 @@ public class MemberController extends HttpServlet {
 			case LOGIN:
 				System.out.println("=LOGIN=");
 				if(request.getAttribute("match").equals("TRUE")) {
-					request.getSession().setAttribute("user", request.getAttribute("user"));
+					// request.getSession().setAttribute("user", request.getAttribute("user"));
 					// Controller 가 Servlet이기 때문에 LoginCommand에서 session을 걸지않고서 Controller에서 건다.
 					Carrier.forward(request, response);
 				}else {

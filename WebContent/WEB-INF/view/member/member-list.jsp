@@ -10,14 +10,14 @@
 <body class="align-center">
 	<a href="<%=ctx%>/member.do?action=list"><button class="butt">MAIN</button></a>
 	<table id="main-tab-Layout"  class="margin-auto">
-		<tr>
+	<tr>
 			<th>ID</th>
 			<th>PW</th>
 			<th>NAME</th>
 			<th>SSN</th>
 			<th>TEAM</th>
 			<th>ROLL</th>
-		</tr></tr>
+	</tr>
 	</table>
 </body>
 </html>
