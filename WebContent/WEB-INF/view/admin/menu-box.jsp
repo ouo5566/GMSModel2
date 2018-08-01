@@ -16,13 +16,13 @@ document.getElementById('move-home').addEventListener('click',function(){
 document.getElementById('move-member-list').addEventListener('click',function(){ 
 	router.move({context:'${context}',
 				domain : 'member',
-				action : 'list',
+				action : 'move',
 				page : 'member-list'})
 });
 document.getElementById('move-search').addEventListener('click',function(){ 
 	router.move({context:'${context}',
 				domain : 'member',
-				action : 'search',
+				action : 'move',
 				page : 'search-form'})
 });
 document.getElementById('move-main').addEventListener('click',function(){ 

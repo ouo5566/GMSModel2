@@ -35,8 +35,10 @@ public enum MemberQuery {
 						+ " NAME, "
 						+ " ROLL, "
 						+ " MEMBER_PW PW, "
-						+ " SSN "
-						+ " FROM MEMBER "
+						+ " SSN ,"
+						+ " GENDER, "
+						+ " AGE " 
+						+ " FROM MEMBER " 
 						+ " WHERE MEMBER_ID LIKE '%s' ";
 				break;
 			case SELECT_OVERLAP_USER :
@@ -68,7 +70,9 @@ public enum MemberQuery {
 						+ " NAME, "
 						+ " ROLL, "
 						+ " MEMBER_PW PW, "
-						+ " SSN "
+						+ " SSN,"
+						+ " GENDER,"
+						+ " AGE "
 						+ " FROM MEMBER ";
 				break;
 			case SELECT_TEAM :
@@ -78,7 +82,9 @@ public enum MemberQuery {
 						+ " NAME, "
 						+ " ROLL, "
 						+ " MEMBER_PW PW, "
-						+ " SSN "
+						+ " SSN ,"
+						+ " GENDER, "
+						+ " AGE " 
 						+ " FROM MEMBER "
 						+ " WHERE TEAM_ID LIKE '%s' ";
 				break;

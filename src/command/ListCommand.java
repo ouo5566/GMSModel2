@@ -1,11 +1,6 @@
 package command;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
-import domain.MemberBean;
-import enums.Domain;
 import service.MemberServiceImpl;
 
 public class ListCommand extends Command{
@@ -19,13 +14,7 @@ public class ListCommand extends Command{
 	
 	@Override
 	public void execute() {
-		switch (Domain.valueOf(domain.toUpperCase())) {
-		case MEMBER:
-			request.setAttribute("list", MemberServiceImpl.getInstance().list());
-			break;
-		default:
-			break;
-		}
+		request.setAttribute("list", MemberServiceImpl.getInstance().list());
 		super.execute();
 	}
 }

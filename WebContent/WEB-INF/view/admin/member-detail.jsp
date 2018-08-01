@@ -13,38 +13,36 @@
 	</div>
 	<div id="content">
 		<div id="content-box">
-			<h2>◆My Page◆</h2>
+			<h2>◆MemberDetailPage◆</h2>
 				<table id="mypage-table">
 					<tr>
 						<td id="mypage-img" rowspan="3" colspan="2"></td>
 						<td>ID</td>
-						<td>${user.memberId}</td>
+						<td>${retrieve.memberId}</td>
 					</tr>
 					<tr>
 						<td>이름 </td>
-						<td>${user.name}</td>
+						<td>${retrieve.name}</td>
 					</tr>
 					<tr>
 						<td>생년월일</td>
-						<td>${user.ssn}</td>
+						<td>${retrieve.ssn}</td>
 					</tr>
 					<tr>
 						<td>성별</td>
-						<td>${user.gender}</td>
+						<td>${retrieve.gender}</td>
 						<td>팀</td>
-						<td>${user.teamId}</td>
+						<td>${retrieve.teamId}</td>
 					</tr>
 					<tr>
 						<td>나이</td>
-						<td>${user.age}</td>
+						<td>${retrieve.age}</td>
 						<td>역할</td>
-						<td>${user.roll}</td>
+						<td>${retrieve.roll}</td>
 					</tr>
 				</table>
 				<br>
-				<a id="logout-butt"><button>LOGOUT</button></a>
-				<a id="update-butt"><button>UPDATE</button></a>
-				<a id="delete-butt"><button>DELETE</button></a>
+				<a id="list-butt"><button>LIST</button></a>
 		</div>
 	</div>
 	<div id="footer">
@@ -52,23 +50,11 @@
 	</div>
 </div>
 <script>
-	document.getElementById('logout-butt').addEventListener('click',function(){
-		router.move({context : '${context}',
-			domain : 'common',
-			action : '',
-			page : ''})
-	});
-	document.getElementById('update-butt').addEventListener('click',function(){
+	document.getElementById('list-butt').addEventListener('click',function(){
 		router.move({context:'${context}',
-			domain : 'member',
-			action : 'move',
-			page : 'update-form'})
-	});
-	document.getElementById('delete-butt').addEventListener('click',function(){
-		router.move({context:'${context}',
-			domain : 'member',
-			action : 'move',
-			page : 'delete-form'})
+			domain : 'admin',
+			action : 'list',
+			page : 'main'})
 	});
 </script>
 </body>

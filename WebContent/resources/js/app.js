@@ -35,14 +35,34 @@
 				return check;*/
 				
 			},
-			updateChecker : x => {
-				var i;
-			},
 			validation : x => {}
 		};
 	})();
 	// Java 에서의 서비스객체, DAO객체를 싱글톤으로 만들어 한 번만 만들어지게끔 하는 방식
 	// Member()같은 경우는 여러 번 만들어야하기 때문에 기존 방식
+	// (()=>{return{};})(); > 기본 형식을 만들고 시작한다.
+	var admin = (()=>{
+		return{
+			check : x=>{
+				var isAdmin = confirm('관리자입니까?');
+				// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
+				// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
+				if(isAdmin){
+					var password = prompt('관리자 코드를 입력하세요.');
+					if(password == 93){
+						router.move({
+							context : x,
+							domain : 'admin',
+							action : 'list',
+							page : 'main'})
+					}else{
+						alert('비밀번호가 정확하지 않습니다.');
+					}
+				}else{
+					alert('관리자만 접근이 허용됩니다.');
+				}
+			}
+		};})();
 	var member = (()=>{
 		var _memberId, _password, _ssn, _name, _gender, _roll, _teamId, _age;
 		var setMemberId = (memberId)=>{this._memberId = memberId;}

@@ -38,7 +38,9 @@ public class MemberDAOImpl implements MemberDAO{
 				mem.setPassword(rs.getString("PW"));				
 				mem.setRoll(rs.getString("ROLL"));				
 				mem.setSsn(rs.getString("SSN"));				
-				mem.setTeamId(rs.getString("TEAMID"));				
+				mem.setTeamId(rs.getString("TEAMID"));
+				mem.setGender(rs.getString("GENDER"));
+				mem.setAge(rs.getString("AGE"));
 				list.add(mem);
 			}
 		} catch (Exception e) {e.printStackTrace();}
@@ -61,6 +63,8 @@ public class MemberDAOImpl implements MemberDAO{
 				mem.setRoll(rs.getString("ROLL"));
 				mem.setPassword(rs.getString("PW"));
 				mem.setSsn(rs.getString("SSN"));
+				mem.setGender(rs.getString("GENDER"));
+				mem.setAge(rs.getString("AGE"));
 				list.add(mem);
 			}
 		} catch (Exception e) {e.printStackTrace();}
@@ -84,6 +88,8 @@ public class MemberDAOImpl implements MemberDAO{
 					mem.setRoll(rs.getString("ROLL"));
 					mem.setPassword(rs.getString("PW"));
 					mem.setSsn(rs.getString("SSN"));
+					mem.setGender(rs.getString("GENDER"));
+					mem.setAge(rs.getString("AGE"));
 				}while(rs.next());
 			}		
 		} catch (Exception e) {e.printStackTrace();}

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.*;
-import domain.*;
 import enums.Action;
 
 // @ annotation
@@ -43,13 +41,15 @@ public class MemberController extends HttpServlet {
 				//=> 서블릿 안에서 돈다면 response를 쓰고, 스크립틀릿에서 가져올 값이 있다면 request를 쓴다.
 				break;
 			case LIST:
-				Carrier.redirect(request, response, "/member.do?action=move&page=member-list");
+				Carrier.forward(request, response);
+				//Carrier.redirect(request, response, "/admin.do?action=move&page=main");
 				break;
 			case SEARCH:
 				Carrier.redirect(request, response, "");
 				break;
 			case RETRIEVE:
-				Carrier.redirect(request, response, "");
+				System.out.println(request.getParameter("a"));
+				Carrier.forward(request, response);
 				break;
 			case COUNT:
 				/*String count = MemberServiceImpl.getInstance().memberCount();

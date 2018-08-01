@@ -6,19 +6,13 @@ import lombok.Data;
 public class MemberBean {
 	private String memberId, teamId, name, ssn, roll, password, age, gender, subject;
 
-	@Override
+	/*@Override
 	public String toString() {
-		return "Member"
-				+ "\n memberId=" + memberId
-				+ "\n teamId=" + teamId
-				+ "\n name=" + name
-				+ "\n ssn=" + ssn
-				+ "\n roll="+ roll
-				+ "\n password=" + password
-				+ "\n age=" + age
-				+ "\n gender=" + gender
-				;
-	}
+		return "{memberId : \""+memberId+"\", teamId : \""+ teamId + "\", name : \"" + name + "\", ssn : \"" + ssn + "\", roll : \""
+				+ roll + "\", password : \"" + password + "\", age : \"" + age + "\", gender : \"" + gender + "\", subject : \"" + subject
+				+ "\"}";
+	}*/
+	
 }
 
 

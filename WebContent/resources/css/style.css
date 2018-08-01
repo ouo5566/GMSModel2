@@ -118,10 +118,17 @@ table#mypage-table td, tr{
 	font-size: 1.1em;
 	border: 1px solid black;	
 }
-
 td#mypage-img{
 	width:180px;
 }
+table#list-table th, td, tr{
+	width:100px;
+	height:30px;
+	text-align: center;
+	font-size:1.0em;
+	border: 1px solid black;
+}
+.bgcolor-yellow{background-color:#ffff00}
 .height-100px {height:100px}
 .height-650px {height:650px}
 .height-full {height:100%}
