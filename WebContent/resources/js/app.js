@@ -16,12 +16,12 @@
 						checker : true,
 						text : '빈칸을 채워주세요.'
 				};
-				for(i in x){
-					if(x[i] === ""){
+				for(i of x){
+					if(i === ""){
 						j.checker = false;
 					}
 				}
-				return j;
+				return j; // 값이 여러 개 이지만 제이슨으로 뭉쳐 하나로 리턴한다 > 스칼라로 리턴
 				
 /*				var i, check;
 				for(i = 0; i < x.length ; i++){
@@ -35,7 +35,12 @@
 				return check;*/
 				
 			},
-			validation : x => {}
+			addClass : (dom, cName) => {
+				var arr = cName.split(" ");
+				if(arr.indexOf(cName) == -1){
+					dom.className += " " + cName;
+				}
+			}
 		};
 	})();
 	// Java 에서의 서비스객체, DAO객체를 싱글톤으로 만들어 한 번만 만들어지게끔 하는 방식
@@ -44,7 +49,13 @@
 	var admin = (()=>{
 		return{
 			check : x=>{
-				var isAdmin = confirm('관리자입니까?');
+				router.move({
+					context : x,
+					domain : 'admin',
+					action : 'list',
+					page : 'main'})
+					
+				/*var isAdmin = confirm('관리자입니까?');
 				// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
 				// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
 				if(isAdmin){
@@ -60,6 +71,45 @@
 					}
 				}else{
 					alert('관리자만 접근이 허용됩니다.');
+				}*/
+			},
+			main : x=> {
+				service.addClass(
+						document.getElementById('content-box-search'),
+						"margin-auto width-635px");
+				
+				service.addClass(
+						document.getElementById('list-table'),
+						"margin-auto ");
+				
+				service.addClass(
+						document.getElementById('content-box-mata'),
+						"bgcolor-yellow ");
+				
+				document.getElementById("search-butt").addEventListener('click', function(){
+					var option = document.getElementById('select-option');
+					var word = document.getElementById('search-word');
+					if(option.value === "none"){
+						alert('검색조건을 선택해주세요');
+					}else if(word.value === ""){
+						alert('검색할 단어를 입력해주세요');
+					}else{
+						location.href = (document.getElementById('select-option').value === "userid")?
+							location.href = x +"/admin.do?action=retrieve&page=member-detail&a="
+								+ word.value
+								: location.href = x +"/admin.do?action=search&page=main&word="
+									+ word.value + "&option="+option.value;
+							// post 방식은 무조건 form, get 방식은 location.href 를 이용한다.
+						}
+				});
+				
+				for(var i of document.querySelectorAll('.username')){
+					i.style.color = "blue";
+					i.style.cursor = 'pointer';
+					i.addEventListener('click', function(){
+						location.href= x + "/admin.do?action=retrieve&page=member-detail&a="+this.getAttribute('id');
+						// alert('Click!\n' + this.getAttribute('id')); // callback(어떠한 object의 event에 의해서 호출되는 함수)함수에서의 this.는 그 함수를 호출한 객체를 의미한다.
+					});
 				}
 			}
 		};})();

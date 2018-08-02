@@ -4,7 +4,7 @@ package enums;
   enum을 사용하여 static에 사용할 상수를 객체로 만들어 프로그램이 실행될 때만 존재하도록 한다.
   */
 public enum MemberQuery {
-	LOGIN, INSERT_MEMBER, SELECT_ID, SELECT_OVERLAP_USER, COUNT_MEMBER, UPDATE_MEMBER, DELETE_MEMBER, SELECT_ALL, SELECT_TEAM;
+	LOGIN, INSERT_MEMBER, SELECT_OVERLAP_USER, COUNT_MEMBER, UPDATE_MEMBER, DELETE_MEMBER, SELECT;
 	@Override
 	public String toString() {
 		String sql = "";
@@ -28,19 +28,6 @@ public enum MemberQuery {
 						+ " VALUES "
 						+ " ('%s','%s','%s','%s','%s','%s','%s','%s') ";
 				break;
-			case SELECT_ID :
-				sql = "  SELECT "
-						+ " MEMBER_ID MEMID, "
-						+ " TEAM_ID TEAMID, "
-						+ " NAME, "
-						+ " ROLL, "
-						+ " MEMBER_PW PW, "
-						+ " SSN ,"
-						+ " GENDER, "
-						+ " AGE " 
-						+ " FROM MEMBER " 
-						+ " WHERE MEMBER_ID LIKE '%s' ";
-				break;
 			case SELECT_OVERLAP_USER :
 				sql = "  SELECT MEMBER_ID USERID " +
 						"  FROM MEMBER " +
@@ -63,31 +50,7 @@ public enum MemberQuery {
 						+ " WHERE MEMBER_ID LIKE '%s' "
 						+ " AND MEMBER_PW LIKE '%s' ";
 				break;
-			case SELECT_ALL:
-				sql = " SELECT"
-						+ " MEMBER_ID MEMID, "
-						+ " TEAM_ID TEAMID, "
-						+ " NAME, "
-						+ " ROLL, "
-						+ " MEMBER_PW PW, "
-						+ " SSN,"
-						+ " GENDER,"
-						+ " AGE "
-						+ " FROM MEMBER ";
-				break;
-			case SELECT_TEAM :
-				sql = " SELECT"
-						+ " MEMBER_ID MEMID, "
-						+ " TEAM_ID TEAMID, "
-						+ " NAME, "
-						+ " ROLL, "
-						+ " MEMBER_PW PW, "
-						+ " SSN ,"
-						+ " GENDER, "
-						+ " AGE " 
-						+ " FROM MEMBER "
-						+ " WHERE TEAM_ID LIKE '%s' ";
-				break;
+			default:break;
 		}
 		return sql;
 	}

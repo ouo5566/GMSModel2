@@ -8,10 +8,11 @@
 </ul>
 <script>
 document.getElementById('move-home').addEventListener('click',function(){ 
-	router.move({context:'${context}',
-				domain : 'common',
-				action : '',
-				page : ''})
+	router.move({
+		context : '${context}',
+		domain : 'admin',
+		action : 'list',
+		page : 'main'})
 });
 document.getElementById('move-member-list').addEventListener('click',function(){ 
 	router.move({context:'${context}',

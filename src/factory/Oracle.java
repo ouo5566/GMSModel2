@@ -3,8 +3,6 @@ package factory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import pool.DBConstants;
-
 public class Oracle implements Database{
 	private Connection conn;
 	private String driver, url, id, pw;

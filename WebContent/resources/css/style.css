@@ -137,6 +137,7 @@ table#list-table th, td, tr{
 .width-80per {width:80%}
 .width-70per {width:70%}
 .width-60per {width:60%}
+.width-635px {width:635px}
 .margin-auto {margin: 0 auto}
 .align-right {text-align:right}
 .align-left{text-align:left}
@@ -150,3 +151,10 @@ table#list-table th, td, tr{
 #user-login-layout{border : 3px solid white; margin: 50px auto}
 /* admin */
 #admin-login-layout{border : 3px solid white; margin: 50px auto}
+
+.font-color-blue{color:blue};
+.margin-top-30px{margin-top: 30px};
+.margin-left-200px{margin-left: 200px};
+.margin-bot-30px{margin-botton: 30px};
+.float-right{float: right};
+.cursor{cursor:point};

@@ -8,8 +8,7 @@
 <div id="wrapper">
 	<div id="header">
 		<jsp:include page="../common/title-box.jsp"/>
-		<jsp:include page="../common/login-box.jsp"/>
-		<jsp:include page="../common/menu-box.jsp"/>
+		<jsp:include page="menu-box.jsp"/>
 	</div>
 	<div id="content">
 		<div id="content-box">

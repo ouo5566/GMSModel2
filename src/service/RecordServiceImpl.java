@@ -2,7 +2,6 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.RecordDAO;
 import dao.RecordDAOImpl;
 import domain.*;
 

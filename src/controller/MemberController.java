@@ -45,9 +45,11 @@ public class MemberController extends HttpServlet {
 				//Carrier.redirect(request, response, "/admin.do?action=move&page=main");
 				break;
 			case SEARCH:
-				Carrier.redirect(request, response, "");
+				System.out.println("==SEARCH==");
+				Carrier.forward(request, response);
 				break;
 			case RETRIEVE:
+				System.out.println("==RETRIEVE==");
 				System.out.println(request.getParameter("a"));
 				Carrier.forward(request, response);
 				break;

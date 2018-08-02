@@ -3,6 +3,7 @@ import java.util.List;
 
 import dao.MemberDAOImpl;
 import domain.*;
+import enums.Columns;
 
 public class MemberServiceImpl implements MemberService{
 	private static MemberService instance = new MemberServiceImpl();
@@ -20,19 +21,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public boolean findByOverlabId(String id) {
-		return (MemberDAOImpl.getInstance().selectById(id)==null);
-	}
-	
-	@Override
 	public MemberBean findById(String id) {
 		return MemberDAOImpl.getInstance().selectById(id);
 	}
 
-	@Override
-	public List<MemberBean> findByTeamId(String team){
-		return MemberDAOImpl.getInstance().selectByTeamId(team);
-	}
 	
 	@Override
 	public String memberCount() {
@@ -61,4 +53,18 @@ public class MemberServiceImpl implements MemberService{
 	public boolean findByUser(MemberBean member){
 		return (MemberDAOImpl.getInstance().selectUser(member)==null);
 	}
+	@Override
+	public List<MemberBean> findByWord(Columns column, String word) {
+		return MemberDAOImpl.getInstance().selectSome(column, word);
+	}
+	
+	/*@Override
+	public List<MemberBean> findByName(String name) {
+		return MemberDAOImpl.getInstance().selectByName(name);
+	}
+	@Override
+	public List<MemberBean> findByTeamId(String team){
+		return MemberDAOImpl.getInstance().selectByTeamId(team);
+	}
+	*/
 }
