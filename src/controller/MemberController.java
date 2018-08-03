@@ -41,6 +41,7 @@ public class MemberController extends HttpServlet {
 				//=> 서블릿 안에서 돈다면 response를 쓰고, 스크립틀릿에서 가져올 값이 있다면 request를 쓴다.
 				break;
 			case LIST:
+				
 				Carrier.forward(request, response);
 				break;
 			case SEARCH:

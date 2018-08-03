@@ -30,17 +30,20 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public String selectMemberCount() {
 		String result = "";
-		try {
-			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DBConstants.USERNAME, DBConstants.PASSWORD)
-					.getConnection().createStatement().executeQuery(
-							QueryFactory.createQuery(
-									MemberQuery.COUNT,
-									Domain.MEMBER,
-									"", "").getQuery());
-			while(rs.next()) {
-				result = rs.getString("NMEMBER");	
-			}
-		} catch (Exception e) {e.printStackTrace();}
+		QueryTemplate q = new PstmtQuery();
+		HashMap<String, Object> map = new HashMap<>();
+		List<MemberBean> list = new ArrayList<>();
+		map.put("column", "");
+		map.put("value", "");
+		map.put("table", Domain.MEMBER);
+		map.put("query", MemberQuery.COUNT);
+		System.out.println(MemberQuery.COUNT.toString());
+		System.out.println("daoimpl query: "+map.get("query").toString());
+		System.out.println("daoimpl table: "+map.get("table").toString());
+		q.play(map);
+		for(Object o : q.getList()) {
+			list.add((MemberBean) o);
+		}
 		return result;
 	}
 	@Override
@@ -72,12 +75,12 @@ public class MemberDAOImpl implements MemberDAO{
 			if(rs.next()) {
 				do{
 					mem = new MemberBean();
-					mem.setMemberId(rs.getString("USERID"));
-					mem.setTeamId(rs.getString("TEAMID"));
+					mem.setMemberId(rs.getString("MEMBER_ID"));
+					mem.setTeamId(rs.getString("TEAM_ID"));
 					mem.setName(rs.getString("NAME"));
 					mem.setSsn(rs.getString("SSN"));
 					mem.setRoll(rs.getString("ROLL"));
-					mem.setPassword(rs.getString("PW"));
+					mem.setPassword(rs.getString("PASSWORD"));
 					mem.setGender(rs.getString("GENDER"));
 					mem.setAge(rs.getString("AGE"));
 				}while(rs.next());
@@ -106,27 +109,18 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public List<MemberBean> selectMemberAll() {
+		QueryTemplate q = new PstmtQuery();
+		HashMap<String, Object> map = new HashMap<>();
 		List<MemberBean> list = new ArrayList<>();
-		try {
-			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DBConstants.USERNAME, DBConstants.PASSWORD)
-					.getConnection().createStatement().executeQuery(
-							QueryFactory.createQuery(
-									MemberQuery.SELECT, 
-									Domain.MEMBER, "", "").getQuery());
-			MemberBean mem = null;
-			while(rs.next()) {
-				mem = new MemberBean();
-				mem.setMemberId(rs.getString("MEMID"));				
-				mem.setName(rs.getString("NAME"));				
-				mem.setPassword(rs.getString("PW"));				
-				mem.setRoll(rs.getString("ROLL"));				
-				mem.setSsn(rs.getString("SSN"));				
-				mem.setTeamId(rs.getString("TEAMID"));
-				mem.setGender(rs.getString("GENDER"));
-				mem.setAge(rs.getString("AGE"));
-				list.add(mem);
-			}
-		} catch (Exception e) {e.printStackTrace();}
+		map.put("column", "");
+		map.put("value", "");
+		map.put("table", Domain.MEMBER);
+		map.put("query", MemberQuery.SELECT);
+		System.out.println("daoimpl query: "+map.get("query").toString());
+		q.play(map);
+		for(Object o : q.getList()) {
+			list.add((MemberBean) o);
+		}
 		return list;
 	}
 		
@@ -138,17 +132,17 @@ public class MemberDAOImpl implements MemberDAO{
 					.getConnection().createStatement().executeQuery(
 							QueryFactory.createQuery(
 									MemberQuery.SELECT, 
-									Domain.MEMBER, 
-									Columns.MEMBER_ID.toString(), id).getQuery());
+									Domain.MEMBER.toString(), 
+									Columns.MEMBER_ID.toString()).getQuery());
 			if(rs.next()) {
 				do{
 					mem = new MemberBean();
-					mem.setMemberId(rs.getString("MEMID"));
-					mem.setTeamId(rs.getString("TEAMID"));
+					mem.setMemberId(rs.getString("MEMBER_ID"));
+					mem.setTeamId(rs.getString("TEAM_ID"));
 					mem.setName(rs.getString("NAME"));
-					mem.setRoll(rs.getString("ROLL"));
-					mem.setPassword(rs.getString("PW"));
 					mem.setSsn(rs.getString("SSN"));
+					mem.setRoll(rs.getString("ROLL"));
+					mem.setPassword(rs.getString("PASSWORD"));
 					mem.setGender(rs.getString("GENDER"));
 					mem.setAge(rs.getString("AGE"));
 				}while(rs.next());
@@ -165,6 +159,7 @@ public class MemberDAOImpl implements MemberDAO{
 		map.put("column", column);
 		map.put("value", word);
 		map.put("table", Domain.MEMBER);
+		map.put("query", MemberQuery.SELECT);
 		q.play(map);
 		for(Object o : q.getList()) {
 			list.add((MemberBean) o);

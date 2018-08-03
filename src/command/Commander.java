@@ -23,9 +23,11 @@ public class Commander{
 			cmd = new LoginCommand(request);
 			break;
 		case LIST :
+			System.out.println("==LIST==");
 			cmd = new ListCommand(request);
 			break;
 		case SEARCH :
+			System.out.println("==SEARCH==");
 			cmd = new SearchCommand(request);
 			break;
 		case RETRIEVE :

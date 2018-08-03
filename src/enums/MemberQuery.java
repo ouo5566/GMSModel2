@@ -50,7 +50,7 @@ public enum MemberQuery {
 						+ " WHERE MEMBER_ID LIKE '%s' "
 						+ " AND MEMBER_PW LIKE '%s' ";
 				break;
-			default:break;
+			default: sql = super.toString() ; break;
 		}
 		return sql;
 	}

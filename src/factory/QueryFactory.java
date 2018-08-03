@@ -3,14 +3,15 @@ package factory;
 import enums.*;
 
 public class QueryFactory {
-	public static Query createQuery(MemberQuery e, Domain table, String column,  String word) {
+	public static Query createQuery(MemberQuery e, String table, String column) {
 		Query q = null;
 		switch (e) {
 		case SELECT:
-			q = new SearchQuery(table, column, word);
+			System.out.println("==creat search query==");
+			q = new SearchQuery(table, column);
 			break;
 		case COUNT:
-			q = new CountQuery(table, column, word);
+			q = new CountQuery(table, column);
 			break;
 		default : break;
 		}

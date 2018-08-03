@@ -1,6 +1,10 @@
 package command;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
+import domain.MemberBean;
 import enums.Columns;
 import service.MemberServiceImpl;
 
@@ -16,6 +20,8 @@ public class SearchCommand extends Command{
 	public void execute() {
 		request.setAttribute("list", MemberServiceImpl.getInstance().findByWord(
 				Columns.valueOf(request.getParameter("option").toUpperCase()), request.getParameter("word")));
+		String count = String.valueOf(((List<MemberBean>) request.getAttribute("list")).size());
+		request.setAttribute("count", Integer.parseInt(count)/5 + ((Integer.parseInt(count)%5 == 0)? 0 : 1 ));
 		super.execute();
 	}
 }

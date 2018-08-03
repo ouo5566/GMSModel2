@@ -1,27 +1,20 @@
 package factory;
 import enums.Domain;
+import template.ColumnFinder;
 
 public class SearchQuery implements Query{
-	private Domain table;
-	private String column, word;
-	public SearchQuery(Domain table, String column, String word) {
+	private String table, column;
+	public SearchQuery(String table, String column) {
 		this.table = table;
 		this.column = column;
-		this.word = word;
 	}
 	@Override
 	public String getQuery() {
+		System.out.println("column : "+column);
 		return "  SELECT "
-				+ " MEMBER_ID MEMID, "
-				+ " TEAM_ID TEAMID, "
-				+ " NAME, "
-				+ " ROLL, "
-				+ " PASSWORD PW, "
-				+ " SSN ,"
-				+ " GENDER, "
-				+ " AGE " 
+				+ ColumnFinder.find(Domain.valueOf(table)).toUpperCase()
 				+ " FROM " + table
-				+ ((column.equals("")) ? "" : " WHERE "+ column + " LIKE '" + word+"'");
+				+ ((column.equals("")) ? "" : " WHERE "+ column + " LIKE ? ");
 	}
 	
 }
