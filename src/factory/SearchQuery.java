@@ -11,7 +11,7 @@ public class SearchQuery implements Query{
 	}
 	@Override
 	public String getQuery() {
-		String sql = "  SELECT "
+		return "  SELECT "
 				+ " MEMBER_ID MEMID, "
 				+ " TEAM_ID TEAMID, "
 				+ " NAME, "
@@ -20,8 +20,8 @@ public class SearchQuery implements Query{
 				+ " SSN ,"
 				+ " GENDER, "
 				+ " AGE " 
-				+ " FROM " + table;
-		return (column.equals(""))?sql:sql + " WHERE "+ column + " LIKE '" + word+"'";
+				+ " FROM " + table
+				+ ((column.equals("")) ? "" : " WHERE "+ column + " LIKE '" + word+"'");
 	}
 	
 }

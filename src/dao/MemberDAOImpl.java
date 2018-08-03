@@ -6,6 +6,8 @@ import enums.*;
 import factory.DatabaseFactory;
 import factory.QueryFactory;
 import pool.DBConstants;
+import template.PstmtQuery;
+import template.QueryTemplate;
 
 import java.sql.*;
 
@@ -30,7 +32,11 @@ public class MemberDAOImpl implements MemberDAO{
 		String result = "";
 		try {
 			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DBConstants.USERNAME, DBConstants.PASSWORD)
-					.getConnection().createStatement().executeQuery(MemberQuery.COUNT_MEMBER.toString());
+					.getConnection().createStatement().executeQuery(
+							QueryFactory.createQuery(
+									MemberQuery.COUNT,
+									Domain.MEMBER,
+									"", "").getQuery());
 			while(rs.next()) {
 				result = rs.getString("NMEMBER");	
 			}
@@ -153,8 +159,17 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	@Override
 	public List<MemberBean> selectSome(Columns column, String word) {
+		QueryTemplate q = new PstmtQuery();
 		List<MemberBean> list = new ArrayList<>();
-		try {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("column", column);
+		map.put("value", word);
+		map.put("table", Domain.MEMBER);
+		q.play(map);
+		for(Object o : q.getList()) {
+			list.add((MemberBean) o);
+		}
+		/*try {
 			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DBConstants.USERNAME, DBConstants.PASSWORD)
 					.getConnection().createStatement().executeQuery(
 							QueryFactory.createQuery(
@@ -174,7 +189,7 @@ public class MemberDAOImpl implements MemberDAO{
 				mem.setAge(rs.getString("AGE"));
 				list.add(mem);
 			}
-		} catch (Exception e) {e.printStackTrace();}
+		} catch (Exception e) {e.printStackTrace();}*/
 		return list;
 	}
 	

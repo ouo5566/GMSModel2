@@ -21,10 +21,10 @@
 				SSN : <input type="text" name="userssn" /><br>	
 				소속팀
 				<input type="radio" name="teamid" value="" checked="checked"/>NONE
-				<input type="radio" name="teamid" value="AT"/>NOLJA
-				<input type="radio" name="teamid" value="HT"/>JIEUN-HOUSE
-				<input type="radio" name="teamid" value="ST"/>TURTLE-KING
-				<input type="radio" name="teamid" value="CT"/>CODDING-ZZANG<br>
+				<input type="radio" name="teamid" value="NOLJA"/>NOLJA
+				<input type="radio" name="teamid" value="JIEUN_HOUSE"/>JIEUN-HOUSE
+				<input type="radio" name="teamid" value="TURTLE_KING"/>TURTLE-KING
+				<input type="radio" name="teamid" value="CODDING_ZZANG"/>CODDING-ZZANG<br>
 				프로젝트역할
 				<select name="roll" id="roll">
 					<option value="leader">팀장</option>

@@ -35,11 +35,17 @@
 				<td>${member.roll}</td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="6">
+				<c:forEach begin="1" end="${count}" step="1" var="i" > <!-- 내가 인덱스값으로 값을 조절해야하니 for loop -->
+					<span> ${i} </span>
+				</c:forEach>
+			</td>
+		</tr>
 	</table>
 </div>
 <script>
 	admin.main('${context}');
-	
 	/*
 	class - document.querySelector(.class) -> return Array
 	id - document.getElementById(id) -> return Object

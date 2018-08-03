@@ -9,6 +9,9 @@ public class QueryFactory {
 		case SELECT:
 			q = new SearchQuery(table, column, word);
 			break;
+		case COUNT:
+			q = new CountQuery(table, column, word);
+			break;
 		default : break;
 		}
 		return q;

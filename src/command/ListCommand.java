@@ -14,6 +14,7 @@ public class ListCommand extends Command{
 	
 	@Override
 	public void execute() {
+		request.setAttribute("count", request.getParameter("count"));
 		request.setAttribute("list", MemberServiceImpl.getInstance().list());
 		super.execute();
 	}

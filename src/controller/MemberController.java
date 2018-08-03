@@ -42,7 +42,6 @@ public class MemberController extends HttpServlet {
 				break;
 			case LIST:
 				Carrier.forward(request, response);
-				//Carrier.redirect(request, response, "/admin.do?action=move&page=main");
 				break;
 			case SEARCH:
 				System.out.println("==SEARCH==");
@@ -50,12 +49,10 @@ public class MemberController extends HttpServlet {
 				break;
 			case RETRIEVE:
 				System.out.println("==RETRIEVE==");
-				System.out.println(request.getParameter("a"));
 				Carrier.forward(request, response);
 				break;
 			case COUNT:
-				/*String count = MemberServiceImpl.getInstance().memberCount();
-				System.out.println("member-count : " + count);*/
+				Carrier.redirect(request, response, "/admin.do?action=list&page=main&count="+request.getAttribute("count"));
 				break;
 			case UPDATE:
 				System.out.println("=UPDATE=");

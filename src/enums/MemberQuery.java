@@ -4,7 +4,7 @@ package enums;
   enum을 사용하여 static에 사용할 상수를 객체로 만들어 프로그램이 실행될 때만 존재하도록 한다.
   */
 public enum MemberQuery {
-	LOGIN, INSERT_MEMBER, SELECT_OVERLAP_USER, COUNT_MEMBER, UPDATE_MEMBER, DELETE_MEMBER, SELECT;
+	LOGIN, INSERT_MEMBER, SELECT_OVERLAP_USER, COUNT_MEMBER, UPDATE_MEMBER, DELETE_MEMBER, SELECT, COUNT;
 	@Override
 	public String toString() {
 		String sql = "";

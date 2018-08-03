@@ -31,7 +31,8 @@ public class Commander{
 		case RETRIEVE :
 			cmd = new RetrieveCommand(request);
 			break;
-		default:
+		case COUNT :
+			cmd = new CountCommand(request);
 			break;
 		}
 		return cmd;
