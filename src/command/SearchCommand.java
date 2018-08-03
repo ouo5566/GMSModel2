@@ -14,7 +14,6 @@ public class SearchCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		System.out.println("==SEARCH COMMAND==");
 		request.setAttribute("list", MemberServiceImpl.getInstance().findByWord(
 				Columns.valueOf(request.getParameter("option").toUpperCase()), "%"+request.getParameter("word")+"%"));
 		super.execute();
