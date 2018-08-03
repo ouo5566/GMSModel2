@@ -26,14 +26,13 @@ public class PstmtQuery extends QueryTemplate{
 		try {
 			pstmt = DatabaseFactory.createDatabase2(map).getConnection().prepareStatement((String) map.get("sql"));
 			//prepareStatement.setString()...은 void
-			System.out.println("setString : "+"%"+map.get("value").toString()+"%");
+			System.out.println("setString : "+"'%"+map.get("value").toString()+"%'");
 			pstmt.setString(1,
 					"%"+map.get("value").toString()+"%");
 			// ? 에 값 넣는 작업. 1부터 시작한다.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("==pstmt==\n" + String.valueOf(pstmt));
 	}
 
 	@Override
@@ -43,12 +42,12 @@ public class PstmtQuery extends QueryTemplate{
 			MemberBean mem = null;
 			while(rs.next()) {
 				mem = new MemberBean();
-				mem.setMemberId(rs.getString("USER_ID"));
+				mem.setMemberId(rs.getString("MEMBER_ID"));
 				mem.setTeamId(rs.getString("TEAM_ID"));
 				mem.setName(rs.getString("NAME"));
 				mem.setSsn(rs.getString("SSN"));
 				mem.setRoll(rs.getString("ROLL"));
-				mem.setPassword(rs.getString("MEMBER_PW"));
+				mem.setPassword(rs.getString("PASSWORD"));
 				mem.setGender(rs.getString("GENDER"));
 				mem.setAge(rs.getString("AGE"));
 				list.add(mem);

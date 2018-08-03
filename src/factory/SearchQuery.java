@@ -16,7 +16,7 @@ public class SearchQuery implements Query{
 				+ " TEAM_ID TEAMID, "
 				+ " NAME, "
 				+ " ROLL, "
-				+ " MEMBER_PW PW, "
+				+ " PASSWORD PW, "
 				+ " SSN ,"
 				+ " GENDER, "
 				+ " AGE " 
