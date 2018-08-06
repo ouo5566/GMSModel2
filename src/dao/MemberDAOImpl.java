@@ -164,7 +164,7 @@ public class MemberDAOImpl implements MemberDAO{
 		List<MemberBean> list = new ArrayList<>();
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("column", column);
-		map.put("value", word);
+		map.put("value", "%"+word+"%");
 		map.put("table", Domain.MEMBER);
 		q.play(map);
 		for(Object o : q.getList()) {

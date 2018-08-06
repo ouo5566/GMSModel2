@@ -15,7 +15,7 @@ public class PstmtQuery extends QueryTemplate{
 				+ " FROM %s "
 				+ " WHERE "
 				+ "	%s "
-				+ ( (map.get("value") != null)? " LIKE ? ":" BETWEEN ? " ),
+				+ ( (map.get("value") != null)? " LIKE ? ":" BETWEEN ? AND ? " ),
 					map.get("table"),
 					map.get("column")));
 	}
