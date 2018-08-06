@@ -1,5 +1,7 @@
 package dao;
 import java.util.List;
+import java.util.Map;
+
 import domain.*;
 import enums.Columns;
 
@@ -10,6 +12,8 @@ public interface MemberDAO {
 	public MemberBean login(MemberBean member);
 	public MemberBean selectUser(MemberBean member);
 	public List<MemberBean> selectMemberAll();
+	public List<MemberBean> selectMemberAll(Map<?, ?> param);
+	public List<MemberBean> selectMemberAll(String page);
 	public List<MemberBean> selectSome(Columns column, String word);
 	public MemberBean selectById(String id);
 	public String selectMemberCount(); // 제일 간단한 쿼리로 DB와의 연결확인이 간편하다.

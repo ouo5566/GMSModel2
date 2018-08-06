@@ -14,22 +14,25 @@ public class PstmtQuery extends QueryTemplate{
 				+ ColumnFinder.find(Domain.MEMBER).toUpperCase()
 				+ " FROM %s "
 				+ " WHERE "
-				+ "	%s LIKE ? ",
+				+ "	%s "
+				+ ( (map.get("value") != null)? " LIKE ? ":" BETWEEN ? " ),
 					map.get("table"),
 					map.get("column")));
 	}
 
 	@Override
 	void startPlay() {
-		System.out.println("==startPlay==");
-		System.out.println(map.get("sql"));
 		try {
+			System.out.println(map.get("sql"));
 			pstmt = DatabaseFactory.createDatabase2(map).getConnection().prepareStatement((String) map.get("sql"));
 			//prepareStatement.setString()...은 void
-			System.out.println("setString : "+"'%"+map.get("value").toString()+"%'");
-			pstmt.setString(1,
-					"%"+map.get("value").toString()+"%");
-			// ? 에 값 넣는 작업. 1부터 시작한다.
+			if(map.get("value") != null) {
+				pstmt.setString(1, map.get("value").toString());
+			}else {
+				pstmt.setString(1, map.get("beginRow").toString());
+				// ? 에 값 넣는 작업. 1부터 시작한다.
+				pstmt.setString(2, map.get("endRow").toString());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

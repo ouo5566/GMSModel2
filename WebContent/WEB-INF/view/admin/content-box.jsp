@@ -21,7 +21,7 @@
 			<th>ROLL</th>
 		</tr>
 		<c:forEach items="${list}" var="member">
-		<%-- <c:forEach begin="시작" end="끝" items="" step="증가하는단계" var="" varStatus=""> --%>
+		<%-- <c:forEach begin="시작" end="끝" items="" step="증가하는단계" var="" varStatus="인덱스"> --%>
 			<tr>
 				<td>${member.memberId}</td>
 				<td><a class="username" id="${member.memberId}">${member.name}</a></td>
@@ -37,9 +37,21 @@
 		</c:forEach>
 		<tr>
 			<td colspan="6">
-				<c:forEach begin="1" end="${count}" step="1" var="i" > <!-- 내가 인덱스값으로 값을 조절해야하니 for loop -->
-					<span> ${i} </span>
-				</c:forEach>
+				<ul class="page-box">
+					<c:forEach begin="${beginPage}" end="${endPage}" step="1" varStatus="i">
+						<!-- 내가 인덱스값으로 반복해야하니 for loop , 객체를 이용해 반복할 때는 for each -->
+						<!-- ListCommand에서 list값을 담았으니 count도 ListCommand에서 담아야한다 -->
+						<li>
+							<a href="#">${i.index}</a>				
+						</li>
+					</c:forEach>
+					<!-- JAVA에서는 if else = JSP choose + when + other -->
+					<!-- 비교연산자는 tag와 겹쳐 에러를 일으킬 수 있다.
+						 gt(크면) ge(같거나 크면) lt(작으면) le(같거나 작으면) eq(같으면) ne(not equal) 을 사용하여 비교 -->
+					<c:if test="${countPage gt 5}">
+						<li><a href="#">다음▶</a></li>
+					</c:if>
+				</ul>
 			</td>
 		</tr>
 	</table>

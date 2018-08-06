@@ -112,7 +112,7 @@ div#footer{
 	font-size: 1.5em;
 }
 table#mypage-table td, tr{
-	width:120px;
+	width:100px;
 	height:50px;
 	text-align: center;
 	font-size: 1.1em;
@@ -122,12 +122,31 @@ td#mypage-img{
 	width:180px;
 }
 table#list-table th, td, tr{
-	width:100px;
+	width:150px;
 	height:30px;
 	text-align: center;
 	font-size:1.0em;
 	border: 1px solid black;
 }
+
+.page-box{
+	list-style : none; /* Remove list bullets */
+	padding : 0;
+	margin : 0;
+}
+.page-box li{
+	display: inline;
+}
+.page-box a{
+	color: #000;
+	text-decoration: none;
+}
+.page-box li a:hover{
+	color: #000;
+	text-decoration: none;
+	font-weight: bold;
+}
+
 .bgcolor-yellow{background-color:#ffff00}
 .height-100px {height:100px}
 .height-650px {height:650px}

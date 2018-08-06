@@ -52,7 +52,7 @@
 				router.move({
 					context : x,
 					domain : 'admin',
-					action : 'count',
+					action : 'list',
 					page : 'main'})
 					
 				/*var isAdmin = confirm('관리자입니까?');

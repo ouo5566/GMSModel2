@@ -6,6 +6,7 @@ import enums.*;
 import factory.DatabaseFactory;
 import factory.QueryFactory;
 import pool.DBConstants;
+import template.ColumnFinder;
 import template.PstmtQuery;
 import template.QueryTemplate;
 
@@ -190,6 +191,44 @@ public class MemberDAOImpl implements MemberDAO{
 				list.add(mem);
 			}
 		} catch (Exception e) {e.printStackTrace();}*/
+		return list;
+	}
+	@Override
+	public List<MemberBean> selectMemberAll(Map<?, ?> param) {
+		QueryTemplate q = new PstmtQuery();
+		List<MemberBean> list = new ArrayList<>();
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("column", "B.NUM");
+		map.put("table", " ( SELECT "
+				+ " ROWNUM AS \"NUM\", "
+				+ ColumnFinder.find(Domain.MEMBER).toUpperCase()
+				+ " FROM (SELECT ROWNUM RO, M.* FROM MEMBER M ORDER BY ROWNUM DESC )A "
+				+ " ) B " );
+		map.put("beginRow", param.get("beginRow"));
+		map.put("endRow", param.get("endRow"));
+		q.play(map);
+		for(Object o : q.getList()) {
+			list.add((MemberBean) o);
+		}
+		return list;
+	}
+	@Override
+	public List<MemberBean> selectMemberAll(String page) {
+		QueryTemplate q = new PstmtQuery();
+		List<MemberBean> list = new ArrayList<>();
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("column", "B.PAGE");
+		map.put("value", page);
+		map.put("table", " ( SELECT "
+				+ " ROWNUM AS \"NUM\", "
+				+ ColumnFinder.find(Domain.MEMBER)
+				+ " , ROUND(((ROWNUM+2)/5),0) AS \"PAGE\" "
+				+ " FROM (SELECT ROWNUM RO, M.* FROM MEMBER M ORDER BY ROWNUM DESC )A "
+				+ " ) B " );
+		q.play(map);
+		for(Object o : q.getList()) {
+			list.add((MemberBean) o);
+		}
 		return list;
 	}
 	
