@@ -26,7 +26,6 @@ public class MemberController extends HttpServlet {
 		//String page = request.getParameter("page");
 		switch(Action.valueOf(Sentry.cmd.getAction().toUpperCase())) { 
 			case MOVE :
-				System.out.println("=MOVE=");
 					Carrier.forward(request, response); // JSP에서 request를 통해 데이터를 유지한 채 페이지 이동한다.
 					break;
 			case JOIN:
@@ -44,18 +43,15 @@ public class MemberController extends HttpServlet {
 				Carrier.forward(request, response);
 				break;
 			case SEARCH:
-				System.out.println("==SEARCH==");
 				Carrier.forward(request, response);
 				break;
 			case RETRIEVE:
-				System.out.println("==RETRIEVE==");
 				Carrier.forward(request, response);
 				break;
 			case COUNT:
 				Carrier.redirect(request, response, "/admin.do?action=list&page=main&count="+request.getAttribute("count"));
 				break;
 			case UPDATE:
-				System.out.println("=UPDATE=");
 				// request.getSession().setAttribute("user", request.getAttribute("user")); //Command에서 session에 값을 담지 않았을 경우
 				Carrier.forward(request, response);
 				break;
@@ -63,7 +59,6 @@ public class MemberController extends HttpServlet {
 				Carrier.redirect(request, response, "");
 				break;
 			case LOGIN:
-				System.out.println("=LOGIN=");
 				if(request.getAttribute("match").equals("TRUE")) {
 					// request.getSession().setAttribute("user", request.getAttribute("user"));
 					// Controller 가 Servlet이기 때문에 LoginCommand에서 session을 걸지않고서 Controller에서 건다.

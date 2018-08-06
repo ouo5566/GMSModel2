@@ -1,20 +1,21 @@
 package factory;
+import java.util.Map;
+
 import enums.Domain;
 import template.ColumnFinder;
 
 public class SearchQuery implements Query{
-	private String table, column;
-	public SearchQuery(String table, String column) {
-		this.table = table;
-		this.column = column;
+	private Map<?, ?> map;
+	public SearchQuery(Map<?, ?> map) {
+		this.map = map;
 	}
 	@Override
 	public String getQuery() {
-		System.out.println("column : "+column);
 		return "  SELECT "
-				+ ColumnFinder.find(Domain.valueOf(table)).toUpperCase()
-				+ " FROM " + table
-				+ ((column.equals("")) ? "" : " WHERE "+ column + " LIKE ? ");
+				+ ColumnFinder.find(Domain.valueOf(map.get("table").toString())).toUpperCase()
+				+ " FROM " + ((map.get("from").equals("")) ? map.get("table") : map.get("from"))
+				+ ((map.get("column").equals("")) ? "" : " WHERE "+ map.get("column") 
+				+ ((map.get("beginRow").equals(""))? " LIKE ? " : " BETWEEN ? AND ? "));
 	}
 	
 }

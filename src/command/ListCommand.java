@@ -29,10 +29,10 @@ public class ListCommand extends Command{
 		param.put("beginRow", 1 + 
 				((request.getParameter("pagenum") == null) ? 0 : (Integer.parseInt(request.getParameter("pagenum"))-1) * 5));
 		param.put("endRow", (int) param.get("beginRow") + 4);
+		
 		request.setAttribute("list", MemberServiceImpl.getInstance().list(param));
 		
 		//request.setAttribute("list", MemberServiceImpl.getInstance().list((String) request.getAttribute("beginPage")));
-		super.execute();
 		super.execute();
 	}
 }

@@ -51,17 +51,15 @@ public class MemberServiceImpl implements MemberService{
 		return MemberDAOImpl.getInstance().login(member);
 	}
 	@Override
-	public boolean findByUser(MemberBean member){
-		return (MemberDAOImpl.getInstance().selectUser(member)==null);
-	}
-	@Override
 	public List<MemberBean> findByWord(Columns column, String word) {
 		return MemberDAOImpl.getInstance().selectSome(column, word);
 	}
+	
 	@Override
 	public List<MemberBean> list(Map<?, ?> param) {
 		return MemberDAOImpl.getInstance().selectMemberAll(param);
 	}
+	
 	@Override
 	public List<MemberBean> list(String page) {
 		return MemberDAOImpl.getInstance().selectMemberAll(page);
@@ -76,3 +74,4 @@ public class MemberServiceImpl implements MemberService{
 		return MemberDAOImpl.getInstance().selectByTeamId(team);
 	}
 	*/
+}	
