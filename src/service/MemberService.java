@@ -19,4 +19,5 @@ public interface MemberService {
 /*	public List<MemberBean> findByTeamId(String team);
 	public List<MemberBean> findByName(String name);*/
 	public List<MemberBean> list(Map<?, ?> param);
+	
 }
