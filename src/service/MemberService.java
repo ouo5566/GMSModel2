@@ -1,5 +1,7 @@
 package service;
 import java.util.List;
+import java.util.Map;
+
 import domain.*;
 import enums.Columns;
 
@@ -16,4 +18,5 @@ public interface MemberService {
 	public MemberBean login(MemberBean member);
 /*	public List<MemberBean> findByTeamId(String team);
 	public List<MemberBean> findByName(String name);*/
+	public List<MemberBean> list(Map<?, ?> param);
 }

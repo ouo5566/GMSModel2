@@ -29,22 +29,15 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	@Override
 	public String selectMemberCount() {
-		String result = "";
 		QueryTemplate q = new PstmtQuery();
 		HashMap<String, Object> map = new HashMap<>();
-		List<MemberBean> list = new ArrayList<>();
 		map.put("column", "");
 		map.put("value", "");
 		map.put("table", Domain.MEMBER);
 		map.put("query", MemberQuery.COUNT);
 		System.out.println(MemberQuery.COUNT.toString());
-		System.out.println("daoimpl query: "+map.get("query").toString());
-		System.out.println("daoimpl table: "+map.get("table").toString());
 		q.play(map);
-		for(Object o : q.getList()) {
-			list.add((MemberBean) o);
-		}
-		return result;
+		return (String) map.get("count");
 	}
 	@Override
 	public void updateMember(MemberBean member) {
@@ -116,7 +109,6 @@ public class MemberDAOImpl implements MemberDAO{
 		map.put("value", "");
 		map.put("table", Domain.MEMBER);
 		map.put("query", MemberQuery.SELECT);
-		System.out.println("daoimpl query: "+map.get("query").toString());
 		q.play(map);
 		for(Object o : q.getList()) {
 			list.add((MemberBean) o);
