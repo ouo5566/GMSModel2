@@ -17,20 +17,29 @@ public class ListCommand extends Command{
 	
 	@Override
 	public void execute() {
-		request.setAttribute("beginPage", (request.getParameter("pagenum") == null)?
-				"1" : request.getParameter("pagenum"));
+		int pageSize = 5 , blockSize = 5,
+				pGap = pageSize - 1,
+				bGap = blockSize - 1,
+				countRow = Integer.parseInt(MemberServiceImpl.getInstance().memberCount()),
+				countPage = countRow / pageSize + ((countRow % pageSize == 0) ? 0 : 1 ), // 총 페이지
+				pageNum = (request.getParameter("pagenum") == null)? 1 
+						: Integer.parseInt(request.getParameter("pagenum")),
+				block = (request.getParameter("block") == null)?
+						(pageNum + pGap) / pageSize
+						: Integer.parseInt(request.getParameter("block")),
+				nextPage = ((countPage - block * blockSize > 0))? countPage - block * blockSize : 0, // 잔여페이지
+				prevPage = (pageNum - pageSize > 0)? pageNum - pageSize : 0 ; // 이전페이지
 		
-		String count = MemberServiceImpl.getInstance().memberCount();
-		request.setAttribute("countPage", Integer.parseInt(count) / 5);
-		request.setAttribute("endPage", (Integer.parseInt(count) / 5 > 5)? 5 :
-			Integer.parseInt(count) / 5 + ((Integer.parseInt(count) % 5 == 0)? 0 : 1 ));
+		request.setAttribute("nextPage", (nextPage > 0)); 
+		request.setAttribute("prevPage", (prevPage > 0));
+		request.setAttribute("endPage", (nextPage > blockSize) ? block * blockSize : countPage );
+		request.setAttribute("beginPage", block * blockSize - bGap);
 		
 		Map<String, Object> param = new HashMap<>();
-		param.put("beginRow", 1 + 
-				((request.getParameter("pagenum") == null) ? 0 : (Integer.parseInt(request.getParameter("pagenum"))-1) * 5));
-		param.put("endRow", (int) param.get("beginRow") + 4);
-		request.setAttribute("list", MemberServiceImpl.getInstance().list(param));
+		param.put("endRow", String.valueOf(pageNum * pageSize));
+		param.put("beginRow", String.valueOf(pageNum * pageSize - pGap));
 		
+		request.setAttribute("list", MemberServiceImpl.getInstance().list(param));
 		//request.setAttribute("list", MemberServiceImpl.getInstance().list((String) request.getAttribute("beginPage")));
 		super.execute();
 	}

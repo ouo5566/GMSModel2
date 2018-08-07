@@ -38,18 +38,23 @@
 		<tr>
 			<td colspan="6">
 				<ul class="page-box">
+					<c:if test="${prevPage}">
+						<li><a id="prev-butt">◀이전</a></li>
+					</c:if>
+					
 					<c:forEach begin="${beginPage}" end="${endPage}" step="1" varStatus="i">
 						<!-- 내가 인덱스값으로 반복해야하니 for loop , 객체를 이용해 반복할 때는 for each -->
 						<!-- ListCommand에서 list값을 담았으니 count도 ListCommand에서 담아야한다 -->
 						<li>
-							<a href="#">${i.index}</a>				
+							<a class="pagenum" id="${i.index}">${i.index}</a>				
 						</li>
 					</c:forEach>
+					
 					<!-- JAVA에서는 if else = JSP choose + when + other -->
 					<!-- 비교연산자는 tag와 겹쳐 에러를 일으킬 수 있다.
 						 gt(크면) ge(같거나 크면) lt(작으면) le(같거나 작으면) eq(같으면) ne(not equal) 을 사용하여 비교 -->
-					<c:if test="${countPage gt 5}">
-						<li><a href="#">다음▶</a></li>
+					<c:if test="${nextPage}">
+						<li><a id="next-butt">다음▶</a></li>
 					</c:if>
 				</ul>
 			</td>
@@ -58,6 +63,15 @@
 </div>
 <script>
 	admin.main('${context}');
+
+	document.getElementById('next-butt').addEventListener('click', function(){
+		location.href = "${context}/admin.do?action=list&page=main&block=2&pagenum=6"
+	});
+	
+	document.getElementById('prev-butt').addEventListener('click', function(){
+		location.href = "${context}/admin.do?action=list&page=main&block=1&pagenum=1"
+	}); <!-- 동작안함 아직... -->
+	
 	/*
 	class - document.querySelector(.class) -> return Array
 	id - document.getElementById(id) -> return Object

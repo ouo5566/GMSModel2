@@ -111,6 +111,13 @@
 						// alert('Click!\n' + this.getAttribute('id')); // callback(어떠한 object의 event에 의해서 호출되는 함수)함수에서의 this.는 그 함수를 호출한 객체를 의미한다.
 					});
 				}
+				
+				for(var i of document.querySelectorAll('.pagenum')){
+					i.addEventListener('click', function(){
+						location.href= x + "/admin.do?action=list&page=main&pagenum="+this.getAttribute('id');
+					});
+				}
+				
 			}
 		};})();
 	var member = (()=>{
