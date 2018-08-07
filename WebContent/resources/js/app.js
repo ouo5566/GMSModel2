@@ -117,7 +117,20 @@
 						location.href= x + "/admin.do?action=list&page=main&pagenum="+this.getAttribute('id');
 					});
 				}
-				
+			},
+			pageMove : x =>{
+				for(var i of document.querySelectorAll('.order')){
+					i.addEventListener('click', function(){
+						var pnum = parseInt(x.endPage) - parseInt(x.beginPage) - 1 ;
+						if(i.getAttribute('id') === "next-butt"){
+							pnum = parseInt(pnum) + 1 ;
+						}else{
+							pnum = parseInt(pnum) - 1 ;
+							alert("이전버튼 page : "+pnum);
+						}
+						location.href = x.context + "/admin.do?action=list&page=main&pagenum="+ pnum ;
+					});
+				}
 			}
 		};})();
 	var member = (()=>{

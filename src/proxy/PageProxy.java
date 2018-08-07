@@ -1,16 +1,13 @@
 package proxy;
 
-import java.util.Map;
-
+import lombok.Data;
+@Data
 public class PageProxy implements Proxy{
-
+	private Proxy p;
+	
 	@Override
-	public Map<?, ?> carryOut(Map<?, ?> param) {
-		request.setAttribute("nextPage", (nextPage > 0)); 
-		request.setAttribute("prevPage", (prevPage > 0));
-		request.setAttribute("endPage", (nextPage > blockSize) ? block * blockSize : countPage );
-		request.setAttribute("beginPage", block * blockSize - bGap);
-		return null;
+	public void carryOut(Object o) {
+		p = new Pagination();
+		p.carryOut(o);
 	}
-
 }

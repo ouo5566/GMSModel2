@@ -39,7 +39,7 @@
 			<td colspan="6">
 				<ul class="page-box">
 					<c:if test="${prevPage}">
-						<li><a id="prev-butt">◀이전</a></li>
+						<li><a class="order" id="prev-butt">◀이전</a></li>
 					</c:if>
 					
 					<c:forEach begin="${beginPage}" end="${endPage}" step="1" varStatus="i">
@@ -54,7 +54,7 @@
 					<!-- 비교연산자는 tag와 겹쳐 에러를 일으킬 수 있다.
 						 gt(크면) ge(같거나 크면) lt(작으면) le(같거나 작으면) eq(같으면) ne(not equal) 을 사용하여 비교 -->
 					<c:if test="${nextPage}">
-						<li><a id="next-butt">다음▶</a></li>
+						<li><a class="order" id="next-butt">다음▶</a></li>
 					</c:if>
 				</ul>
 			</td>
@@ -64,13 +64,11 @@
 <script>
 	admin.main('${context}');
 
-	document.getElementById('next-butt').addEventListener('click', function(){
-		location.href = "${context}/admin.do?action=list&page=main&block=2&pagenum=6"
+	admin.pageMove({
+		context : '${context}',
+		beginPage : '${beginPage}',
+		endPage : '${endPage}'
 	});
-	
-	document.getElementById('prev-butt').addEventListener('click', function(){
-		location.href = "${context}/admin.do?action=list&page=main&block=1&pagenum=1"
-	}); <!-- 동작안함 아직... -->
 	
 	/*
 	class - document.querySelector(.class) -> return Array
