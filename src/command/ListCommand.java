@@ -17,6 +17,7 @@ public class ListCommand extends Command{
 	
 	@Override
 	public void execute() {
+		
 		int pageSize = 5 , blockSize = 5,
 				pGap = pageSize - 1,
 				bGap = blockSize - 1,
