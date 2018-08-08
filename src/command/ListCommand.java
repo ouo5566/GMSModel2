@@ -27,7 +27,7 @@ public class ListCommand extends Command{
 		String pNum = request.getParameter("pagenum");
 		p.carryOut((pNum == null)? 1 : pNum);
 		Pagination page = (Pagination) ((PageProxy) p).getP();
-		
+		//firstCommit
 		Map<String, Object> listParam = new HashMap<>();
 		listParam.put("endRow", page.getEndRow());
 		listParam.put("beginRow", page.getBeginRow());
