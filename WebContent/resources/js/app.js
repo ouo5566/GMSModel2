@@ -86,7 +86,7 @@
 						document.getElementById('content-box-mata'),
 						"bgcolor-yellow ");
 				
-				document.getElementById("search-butt").addEventListener('click', function(){
+				document.getElementById("search-butt").addEventListener('click', ()=>{
 					var option = document.getElementById('select-option');
 					var word = document.getElementById('search-word');
 					if(option.value === "none"){
@@ -106,29 +106,33 @@
 				for(var i of document.querySelectorAll('.username')){
 					i.style.color = "blue";
 					i.style.cursor = 'pointer';
-					i.addEventListener('click', function(){
-						location.href= x + "/admin.do?action=retrieve&page=member-detail&a="+this.getAttribute('id');
-						// alert('Click!\n' + this.getAttribute('id')); // callback(어떠한 object의 event에 의해서 호출되는 함수)함수에서의 this.는 그 함수를 호출한 객체를 의미한다.
+					i.addEventListener('click', function(){ // this.를 쓰는 function 은 ()=> 이 되지 않는다.
+						location.href= x 
+							+ "/admin.do?action=retrieve&page=member-detail&a="
+								+ this.getAttribute('id');
+						// alert('Click!\n' + this.getAttribute('id'));
+						// callback(어떠한 object의 event에 의해서 호출되는 함수)함수에서의 this.는 그 함수를 호출한 객체를 의미한다.
 					});
 				}
 				
 				for(var i of document.querySelectorAll('.pagenum')){
 					i.addEventListener('click', function(){
-						location.href= x + "/admin.do?action=list&page=main&pagenum="+this.getAttribute('id');
+						location.href= 
+							x + "/admin.do?action=list&page=main&pagenum="
+								+ this.getAttribute('id');
 					});
 				}
-			},
-			pageMove : x =>{
+				
 				for(var i of document.querySelectorAll('.order')){
-					i.addEventListener('click', function(){
-						var pnum = parseInt(x.endPage) - parseInt(x.beginPage) - 1 ;
-						if(i.getAttribute('id') === "next-butt"){
-							pnum = parseInt(pnum) + 1 ;
-						}else{
-							pnum = parseInt(pnum) - 1 ;
-							alert("이전버튼 page : "+pnum);
-						}
-						location.href = x.context + "/admin.do?action=list&page=main&pagenum="+ pnum ;
+					var arr = document.querySelectorAll('.pagenum');
+					var ps = arr[arr.length-1].getAttribute('id') - arr[0].getAttribute('id') + 1 ;
+					// 끝페이지 - 시작페이지 + 1 = 블럭사이즈
+					i.addEventListener('click', ()=>{
+						alert(ps);
+						location.href = x + "/admin.do?action=list&page=main&pagenum="
+							+(document.querySelector('.pagenum').getAttribute('id') * 1
+								+( i.getAttribute('id') === "next-butt" ? ps : ps*-1 ) );
+						// 이전 = 시작페이지 - 5 , 다음 = 시작페이지 + 5
 					});
 				}
 			}

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sun.org.glassfish.external.statistics.annotations.Reset;
+
 import proxy.PageProxy;
 import proxy.Pagination;
 import proxy.Proxy;
@@ -21,20 +23,16 @@ public class ListCommand extends Command{
 	
 	@Override
 	public void execute() {
-		Map<String, Object> param = new HashMap<>();
-		param.put("pageNum", request.getParameter("pagenum"));
 		Proxy p = new PageProxy();
-		p.carryOut(param);
+		String pNum = request.getParameter("pagenum");
+		p.carryOut((pNum == null)? 1 : pNum);
 		Pagination page = (Pagination) ((PageProxy) p).getP();
 		
 		Map<String, Object> listParam = new HashMap<>();
 		listParam.put("endRow", page.getEndRow());
 		listParam.put("beginRow", page.getBeginRow());
 		
-		request.setAttribute("nextPage", (page.getNextPage() > 0)); 
-		request.setAttribute("prevPage", (page.getPrevPage() > 0));
-		request.setAttribute("endPage", page.getEndPage());
-		request.setAttribute("beginPage", page.getBeginPage());
+		request.setAttribute("page", page);
 		request.setAttribute("list", MemberServiceImpl.getInstance().list(listParam));
 		//request.setAttribute("list", MemberServiceImpl.getInstance().list((String) request.getAttribute("beginPage")));
 		super.execute();

@@ -1,23 +1,25 @@
 package proxy;
-import java.util.Map;
 
 import lombok.Data;
 import service.MemberServiceImpl;
 
 @Data
 public class Pagination implements Proxy{
-	private int pageSize, blockSize, countRow, countPage, pageNum, block, endRow, beginRow, nextPage, prevPage, beginPage, endPage;
+	private int pageSize, blockSize, countRow, countPage,
+	pageNum, block, endRow, beginRow, beginPage, endPage;
+	private boolean nextPage, prevPage;
 	@Override
 	public void carryOut(Object o) {
-		Map<?, ?> map = (Map<?, ?>) o;
+		this.pageNum = Integer.parseInt(o.toString());
 		this.pageSize = 5 ;
 		this.blockSize = 5 ;
 		this.countRow = Integer.parseInt(MemberServiceImpl.getInstance().memberCount());
 		this.countPage = countRow / pageSize + ((countRow % pageSize == 0) ? 0 : 1 ); // 총 페이지
-		this.pageNum = (map.get("pageNum") == null)? 1 : Integer.parseInt(map.get("pageNum").toString());
 		this.block = ( pageNum + (blockSize - 1) ) / blockSize ;
-		this.nextPage = ((countPage - block * blockSize > 0))? countPage - block * blockSize : 0 ;
-		this.prevPage = (countPage-( nextPage + blockSize ) > 0)? countPage-( nextPage + blockSize ) : 0 ;
+		int nextPage = ((countPage - block * blockSize > 0))? countPage - block * blockSize : 0 ,
+			prevPage = (countPage - ( nextPage + blockSize ) > 0)? countPage-( nextPage + blockSize ) : 0 ;
+		this.nextPage = nextPage > 0 ;
+		this.prevPage = prevPage > 0 ;
 		this.endRow = pageNum * pageSize;
 		this.beginRow = pageNum * pageSize - (pageSize - 1);
 		this.endPage = ((countPage - nextPage) % blockSize == 0) ? block * blockSize : countPage ;

@@ -38,11 +38,11 @@
 		<tr>
 			<td colspan="6">
 				<ul class="page-box">
-					<c:if test="${prevPage}">
+					<c:if test="${page.prevPage}">
 						<li><a class="order" id="prev-butt">◀이전</a></li>
 					</c:if>
 					
-					<c:forEach begin="${beginPage}" end="${endPage}" step="1" varStatus="i">
+					<c:forEach begin="${page.beginPage}" end="${page.endPage}" step="1" varStatus="i">
 						<!-- 내가 인덱스값으로 반복해야하니 for loop , 객체를 이용해 반복할 때는 for each -->
 						<!-- ListCommand에서 list값을 담았으니 count도 ListCommand에서 담아야한다 -->
 						<li>
@@ -53,7 +53,7 @@
 					<!-- JAVA에서는 if else = JSP choose + when + other -->
 					<!-- 비교연산자는 tag와 겹쳐 에러를 일으킬 수 있다.
 						 gt(크면) ge(같거나 크면) lt(작으면) le(같거나 작으면) eq(같으면) ne(not equal) 을 사용하여 비교 -->
-					<c:if test="${nextPage}">
+					<c:if test="${page.nextPage}">
 						<li><a class="order" id="next-butt">다음▶</a></li>
 					</c:if>
 				</ul>
@@ -62,14 +62,7 @@
 	</table>
 </div>
 <script>
-	admin.main('${context}');
-
-	admin.pageMove({
-		context : '${context}',
-		beginPage : '${beginPage}',
-		endPage : '${endPage}'
-	});
-	
+	admin.main('${context}'); // 이 한 줄로 연결시켜놨기 때문에 밑으로 더 추가하면 안된다.
 	/*
 	class - document.querySelector(.class) -> return Array
 	id - document.getElementById(id) -> return Object

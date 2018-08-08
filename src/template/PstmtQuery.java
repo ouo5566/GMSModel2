@@ -23,7 +23,6 @@ public class PstmtQuery extends QueryTemplate{
 	@Override
 	void startPlay() {
 		try {
-			System.out.println(map.get("sql"));
 			pstmt = DatabaseFactory.createDatabase2(map).getConnection().prepareStatement((String) map.get("sql"));
 			//prepareStatement.setString()...은 void
 			if(map.get("value") != null) {
