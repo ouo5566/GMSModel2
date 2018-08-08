@@ -14,7 +14,7 @@ public class CountCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		String count = MemberServiceImpl.getInstance().memberCount();
+		String count = MemberServiceImpl.getInstance().count();
 		request.setAttribute("count", Integer.parseInt(count)/5 + ((Integer.parseInt(count)%5 == 0)? 0 : 1 ));
 		super.execute();
 	}

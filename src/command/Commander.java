@@ -23,10 +23,10 @@ public class Commander{
 			cmd = new LoginCommand(request);
 			break;
 		case LIST :
-			cmd = new ListCommand(request);
+			cmd = new SearchCommand_2(request);
 			break;
 		case SEARCH :
-			cmd = new SearchCommand(request);
+			//cmd = new SearchCommand(request);
 			break;
 		case RETRIEVE :
 			cmd = new RetrieveCommand(request);

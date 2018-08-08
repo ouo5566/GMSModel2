@@ -87,18 +87,18 @@
 						"bgcolor-yellow ");
 				
 				document.getElementById("search-butt").addEventListener('click', ()=>{
-					var option = document.getElementById('select-option');
+					var option = document.getElementById('search-option');
 					var word = document.getElementById('search-word');
 					if(option.value === "none"){
 						alert('검색조건을 선택해주세요');
 					}else if(word.value === ""){
 						alert('검색할 단어를 입력해주세요');
 					}else{
-						location.href = (document.getElementById('select-option').value === "userid")?
-							location.href = x +"/admin.do?action=retrieve&page=member-detail&a="
+						location.href = (option === "userid")?
+							 x + "/admin.do?action=retrieve&page=member-detail&a="
 								+ word.value
-								: location.href = x +"/admin.do?action=search&page=main&word="
-									+ word.value + "&option="+option.value;
+									: x +"/admin.do?action=list&page=main&word="
+										+ word.value + "&option="+option.value;
 							// post 방식은 무조건 form, get 방식은 location.href 를 이용한다.
 						}
 				});
@@ -119,20 +119,23 @@
 					i.addEventListener('click', function(){
 						location.href= 
 							x + "/admin.do?action=list&page=main&pagenum="
-								+ this.getAttribute('id');
+								+ this.getAttribute('id')
+								+ "&option="
+								+ ""
+								+ "&word="
+								;
 					});
 				}
 				
 				for(var i of document.querySelectorAll('.order')){
-					var arr = document.querySelectorAll('.pagenum');
-					var ps = arr[arr.length-1].getAttribute('id') - arr[0].getAttribute('id') + 1 ;
-					// 끝페이지 - 시작페이지 + 1 = 블럭사이즈
-					i.addEventListener('click', ()=>{
-						alert(ps);
-						location.href = x + "/admin.do?action=list&page=main&pagenum="
-							+(document.querySelector('.pagenum').getAttribute('id') * 1
-								+( i.getAttribute('id') === "next-butt" ? ps : ps*-1 ) );
-						// 이전 = 시작페이지 - 5 , 다음 = 시작페이지 + 5
+					i.addEventListener('click', function(){
+						location.href =
+							x + "/admin.do?action=list&page=main&pagenum="
+								+ ( this.getAttribute('id') * 1 )
+								+ "&option="
+								+ ""
+								+ "&word="
+								;
 					});
 				}
 			}

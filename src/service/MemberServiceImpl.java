@@ -12,34 +12,34 @@ public class MemberServiceImpl implements MemberService{
 	private MemberServiceImpl() {}
 
 	@Override
-	public void createMember(MemberBean member) {
-		MemberDAOImpl.getInstance().insertMember(member);
+	public void create(MemberBean member) {
+		MemberDAOImpl.getInstance().insert(member);
 	}
 
-	@Override
+	/*@Override
 	public List<MemberBean> list() {
 		return MemberDAOImpl.getInstance().selectMemberAll();
-	}
+	}*/
 
 	@Override
-	public MemberBean findById(String id) {
-		return MemberDAOImpl.getInstance().selectById(id);
+	public MemberBean retrieve(String id) {
+		return MemberDAOImpl.getInstance().selectOne(id);
 	}
 
 	
 	@Override
-	public String memberCount() {
-		return MemberDAOImpl.getInstance().selectMemberCount();
+	public String count() {
+		return MemberDAOImpl.getInstance().count();
 	}
 
 	@Override
-	public void modifyMember(MemberBean member) {
-		MemberDAOImpl.getInstance().updateMember(member);
+	public void modify(Map<?, ?> param) {
+		MemberDAOImpl.getInstance().update(param);
 	}
 
 	@Override
-	public void removeMember(MemberBean member) {
-		MemberDAOImpl.getInstance().deleteMember(member);
+	public void remove(MemberBean member) {
+		MemberDAOImpl.getInstance().delete(member);
 	}
 	@Override
 	public boolean loginFlag(MemberBean member) {
@@ -51,6 +51,12 @@ public class MemberServiceImpl implements MemberService{
 		return MemberDAOImpl.getInstance().login(member);
 	}
 	@Override
+	public List<MemberBean> search(Map<?, ?> param) {
+		return MemberDAOImpl.getInstance().selectSome(param);
+	}
+	
+	/*
+	@Override
 	public boolean findByUser(MemberBean member){
 		return (MemberDAOImpl.getInstance().selectUser(member)==null);
 	}
@@ -59,15 +65,10 @@ public class MemberServiceImpl implements MemberService{
 		return MemberDAOImpl.getInstance().selectSome(column, word);
 	}
 	@Override
-	public List<MemberBean> list(Map<?, ?> param) {
-		return MemberDAOImpl.getInstance().selectMemberAll(param);
-	}
-	@Override
 	public List<MemberBean> list(String page) {
 		return MemberDAOImpl.getInstance().selectMemberAll(page);
 	}
-	
-	/*@Override
+	@Override
 	public List<MemberBean> findByName(String name) {
 		return MemberDAOImpl.getInstance().selectByName(name);
 	}

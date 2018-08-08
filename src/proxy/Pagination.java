@@ -5,15 +5,15 @@ import service.MemberServiceImpl;
 
 @Data
 public class Pagination implements Proxy{
-	private int pageSize, blockSize, countRow, countPage,
-	pageNum, block, endRow, beginRow, beginPage, endPage;
+	private int pageSize, blockSize, countRow, countPage, pageNum, block,
+				endRow, beginRow, beginPage, endPage, nextBlock, prevBlock;
 	private boolean nextPage, prevPage;
 	@Override
 	public void carryOut(Object o) {
 		this.pageNum = Integer.parseInt(o.toString());
 		this.pageSize = 5 ;
 		this.blockSize = 5 ;
-		this.countRow = Integer.parseInt(MemberServiceImpl.getInstance().memberCount());
+		this.countRow = Integer.parseInt(MemberServiceImpl.getInstance().count());
 		this.countPage = countRow / pageSize + ((countRow % pageSize == 0) ? 0 : 1 ); // 총 페이지
 		this.block = ( pageNum + (blockSize - 1) ) / blockSize ;
 		int nextPage = ((countPage - block * blockSize > 0))? countPage - block * blockSize : 0 ,
@@ -24,6 +24,8 @@ public class Pagination implements Proxy{
 		this.beginRow = pageNum * pageSize - (pageSize - 1);
 		this.endPage = ((countPage - nextPage) % blockSize == 0) ? block * blockSize : countPage ;
 		this.beginPage = block * blockSize - (blockSize - 1) ;
+		this.nextBlock = (this.nextPage) ? beginPage + blockSize : 0 ;
+		this.prevBlock = (this.prevPage) ? beginPage - blockSize : 0 ;
 	}
 	/*
 		test.java 에서 실험		

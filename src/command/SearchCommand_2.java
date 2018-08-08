@@ -5,15 +5,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.sun.org.glassfish.external.statistics.annotations.Reset;
-
-import proxy.PageProxy;
-import proxy.Pagination;
-import proxy.Proxy;
+import proxy.*;
 import service.MemberServiceImpl;
 
-public class ListCommand extends Command{
-	public ListCommand(HttpServletRequest request) {
+public class SearchCommand_2 extends Command{
+	public SearchCommand_2(HttpServletRequest request) {
 		setRequest(request);
 		setDomain(request.getServletPath().substring(1, request.getServletPath().indexOf(".")));
 		setAction(request.getParameter("action"));
@@ -28,12 +24,15 @@ public class ListCommand extends Command{
 		p.carryOut((pNum == null)? 1 : pNum);
 		Pagination page = (Pagination) ((PageProxy) p).getP();
 		//firstCommit
-		Map<String, Object> listParam = new HashMap<>();
-		listParam.put("endRow", page.getEndRow());
-		listParam.put("beginRow", page.getBeginRow());
+		Map<String, Object> param = new HashMap<>();
+		param.put("endRow", page.getEndRow());
+		param.put("beginRow", page.getBeginRow());
+		param.put("column", request.getParameter("option"));
+		param.put("word", "%" + request.getParameter("word") + "%");
 		
 		request.setAttribute("page", page);
-		request.setAttribute("list", MemberServiceImpl.getInstance().list(listParam));
+		request.setAttribute("list", MemberServiceImpl.getInstance().search(param));
+		
 		//request.setAttribute("list", MemberServiceImpl.getInstance().list((String) request.getAttribute("beginPage")));
 		super.execute();
 	}

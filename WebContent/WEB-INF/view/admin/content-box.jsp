@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="content-box">
 	<div id="content-box-search">
-		<select id="select-option">
+		<select id="search-option">
 				<option value="none">검색조건</option>
 				<option value="userid">ID</option>
 				<option value="name">NAME</option>
@@ -39,7 +39,7 @@
 			<td colspan="6">
 				<ul class="page-box">
 					<c:if test="${page.prevPage}">
-						<li><a class="order" id="prev-butt">◀이전</a></li>
+						<li><a class="order" id="${page.prevBlock}">◀이전</a></li>
 					</c:if>
 					
 					<c:forEach begin="${page.beginPage}" end="${page.endPage}" step="1" varStatus="i">
@@ -54,7 +54,7 @@
 					<!-- 비교연산자는 tag와 겹쳐 에러를 일으킬 수 있다.
 						 gt(크면) ge(같거나 크면) lt(작으면) le(같거나 작으면) eq(같으면) ne(not equal) 을 사용하여 비교 -->
 					<c:if test="${page.nextPage}">
-						<li><a class="order" id="next-butt">다음▶</a></li>
+						<li><a class="order" id="${page.nextBlock}">다음▶</a></li>
 					</c:if>
 				</ul>
 			</td>

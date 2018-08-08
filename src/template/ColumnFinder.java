@@ -5,6 +5,18 @@ import domain.MemberBean;
 import enums.Domain;
 
 public class ColumnFinder {
+	public static String columnCount(Domain domain) {
+		Class<MemberBean> clazz = null;
+		switch (domain) {
+			case MEMBER:
+				clazz = MemberBean.class;
+				break;
+			default:
+				break;
+		}
+		return String.valueOf(clazz.getDeclaredFields().length);
+	}
+	
 	public static String find(Domain domain) {
 		String s = "", upper = "", temp = "";
 		Class<MemberBean> clazz = null;

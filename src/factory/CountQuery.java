@@ -1,19 +1,17 @@
 package factory;
 
-import enums.Domain;
+import java.util.Map;
 
 public class CountQuery implements Query {
-	private Domain table;
-	private String column, word;
-	public CountQuery(Domain table, String column, String word) {
-		this.table = table;
-		this.column = column;
-		this.word = word;
+	private Map<?, ?> map;
+	public CountQuery(Map<?, ?> map) {
+		this.map = map;
 	}
 	@Override
 	public String getQuery() {
-		return " SELECT COUNT(*) AS NMEMBER FROM "+ table 
-				+((column.equals(""))?"":" WHERE " + column + " LIKE '" + word + "' ");
+		return " SELECT COUNT(*) AS NMEMBER FROM "+ map.get("table") 
+					+( (map.get("column") == null)?
+							"":" WHERE " + map.get("column") + " LIKE ? " );
 	}
 
 }

@@ -1,5 +1,7 @@
 package command;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import domain.MemberBean;
@@ -43,7 +45,7 @@ public class UpdateCommand extends Command{
 			member.setTeamId(request.getParameter("team"));
 			member.setRoll(request.getParameter("roll"));
 			System.out.println("변경 후\n"+member);
-			MemberServiceImpl.getInstance().modifyMember(member);
+			MemberServiceImpl.getInstance().modify((Map<?, ?>) member);
 			setPage("mypage");
 			super.execute();
 			System.out.println("세션업데이트확인\n"+request.getSession().getAttribute("user"));

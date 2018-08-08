@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import domain.MemberBean;
 import enums.Vendor;
 import lombok.Data;
 import pool.DBConstants;
@@ -14,6 +15,7 @@ public abstract class QueryTemplate {
 	HashMap<String, Object> map;
 	List<Object> list;
 	PreparedStatement pstmt;
+	String result;
 	abstract void initialize();
 	abstract void startPlay();
 	abstract void endPlay();
@@ -23,7 +25,8 @@ public abstract class QueryTemplate {
 		// play()를 호출하면 밑에 메소드들이 절로 실행된다. Hook...계속 play만 쓰는 것...
 		this.pstmt = null;
 		this.list = new ArrayList<>();
-		this.map = map;
+		this.map = new HashMap<>();
+		this.map.putAll(map);
 		this.map.put("vendor", Vendor.ORACLE);
 		this.map.put("username", DBConstants.USERNAME);
 		this.map.put("password", DBConstants.PASSWORD);
