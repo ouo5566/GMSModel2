@@ -1,7 +1,11 @@
 package command;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
-import enums.Columns;
+
+import proxy.*;
 import service.MemberServiceImpl;
 
 public class SearchCommand extends Command{
@@ -12,8 +16,23 @@ public class SearchCommand extends Command{
 		setPage(request.getParameter("page"));
 		execute();
 	}
+	
 	@Override
 	public void execute() {
+		Proxy p = new PageProxy();
+		String pNum = request.getParameter("pagenum");
+		p.carryOut((pNum == null)? 1 : pNum);
+		Pagination page = (Pagination) ((PageProxy) p).getP();
+		Map<String, Object> param = new HashMap<>();
+		param.put("endRow", page.getEndRow());
+		param.put("beginRow", page.getBeginRow());
+		param.put("column", request.getParameter("option"));
+		param.put("word", "%" + request.getParameter("word") + "%");
+		
+		request.setAttribute("page", page);
+		request.setAttribute("list", MemberServiceImpl.getInstance().search(param));
+		
 		super.execute();
 	}
 }
+

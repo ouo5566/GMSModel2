@@ -2,6 +2,7 @@ package factory;
 
 import java.util.Map;
 
+import domain.MemberBean;
 import enums.Domain;
 import template.ColumnFinder;
 
@@ -15,8 +16,7 @@ public class LoginQuery implements Query {
 		return "  SELECT "
 				+ ColumnFinder.find(Domain.MEMBER)
 				+ "  FROM MEMBER "
-				+ "  WHERE MEMBER_ID LIKE ? "
-				+ "  AND MEMBER_PW LIKE ? ";
+				+ "  WHERE MEMBER_ID LIKE " + ((MemberBean)map.get("member")).getMemberId()
+				+ "  AND MEMBER_PW LIKE " +  ((MemberBean)map.get("member")).getPassword();
 	}
-
 }

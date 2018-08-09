@@ -6,8 +6,8 @@ import domain.MemberBean;
 import enums.Domain;
 import service.MemberServiceImpl;
 
-public class CreateCommand extends Command{
-	public CreateCommand(HttpServletRequest request) {
+public class AddCommand extends Command{
+	public AddCommand(HttpServletRequest request) {
 		setRequest(request);
 		setDomain(request.getServletPath().substring(1,request.getServletPath().indexOf(".")));
 		setAction(request.getParameter("action"));
@@ -28,7 +28,7 @@ public class CreateCommand extends Command{
 			member.setTeamId(request.getParameter("teamid"));
 			member.setRoll(request.getParameter("roll"));
 			member.setSubject(ParamMap.getValues(request, "subject"));
-			MemberServiceImpl.getInstance().create(member);
+			MemberServiceImpl.getInstance().add(member);
 			break;
 		default : break;
 		}

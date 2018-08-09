@@ -8,8 +8,8 @@ import domain.MemberBean;
 import enums.Domain;
 import service.MemberServiceImpl;
 
-public class UpdateCommand extends Command{
-	public UpdateCommand(HttpServletRequest request) {
+public class ModifyCommand extends Command{
+	public ModifyCommand(HttpServletRequest request) {
 		setRequest(request);
 		setDomain(request.getServletPath().substring(1, request.getServletPath().indexOf(".")));
 		setAction(request.getParameter("action"));

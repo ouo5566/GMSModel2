@@ -12,20 +12,14 @@ public class MemberServiceImpl implements MemberService{
 	private MemberServiceImpl() {}
 
 	@Override
-	public void create(MemberBean member) {
+	public void add(MemberBean member) {
 		MemberDAOImpl.getInstance().insert(member);
 	}
-
-	/*@Override
-	public List<MemberBean> list() {
-		return MemberDAOImpl.getInstance().selectMemberAll();
-	}*/
 
 	@Override
 	public MemberBean retrieve(String id) {
 		return MemberDAOImpl.getInstance().selectOne(id);
 	}
-
 	
 	@Override
 	public String count() {
@@ -54,27 +48,5 @@ public class MemberServiceImpl implements MemberService{
 	public List<MemberBean> search(Map<?, ?> param) {
 		return MemberDAOImpl.getInstance().selectSome(param);
 	}
-	
-	/*
-	@Override
-	public boolean findByUser(MemberBean member){
-		return (MemberDAOImpl.getInstance().selectUser(member)==null);
-	}
-	@Override
-	public List<MemberBean> findByWord(Columns column, String word) {
-		return MemberDAOImpl.getInstance().selectSome(column, word);
-	}
-	@Override
-	public List<MemberBean> list(String page) {
-		return MemberDAOImpl.getInstance().selectMemberAll(page);
-	}
-	@Override
-	public List<MemberBean> findByName(String name) {
-		return MemberDAOImpl.getInstance().selectByName(name);
-	}
-	@Override
-	public List<MemberBean> findByTeamId(String team){
-		return MemberDAOImpl.getInstance().selectByTeamId(team);
-	}
-	*/
+
 }
