@@ -26,11 +26,6 @@ public class MemberDAOImpl implements MemberDAO{
 		map.put("query", MemberQuery.UPDATE);
 		map.put("value", param.get("value"));
 		q.play(map);
-		/*try {
-			DatabaseFactory.createDatabase(Vendor.ORACLE, DBConstants.USERNAME, DBConstants.PASSWORD)
-			.getConnection().createStatement().executeUpdate(String.format(MemberQuery.UPDATE_MEMBER.toString(),
-					member.getPassword(), member.getTeamId(), member.getRoll(), member.getMemberId()));
-		} catch (Exception e) {e.printStackTrace();}*/
 	}
 	@Override
 	public void delete(MemberBean member) {
@@ -66,11 +61,12 @@ public class MemberDAOImpl implements MemberDAO{
 	public MemberBean selectOne(String id) {
 		QueryTemplate q = new PstmtQuery();
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("query", MemberQuery.SELECT);
+		map.put("query", MemberQuery.RETRIEVE);
 		map.put("table", Domain.MEMBER);
 		map.put("column", Columns.MEMBER_ID);
 		map.put("value", id);
 		q.play(map);
+		System.out.println(q.getList());
 		return (MemberBean) q.getList().get(0);
 	}
 	@Override
@@ -80,7 +76,7 @@ public class MemberDAOImpl implements MemberDAO{
 		map.put("table", Domain.MEMBER);
 		map.put("query", MemberQuery.COUNT);
 		q.play(map);
-		return q.getResult();
+		return (String) q.getList().get(0);
 	}
 	
 }

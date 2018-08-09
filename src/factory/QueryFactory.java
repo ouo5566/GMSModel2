@@ -10,6 +10,9 @@ public class QueryFactory {
 		case SELECT:
 			q = new SearchQuery(map);
 			break;
+		case RETRIEVE :
+			q = new RetrieveQuery(map);
+			break;
 		case COUNT:
 			q = new CountQuery(map);
 			break;

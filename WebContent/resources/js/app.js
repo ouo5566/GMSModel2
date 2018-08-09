@@ -126,7 +126,7 @@
 					i.style.cursor = 'pointer';
 					i.addEventListener('click', function(){ // this.를 쓰는 function 은 ()=> 이 되지 않는다.
 						location.href= x 
-							+ "/admin.do?action=retrieve&page=member-detail&a="
+							+ "/member.do?action=retrieve&page=retrieve&a="
 								+ this.getAttribute('id');
 						// alert('Click!\n' + this.getAttribute('id'));
 						// callback(어떠한 object의 event에 의해서 호출되는 함수)함수에서의 this.는 그 함수를 호출한 객체를 의미한다.

@@ -33,7 +33,7 @@ public class PstmtQuery extends QueryTemplate{
 				pstmt.setString(8, ((MemberBean) map.get("value")).getGender());
 				pstmt.setString(9, "");
 			}
-			if(map.get("column") != null) {
+			if(map.get("column") != null) { 
 				pstmt.setString(1,map.get("value").toString());
 			}
 			// ? 에 값 넣는 작업. 1부터 시작한다.
@@ -55,11 +55,12 @@ public class PstmtQuery extends QueryTemplate{
 			switch (MemberQuery.valueOf(map.get("query").toString())) {
 			case COUNT :
 				if(rs.next()) {
-					result = rs.getString("NMEMBER");
+					list.add(rs.getString("NMEMBER"));
 				}
 				break;
 			case LOGIN :
 			case SELECT :
+			case RETRIEVE :
 				MemberBean mem = null;
 				while(rs.next()) {
 					mem = new MemberBean();
