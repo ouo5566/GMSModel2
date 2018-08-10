@@ -10,7 +10,7 @@ public interface MemberDAO {
 	public MemberBean login(MemberBean member);
 	public List<MemberBean> selectSome(Map<?, ?> param);
 	public MemberBean selectOne(String id);
-	public String count(); // 제일 간단한 쿼리로 DB와의 연결확인이 간편하다.
+	public String count(Map<?, ?> param); // 제일 간단한 쿼리로 DB와의 연결확인이 간편하다.
 	
 	/*
 	public List<MemberBean> selectMemberAll();

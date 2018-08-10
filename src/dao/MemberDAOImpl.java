@@ -2,55 +2,53 @@ package dao;
 
 import java.util.*;
 import domain.*;
-import enums.*;
 import template.*;
 
 public class MemberDAOImpl implements MemberDAO{
 	private static MemberDAO instance = new MemberDAOImpl();
 	public static MemberDAO getInstance() {return instance;}
 	private MemberDAOImpl() {}
+	private QueryTemplate q ;
+	
 	@Override
 	public void insert(MemberBean member) {
-		QueryTemplate q = new PstmtQuery();
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("table", Domain.MEMBER);
-		map.put("query", MemberQuery.INSERT);
+		q = new AddQuery();
 		map.put("value", member);
 		q.play(map);
 	}
 	@Override
 	public void update(Map<?, ?> param) {
-		QueryTemplate q = new PstmtQuery();
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("table", Domain.MEMBER);
-		map.put("query", MemberQuery.UPDATE);
+		q = new UpdateQuery();
 		map.put("value", param.get("value"));
 		q.play(map);
 	}
 	@Override
 	public void delete(MemberBean member) {
-		
+		HashMap<String, Object> map = new HashMap<>();
+		q = new DeleteQuery();
+		map.put("user", member);
+		q.play(map);
 	}
 	@Override
 	public MemberBean login(MemberBean member) {
-		QueryTemplate q = new PstmtQuery();
+		q = new RetrieveQuery();
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("query", MemberQuery.LOGIN);
-		map.put("value", member);
+		map.put("user", member);
 		q.play(map);
-		return (MemberBean) q.getList().get(0);
+		return (MemberBean) q.getMap().get("result");
 	}
 	@Override
 	public List<MemberBean> selectSome(Map<?, ?> param) {
-		QueryTemplate q = new PstmtQuery();
+		q = new SearchQuery();
 		List<MemberBean> list = new ArrayList<>();
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("column", param.get("column"));
-		map.put("value", param.get("word"));
-		map.put("beginRow", param.get("beginRow"));
-		map.put("endRow", param.get("endRow"));
-		map.put("table", Domain.MEMBER);
-		map.put("query", MemberQuery.SELECT);
+		Iterator<?> keys = param.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = (String) keys.next();
+			map.put(key, param.get(key));
+		}
 		q.play(map);
 		for(Object o : q.getList()) {
 			list.add((MemberBean) o);
@@ -59,24 +57,17 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	@Override
 	public MemberBean selectOne(String id) {
-		QueryTemplate q = new PstmtQuery();
+		q = new RetrieveQuery();
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("query", MemberQuery.RETRIEVE);
-		map.put("table", Domain.MEMBER);
-		map.put("column", Columns.MEMBER_ID);
 		map.put("value", id);
 		q.play(map);
-		System.out.println(q.getList());
-		return (MemberBean) q.getList().get(0);
+		return (MemberBean) q.getMap().get("result");
 	}
 	@Override
-	public String count() {
-		QueryTemplate q = new PstmtQuery();
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("table", Domain.MEMBER);
-		map.put("query", MemberQuery.COUNT);
-		q.play(map);
-		return (String) q.getList().get(0);
+	public String count(Map<?, ?> param) {
+		q = new CountQuery();
+		q.play(param);
+		return (String) q.getMap().get("result");
 	}
 	
 }

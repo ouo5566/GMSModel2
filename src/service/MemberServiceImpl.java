@@ -22,8 +22,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public String count() {
-		return MemberDAOImpl.getInstance().count();
+	public String count(Map<?, ?> param) {
+		return MemberDAOImpl.getInstance().count(param);
 	}
 
 	@Override

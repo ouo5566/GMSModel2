@@ -1,5 +1,8 @@
 package proxy;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import lombok.Data;
 import service.MemberServiceImpl;
 
@@ -8,12 +11,15 @@ public class Pagination implements Proxy{
 	private int pageSize, blockSize, countRow, countPage, pageNum, block,
 				endRow, beginRow, beginPage, endPage, nextBlock, prevBlock;
 	private boolean nextPage, prevPage;
+	
 	@Override
 	public void carryOut(Object o) {
-		this.pageNum = Integer.parseInt(o.toString());
+		@SuppressWarnings("unchecked")
+		Map<String, Object> map = (Map<String, Object>) o;
+		this.pageNum = Integer.parseInt(map.get("pageNum").toString());
 		this.pageSize = 5 ;
 		this.blockSize = 5 ;
-		this.countRow = Integer.parseInt(MemberServiceImpl.getInstance().count());
+		this.countRow = Integer.parseInt(map.get("countRow").toString());
 		this.countPage = countRow / pageSize + ((countRow % pageSize == 0) ? 0 : 1 ); // 총 페이지
 		this.block = ( pageNum + (blockSize - 1) ) / blockSize ;
 		int nextPage = ((countPage - block * blockSize > 0))? countPage - block * blockSize : 0 ,

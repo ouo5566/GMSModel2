@@ -35,7 +35,7 @@
 						<td>${user.gender}</td>
 						<td>팀</td>
 						<td>
-							<select name="team" id="team">
+							<select name="teamid" id="team">
 								<option value="null">NONE</option>
 								<option value="AT">NOLJA</option>
 								<option value="HT">JIEUN-HOUSE</option>

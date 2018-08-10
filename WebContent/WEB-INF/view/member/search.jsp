@@ -62,7 +62,6 @@
 	</table>
 </div>
 <script>
-	admin.main('${context}'); // 이 한 줄로 연결시켜놨기 때문에 밑으로 더 추가하면 안된다.
 	/*
 	class - document.querySelector(.class) -> return Array
 	id - document.getElementById(id) -> return Object
