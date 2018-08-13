@@ -28,6 +28,9 @@ public class Commander{
 		case RETRIEVE :
 			cmd = new RetrieveCommand(request);
 			break;
+		case FILEUPLOAD : 
+			cmd = new FileCommand(request);
+			break;
 		default:
 			break;
 		}

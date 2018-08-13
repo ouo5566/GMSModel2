@@ -1,12 +1,26 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileItemFactory;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import command.*;
 import enums.Action;
@@ -36,7 +50,6 @@ public class MemberController extends HttpServlet {
 			case SEARCH:
 			case RETRIEVE:
 			case MODIFY:
-				// request.getSession().setAttribute("user", request.getAttribute("user")); //Command에서 session에 값을 담지 않았을 경우
 				Carrier.forward(request, response);
 				break;
 			case REMOVE:
@@ -45,14 +58,56 @@ public class MemberController extends HttpServlet {
 			case LOGIN:
 				if(request.getAttribute("match").equals("TRUE")) {
 					Carrier.forward(request, response);
-					// request.getSession().setAttribute("user", request.getAttribute("user"));
-					// Controller 가 Servlet이기 때문에 LoginCommand에서 session을 걸지않고서 Controller에서 건다. ()
 				}else {
-					Carrier.redirect(request, response, "/member.do?action=move&page=user-login-form");
+					Carrier.redirect(request, response, "/member.do?action=move&page=login");
 				}
 				break;
 			case MOVE :
 				Carrier.forward(request, response); // JSP에서 request를 통해 데이터를 유지한 채 페이지 이동한다.
+				break;
+			case FILEUPLOAD :
+				System.out.println("== 1. FILE UPLOAD START ==");
+				if(!ServletFileUpload.isMultipartContent(request)) {
+					System.out.println("업로드 파일이 없습니다.");
+					return;
+				}
+				System.out.println("== 2. UPLOAD FILE 존재 ==");
+				FileItemFactory factory = new DiskFileItemFactory();
+				ServletFileUpload upload = new ServletFileUpload(factory);
+				upload.setFileSizeMax( 1024 * 1024 * 40 ); // 40MB
+				upload.setSizeMax( 1024 * 1024 * 50 ); // 50MB
+				List<FileItem> items = null;
+				
+				try {
+					System.out.println("== 3. TRY IN ==");
+					File file = null; // Class.forName 과 같다. 메모리상이 아닌 다른세계
+					items = upload.parseRequest( new ServletRequestContext(request) );
+					System.out.println("== 4. ITEMS 생성 ==");
+					Iterator<FileItem> iter = items.iterator();
+					while(iter.hasNext()) {
+						System.out.println("== 5. WHILE IN ==");
+						FileItem item = iter.next();
+						if(!item.isFormField()) {
+							System.out.println("== 6. IF IN ==");
+							String fieldName = item.getFieldName();
+							String fileName = item.getName();
+							boolean isInMemory = item.isInMemory();
+							long sizeInBytes = item.getSize();
+							file = new File(fileName);
+							item.write(file);
+							System.out.println("== 7. SUCCESS ==");
+						}else {
+							System.out.println("== 8. FAIL ==");
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				
+				
+				
+				System.out.println("== 10. FILE UPLOAD ==");
+				Carrier.redirect(request, response, "/member.do?action=move&page=retrieve");
 				break;
 			default:
 				break;

@@ -13,6 +13,7 @@ public class RetrieveCommand extends Command{
 	}
 	@Override
 	public void execute() {
+		System.out.println("==Retrieve Command==");
 		request.setAttribute("user", MemberServiceImpl.getInstance().retrieve(request.getParameter("a")));
 		super.execute();
 	}

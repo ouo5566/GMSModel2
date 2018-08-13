@@ -29,29 +29,8 @@
 			</tr>
 		</table>
 		<br>
-		<a id="logout-butt"><button>LOGOUT</button></a>
-		<a id="update-butt"><button>UPDATE</button></a>
-		<a id="delete-butt"><button>DELETE</button></a>
+		<a class="retrieve-butt" id="logout"><button>LOGOUT</button></a>
+		<a class="retrieve-butt" id="update"><button>UPDATE</button></a>
+		<a class="retrieve-butt" id="delete"><button>DELETE</button></a>
 </div>
-
-<script>
-	document.getElementById('logout-butt').addEventListener('click',function(){
-		router.move({context : '${context}',
-			domain : 'common',
-			action : '',
-			page : ''})
-	});
-	document.getElementById('update-butt').addEventListener('click',function(){
-		router.move({context:'${context}',
-			domain : 'member',
-			action : 'move',
-			page : 'update-form'})
-	});
-	document.getElementById('delete-butt').addEventListener('click',function(){
-		router.move({context:'${context}',
-			domain : 'member',
-			action : 'move',
-			page : 'delete-form'})
-	});
-</script>
 

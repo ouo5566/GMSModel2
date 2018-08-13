@@ -57,10 +57,13 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	@Override
 	public MemberBean selectOne(String id) {
+		System.out.println("==MemberDAOImpl selectOne==");
 		q = new RetrieveQuery();
 		HashMap<String, Object> map = new HashMap<>();
+		map.put("column", "member_id");
 		map.put("value", id);
 		q.play(map);
+		System.out.println((MemberBean) q.getMap().get("result"));
 		return (MemberBean) q.getMap().get("result");
 	}
 	@Override

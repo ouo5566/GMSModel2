@@ -44,7 +44,7 @@ public enum MemberQuery {
 		case RETRIEVE:
 			s = "SELECT " + memberColumn
 				+ " FROM  MEMBER "
-				+ " WHERE '%s' LIKE ? ";
+				+ " WHERE %s LIKE ? ";
 			break;
 		case COUNT:
 			s = "SELECT COUNT(*) AS NMEMBER FROM MEMBER ";

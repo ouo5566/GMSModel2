@@ -14,14 +14,19 @@ public class LoginCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		MemberBean member = new MemberBean();
-		member.setMemberId(request.getParameter("userid"));
-		member.setPassword(request.getParameter("password"));
-		if(MemberServiceImpl.getInstance().loginFlag(member)) {
-			request.setAttribute("match", "TRUE");
-			request.getSession().setAttribute("user", MemberServiceImpl.getInstance().login(member));
+		if(request.getSession().getAttribute("user") == null) {
+			MemberBean member = new MemberBean();
+			member.setMemberId(request.getParameter("userid"));
+			member.setPassword(request.getParameter("password"));
+			if(MemberServiceImpl.getInstance().loginFlag(member)) {
+				request.setAttribute("match", "TRUE");
+				request.getSession().setAttribute("user", MemberServiceImpl.getInstance().login(member));
+			}else {
+				request.setAttribute("match", "FALSE");
+			}
 		}else {
-			request.setAttribute("match", "FALSE");
+			request.getSession().invalidate();
+			System.out.println("logout");
 		}
 		super.execute();
 	}

@@ -3,7 +3,6 @@
 <!doctype html>
 <html lang="en">
 <jsp:include page="../common/head.jsp"/>
-<jsp:include page="../common/head-function.jsp"/>
 <body>
 <div id="wrapper">
 	<div id="header">
@@ -23,6 +22,9 @@
 		<c:when test="${pagename eq 'search'}">
 			<jsp:include page="search.jsp"/>
 		</c:when>
+		<c:when test="${pagename eq 'modify'}">
+			<jsp:include page="modify.jsp"/>
+		</c:when>
 		<c:otherwise>
 			<jsp:include page="retrieve.jsp"/>
 		</c:otherwise>
@@ -33,7 +35,7 @@
 	</div>
 </div>
 <script>
-	member.main('${context}');
+	members.main('${context}');
 </script>
 </body>
 </html>

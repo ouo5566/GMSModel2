@@ -46,22 +46,241 @@
 	// Java 에서의 서비스객체, DAO객체를 싱글톤으로 만들어 한 번만 만들어지게끔 하는 방식
 	// Member()같은 경우는 여러 번 만들어야하기 때문에 기존 방식
 	// (()=>{return{};})(); > 기본 형식을 만들고 시작한다.
-	var member = (()=>{return{};})();
+	var members = (()=>{
+		return{
+			main : x=>{
+				// login box script
+				
+				document.getElementById('move-login')
+				.addEventListener('click',function(){ //콜백함수 : 연이어서 호출되는 함수
+					// var x = ['${context}','member','move','user-login-form'];
+					router.move({
+								context: x,
+								domain : 'member',
+								action : 'move',
+								page : 'login'})
+								//JSON으로 넘겨준다. 배열은 loop을 돌릴때에나 쓴다.
+				});
+				
+				document.getElementById('move-add')
+				.addEventListener('click',function(){ 
+					router.move({
+								context: x,
+								domain : 'member',
+								action : 'move',
+								page : 'add'})
+				});
+				
+				// menu box script
+				document.getElementById('move-home').addEventListener('click',function(){ 
+					router.move({context:x,
+								domain : 'common',
+								action : '',
+								page : ''})
+				});
+				
+				document.getElementById('move-about').addEventListener('click',function(){ 
+					router.move({context:x,
+								domain : 'member',
+								action : 'move',
+								page : 'retrieve'})
+				});
+				
+				document.getElementById('move-admin').addEventListener('click',function(){ 
+					router.move({
+						context : x,
+						domain : 'admin',
+						action : 'search',
+						page : 'main'})
+					/*var isAdmin = confirm('관리자입니까?');
+					// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
+					// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
+					if(isAdmin){
+						var password = prompt('관리자 코드를 입력하세요.');
+						if(password == 93){
+							router.move({
+								context : x,
+								domain : 'admin',
+								action : 'list',
+								page : 'main'})
+						}else{
+							alert('비밀번호가 정확하지 않습니다.');
+						}
+					}else{
+						alert('관리자만 접근이 허용됩니다.');
+					}*/	
+				});
+				
+				// retrieve
+				for(var i of document.querySelectorAll('.retrieve-butt')){
+					i.addEventListener('click', function(){
+						var y = this.getAttribute('id');
+						if(y === 'logout'){
+							router.move({context : x,
+								domain : 'common',
+								action : 'login',
+								page : ''})
+						}else{
+							router.move({context : x,
+								domain : 'member',
+								action : 'move',
+								page : y === 'update' ?
+										'modify' : 'remove'})
+						}
+					})
+				}
+				
+				// form-butt script
+				for(var i of document.querySelectorAll('.form-butt')){
+					i.addEventListener('click', function(){
+						var y = this.getAttribute('id');
+						switch(y){
+							case 'login-form-btn':
+								var form = document.getElementById('login-form');
+								var z = service.nullChecker([form.userid.value, form.password.value]);
+								if(z.checker){
+									form.action = x + "/member.do";
+									form.method = "post";
+									form.submit();
+								}else{
+									alert(z.text);
+								}
+								break;
+							case 'join-form-btn': break;
+							case 'update-btn' : break;
+							case 'file-upload-btn' : break;
+							case 'delete-btn' :
+								var form = document.getElementById('delete-form');
+								if(form.confirm.value === '${user.password}'){
+									form.action = x + '/member.do';
+									form.method = 'post';
+									
+									var node = document.createElement("input"); // 없던 속성을 만든다.
+									node.innerHTML = '<input type="hidden" name="action" value="delete"/>'; // input 속성에 html 코드를 추가한다.
+									form.appendChild(node); // form 에 node를 자식속성으로 추가한다.
+									
+									alert(form.action.value); // form에서 추가한 node의 action을 출력하면 value값인 delete가 출력된다.
+									
+									form.submit();
+								}else{
+									alert('비밀번호 불일치');
+								}
+								break;
+						}
+					})
+				}
+				
+				//modify script
+				var form = document.getElementById('update-form'); // DOM 객체
+				var team = document.getElementById('team');
+				if(team != null){
+					for(var i = 0; i < team.options.length ; i++){
+						if(team.options[i].value === '${user.teamId}'){
+							team.options[i].setAttribute("selected","selected");
+						}
+					}
+					var roll = document.getElementById('roll');
+					for(var i = 0; i < roll.options.length ; i++){
+						if(roll.options[i].value === '${user.roll}'){
+							roll.options[i].setAttribute("selected","selected");
+						}
+					}
+					document.getElementById('update-butt').addEventListener('click', function(){
+						alert('CLICK');
+						if(form.password.value === ""){
+							form.password.value = '${user.password}';
+						}
+						
+						var node = document.createElement('input');
+						node.innerHTML = '<input type="hidden" name="action" value="update"/>'
+						form.appendChild(node);
+						
+						form.action=x+'/member.do';
+						form.method='post';
+						form.submit();
+					});
+				}
+				
+
+				/* 	var teamid = document.getElementById('teamid');
+				for(var i = 0; i < teamid.options.length ; i++){
+					if((teamid.teamid_i.value === '${user.teamId}')){
+						document.getElementById('teamid_' + i).checked = true;
+					}
+				} */
+				
+				// add script
+				document.getElementById('join-form-btn').addEventListener('click',
+						function(){
+					var form = document.getElementById('join-form');
+					var arr = [form.userid.value,form.password.value,form.username.value,form.userssn.value];
+					var x = service.nullChecker(arr)
+					if(x.checker){
+						member.join(arr);
+						var arr = [{name : "action", value : "join"},
+								{name : "gender", value : member.getGender()},
+								{name : "age", value : member.getAge()}];
+						
+						for(var i in arr){
+							var node = document.createElement('input');
+							// node.innerHTML = '<input type="hidden" name="'+arr[i].name+'" value="'+arr[i].value+'"/>';
+							// String값은 덜 쓰도록 한다.
+							node.setAttribute('type', 'hidden');
+							node.setAttribute('name', arr[i].name);
+							node.setAttribute('value', arr[i].value);
+							form.appendChild(node);
+						}
+						form.action = x + "/member.do";
+						form.method = "post";	
+						form.submit();
+					}else{
+						alert(x.text);
+					}
+				});
+				
+			}
+		};
+	})();
 	var common = (()=>{
 		return{
 			main : x=>{
+				
+					// login box script
+					document.getElementById('move-login')
+					.addEventListener('click',function(){ //콜백함수 : 연이어서 호출되는 함수
+						// var x = ['${context}','member','move','user-login-form'];
+						router.move({
+									context: x,
+									domain : 'member',
+									action : 'move',
+									page : 'login'})
+									//JSON으로 넘겨준다. 배열은 loop을 돌릴때에나 쓴다.
+					});
+					
+					document.getElementById('move-add')
+					.addEventListener('click',function(){ 
+						router.move({
+									context: x,
+									domain : 'member',
+									action : 'move',
+									page : 'add'})
+					});
+					
+					// menu box script
 					document.getElementById('move-home').addEventListener('click',function(){ 
-						router.move({context:'${context}',
+						router.move({context:x,
 									domain : 'common',
 									action : '',
 									page : ''})
 					});
+					
 					document.getElementById('move-about').addEventListener('click',function(){ 
-						router.move({context:'${context}',
+						router.move({context:x,
 									domain : 'member',
 									action : 'move',
-									page : 'mypage'})
+									page : 'retrieve'})
 					});
+					
 					document.getElementById('move-admin').addEventListener('click',function(){ 
 						router.move({
 							context : x,
@@ -86,6 +305,7 @@
 							alert('관리자만 접근이 허용됩니다.');
 						}*/	
 					});
+					
 			}
 		};	
 	})();
@@ -113,7 +333,7 @@
 						alert('검색할 단어를 입력해주세요');
 					}else{
 						location.href = (option === "userid")?
-							 x + "/admin.do?action=retrieve&page=member-detail&a="
+							 x + "/admin.do?action=retrieve&page=main&a="
 								+ word.value
 									: x +"/admin.do?action=search&page=main&word="
 										+ word.value + "&option="+option.value;
@@ -126,7 +346,7 @@
 					i.style.cursor = 'pointer';
 					i.addEventListener('click', function(){ // this.를 쓰는 function 은 ()=> 이 되지 않는다.
 						location.href= x 
-							+ "/member.do?action=retrieve&page=retrieve&a="
+							+ "/member.do?action=retrieve&page=main&a="
 								+ this.getAttribute('id');
 						// alert('Click!\n' + this.getAttribute('id'));
 						// callback(어떠한 object의 event에 의해서 호출되는 함수)함수에서의 this.는 그 함수를 호출한 객체를 의미한다.
@@ -148,11 +368,10 @@
 								+ ( this.getAttribute('id') * 1 );
 					});
 				}
-				
-				
-				
 			}
-		};})();
+		};
+	})();
+	
 	var member = (()=>{
 		var _memberId, _password, _ssn, _name, _gender, _roll, _teamId, _age;
 		var setMemberId = (memberId)=>{this._memberId = memberId;}
@@ -201,6 +420,5 @@
 				member.setAge(x[3]);
 				member.setGender(x[3]);
 			}
-		}
+		};
 	})();
-		
