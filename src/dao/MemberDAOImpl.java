@@ -2,6 +2,7 @@ package dao;
 
 import java.util.*;
 import domain.*;
+import enums.Domain;
 import template.*;
 
 public class MemberDAOImpl implements MemberDAO{
@@ -14,6 +15,7 @@ public class MemberDAOImpl implements MemberDAO{
 	public void insert(MemberBean member) {
 		HashMap<String, Object> map = new HashMap<>();
 		q = new AddQuery();
+		map.put("table", Domain.MEMBER);
 		map.put("value", member);
 		q.play(map);
 	}
@@ -22,6 +24,7 @@ public class MemberDAOImpl implements MemberDAO{
 		HashMap<String, Object> map = new HashMap<>();
 		q = new UpdateQuery();
 		map.put("value", param.get("value"));
+		map.put("table", Domain.MEMBER);
 		q.play(map);
 	}
 	@Override
@@ -29,12 +32,14 @@ public class MemberDAOImpl implements MemberDAO{
 		HashMap<String, Object> map = new HashMap<>();
 		q = new DeleteQuery();
 		map.put("user", member);
+		map.put("table", Domain.MEMBER);
 		q.play(map);
 	}
 	@Override
 	public MemberBean login(MemberBean member) {
 		q = new RetrieveQuery();
 		HashMap<String, Object> map = new HashMap<>();
+		map.put("table", Domain.MEMBER);
 		map.put("user", member);
 		q.play(map);
 		return (MemberBean) q.getMap().get("result");
@@ -49,6 +54,7 @@ public class MemberDAOImpl implements MemberDAO{
 			String key = (String) keys.next();
 			map.put(key, param.get(key));
 		}
+		map.put("table", Domain.MEMBER);
 		q.play(map);
 		for(Object o : q.getList()) {
 			list.add((MemberBean) o);
@@ -62,8 +68,8 @@ public class MemberDAOImpl implements MemberDAO{
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("column", "member_id");
 		map.put("value", id);
+		map.put("table", Domain.MEMBER);
 		q.play(map);
-		System.out.println((MemberBean) q.getMap().get("result"));
 		return (MemberBean) q.getMap().get("result");
 	}
 	@Override

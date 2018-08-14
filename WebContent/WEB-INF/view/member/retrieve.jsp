@@ -3,7 +3,9 @@
 	<h2>◆My Page◆</h2>
 		<table id="mypage-table">
 			<tr>
-				<td id="mypage-img" rowspan="3" colspan="2"></td>
+				<td id="mypage-img" rowspan="3" colspan="2">
+					<img src="${img}${profile}" alt="" />
+				</td>
 				<td>ID</td>
 				<td>${user.memberId}</td>
 			</tr>

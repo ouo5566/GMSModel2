@@ -1,12 +1,9 @@
 package template;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import domain.MemberBean;
 import enums.MemberQuery;
-import factory.DatabaseFactory;
 
 public class SearchQuery extends QueryTemplate{
 	@Override

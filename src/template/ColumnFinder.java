@@ -1,16 +1,20 @@
 package template;
 
 import java.lang.reflect.Field;
-import domain.MemberBean;
+
+import domain.*;
 import enums.Domain;
 
 public class ColumnFinder {
 	public static String find(Domain domain) {
 		String s = "", upper = "", temp = "";
-		Class<MemberBean> clazz = null;
+		Class<?> clazz = null;
 		switch (domain) {
 		case MEMBER:
 			clazz = MemberBean.class;
+			break;
+		case IMAGE:
+			clazz = ImageBean.class;
 			break;
 		default:
 			break;

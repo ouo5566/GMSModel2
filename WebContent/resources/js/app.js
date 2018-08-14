@@ -146,8 +146,60 @@
 									alert(z.text);
 								}
 								break;
-							case 'join-form-btn': break;
+							case 'join-form-btn':
+								var form = document.getElementById('join-form');
+								var arr = [form.userid.value,form.password.value,form.username.value,form.userssn.value];
+								var z = service.nullChecker(arr)
+								if(z.checker){
+									member.join(arr);
+									var arr = [{name : "action", value : "add"},
+											{name : "gender", value : member.getGender()},
+											{name : "age", value : member.getAge()}];
+									
+									for(var i in arr){
+										var node = document.createElement('input');
+										// node.innerHTML = '<input type="hidden" name="'+arr[i].name+'" value="'+arr[i].value+'"/>';
+										// String값은 덜 쓰도록 한다.
+										node.setAttribute('type', 'hidden');
+										node.setAttribute('name', arr[i].name);
+										node.setAttribute('value', arr[i].value);
+										form.appendChild(node);
+									}
+									form.action = x + "/member.do";
+									form.method = "post";	
+									form.submit();
+								}else{
+									alert(z.text);
+								}
+								break;
 							case 'update-btn' : break;
+								var form = document.getElementById('update-form'); // DOM 객체
+								var team = document.getElementById('team');
+									for(var i = 0; i < team.options.length ; i++){
+										if(team.options[i].value === '${user.teamId}'){
+											team.options[i].setAttribute("selected","selected");
+										}
+									}
+									var roll = document.getElementById('roll');
+									for(var i = 0; i < roll.options.length ; i++){
+										if(roll.options[i].value === '${user.roll}'){
+											roll.options[i].setAttribute("selected","selected");
+										}
+									}
+									document.getElementById('update-butt').addEventListener('click', function(){
+										alert('CLICK');
+										if(form.password.value === ""){
+											form.password.value = '${user.password}';
+										}
+										
+										var node = document.createElement('input');
+										node.innerHTML = '<input type="hidden" name="action" value="update"/>'
+										form.appendChild(node);
+										
+										form.action=x+'/member.do';
+										form.method='post';
+										form.submit();
+									});
 							case 'file-upload-btn' : break;
 							case 'delete-btn' :
 								var form = document.getElementById('delete-form');
@@ -171,35 +223,7 @@
 				}
 				
 				//modify script
-				var form = document.getElementById('update-form'); // DOM 객체
-				var team = document.getElementById('team');
-				if(team != null){
-					for(var i = 0; i < team.options.length ; i++){
-						if(team.options[i].value === '${user.teamId}'){
-							team.options[i].setAttribute("selected","selected");
-						}
-					}
-					var roll = document.getElementById('roll');
-					for(var i = 0; i < roll.options.length ; i++){
-						if(roll.options[i].value === '${user.roll}'){
-							roll.options[i].setAttribute("selected","selected");
-						}
-					}
-					document.getElementById('update-butt').addEventListener('click', function(){
-						alert('CLICK');
-						if(form.password.value === ""){
-							form.password.value = '${user.password}';
-						}
-						
-						var node = document.createElement('input');
-						node.innerHTML = '<input type="hidden" name="action" value="update"/>'
-						form.appendChild(node);
-						
-						form.action=x+'/member.do';
-						form.method='post';
-						form.submit();
-					});
-				}
+				
 				
 
 				/* 	var teamid = document.getElementById('teamid');
@@ -208,36 +232,6 @@
 						document.getElementById('teamid_' + i).checked = true;
 					}
 				} */
-				
-				// add script
-				document.getElementById('join-form-btn').addEventListener('click',
-						function(){
-					var form = document.getElementById('join-form');
-					var arr = [form.userid.value,form.password.value,form.username.value,form.userssn.value];
-					var x = service.nullChecker(arr)
-					if(x.checker){
-						member.join(arr);
-						var arr = [{name : "action", value : "join"},
-								{name : "gender", value : member.getGender()},
-								{name : "age", value : member.getAge()}];
-						
-						for(var i in arr){
-							var node = document.createElement('input');
-							// node.innerHTML = '<input type="hidden" name="'+arr[i].name+'" value="'+arr[i].value+'"/>';
-							// String값은 덜 쓰도록 한다.
-							node.setAttribute('type', 'hidden');
-							node.setAttribute('name', arr[i].name);
-							node.setAttribute('value', arr[i].value);
-							form.appendChild(node);
-						}
-						form.action = x + "/member.do";
-						form.method = "post";	
-						form.submit();
-					}else{
-						alert(x.text);
-					}
-				});
-				
 			}
 		};
 	})();

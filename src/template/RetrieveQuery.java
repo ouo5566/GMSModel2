@@ -2,17 +2,29 @@ package template;
 
 import java.sql.ResultSet;
 
+import domain.ImageBean;
 import domain.MemberBean;
+import enums.Domain;
+import enums.ImageQuery;
 import enums.MemberQuery;
-import factory.DatabaseFactory;
 
 public class RetrieveQuery extends QueryTemplate{
 	@Override
 	void initialize() {
-		System.out.println(map.get("column") == null);
-		map.put("sql", ( map.get("column") == null ) ?
-				MemberQuery.LOGIN.toString() :
-					String.format(MemberQuery.RETRIEVE.toString(), map.get("column")));
+		String sql = "";
+		switch (Domain.valueOf(map.get("table").toString())) {
+		case MEMBER:
+			sql = (map.get("column") == null) ?
+						MemberQuery.LOGIN.toString()
+							: String.format(MemberQuery.RETRIEVE.toString(), map.get("column"));
+			break;
+		case IMAGE:
+			sql = ImageQuery.SEARCH.toString();
+			break;
+		default:
+			break;
+		}
+		map.put("sql", sql);
 	}
 	
 	@Override
@@ -20,12 +32,11 @@ public class RetrieveQuery extends QueryTemplate{
 		System.out.println(map.get("sql"));
 		try {
 			int i = 1;
-			if(map.get("column") == null) { 
+			if(map.get("sql").toString().equals(MemberQuery.LOGIN.toString())) { 
 				pstmt.setString(i++, ((MemberBean) map.get("user")).getMemberId());
 				pstmt.setString(i++, ((MemberBean) map.get("user")).getPassword());
 				System.out.println("==login setString==");
-			}else{
-				System.out.println(i + "." + map.get("value".toString()));
+			}else {
 				pstmt.setString(i++, map.get("value").toString());
 				System.out.println("==value setString==");
 			}
@@ -37,24 +48,31 @@ public class RetrieveQuery extends QueryTemplate{
 	@Override
 	void endPlay() {
 		try {
-			System.out.println("endPlay start");
 			ResultSet rs = pstmt.executeQuery();
-			MemberBean mem = new MemberBean();
+			Object o = null;
 			while(rs.next()) {
-				System.out.println("while start");
-				mem.setMemberId(rs.getString("MEMBER_ID"));
-				mem.setTeamId(rs.getString("TEAM_ID"));
-				mem.setName(rs.getString("NAME"));
-				mem.setSsn(rs.getString("SSN"));
-				mem.setRoll(rs.getString("ROLL"));
-				mem.setPassword(rs.getString("PASSWORD"));
-				mem.setGender(rs.getString("GENDER"));
-				mem.setAge(rs.getString("AGE"));
-				System.out.println("while end");
-				System.out.println(rs.getString("MEMBER_ID"));
+				switch (Domain.valueOf(map.get("table").toString())) {
+				case MEMBER:
+					o = new MemberBean();
+					((MemberBean) o).setMemberId(rs.getString("MEMBER_ID"));
+					((MemberBean) o).setTeamId(rs.getString("TEAM_ID"));
+					((MemberBean) o).setName(rs.getString("NAME"));
+					((MemberBean) o).setSsn(rs.getString("SSN"));
+					((MemberBean) o).setRoll(rs.getString("ROLL"));
+					((MemberBean) o).setPassword(rs.getString("PASSWORD"));
+					((MemberBean) o).setGender(rs.getString("GENDER"));
+					((MemberBean) o).setAge(rs.getString("AGE"));
+					break;
+				case IMAGE:
+					o = new ImageBean();
+					((ImageBean) o).setImgName(rs.getString("IMG_NAME"));
+					((ImageBean) o).setExtension(rs.getString("EXTENSION"));
+					break;
+				default:
+					break;
+				}
 			}
-			System.out.println("==result mem==\n"+mem);
-			map.put("result", mem);
+			map.put("result", o);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

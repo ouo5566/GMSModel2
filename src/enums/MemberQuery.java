@@ -20,7 +20,7 @@ public enum MemberQuery {
 		switch(this) {
 		case INSERT:
 			s = " INSERT INTO MEMBER ( " + ColumnFinder.find(Domain.MEMBER) + ") "
-				+ " VALUES  ( ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
+				+ " VALUES  ( ?, ?, ?, ?, ?, ?, ?, ?, '' ) ";
 			break;
 		case LIST:
 			s = "SELECT " + memberColumn
