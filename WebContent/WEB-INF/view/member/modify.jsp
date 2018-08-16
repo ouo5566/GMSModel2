@@ -5,6 +5,7 @@
 		<table id="mypage-table">
 			<tr>
 				<td id="mypage-img" rowspan="3" colspan="2">
+					<img src="${img}${profile}" alt="" />
 				</td>
 				<td>ID</td>
 				<td>${user.memberId}</td>
@@ -58,7 +59,7 @@
 		<input type="button" class="form-butt" id="update-btn" value="UPDATE" />
 		</form>
 </div>
-<form method="POST" enctype="multipart/form-data" action="${context}/member.do?action=fileUpload&page=retrieve">
+<form id="file-upload-form">
 	  파일 업로드: <input type="file" name="upfile"><br/>
-	  <input class="form-butt" id="file-upload-btn" type="submit" value="업로드">
+	  <input class="form-butt" id="file-upload-btn" type="button" value="업로드">
 </form>

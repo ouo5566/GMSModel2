@@ -22,18 +22,6 @@
 					}
 				}
 				return j; // 값이 여러 개 이지만 제이슨으로 뭉쳐 하나로 리턴한다 > 스칼라로 리턴
-				
-/*				var i, check;
-				for(i = 0; i < x.length ; i++){
-					check = true;
-					if(x[i] === ""){
-						alert('빈칸을 채워주세요.');
-						//document.getElementById().x[i].focus();
-						check = false;
-					}
-				}
-				return check;*/
-				
 			},
 			addClass : (dom, cName) => {
 				var arr = cName.split(" ");
@@ -46,11 +34,9 @@
 	// Java 에서의 서비스객체, DAO객체를 싱글톤으로 만들어 한 번만 만들어지게끔 하는 방식
 	// Member()같은 경우는 여러 번 만들어야하기 때문에 기존 방식
 	// (()=>{return{};})(); > 기본 형식을 만들고 시작한다.
-	var members = (()=>{
+	var box = (()=>{
 		return{
-			main : x=>{
-				// login box script
-				
+			login : x=>{
 				for(var i of document.querySelectorAll('.login-box')){
 					i.addEventListener('click', function(){
 						switch(this.getAttribute('id')){
@@ -74,8 +60,8 @@
 						}
 					})
 				}
-				
-				// menu box script
+			},
+			menu : x=>{
 				document.getElementById('move-home').addEventListener('click',function(){ 
 					router.move({context:x,
 								domain : 'common',
@@ -91,7 +77,7 @@
 				});
 				
 				document.getElementById('move-admin').addEventListener('click',function(){ 
-					location.href = x = "/admin.do?action=search&select=all";
+					location.href = x + "/admin.do?action=search&select=all";
 					/*var isAdmin = confirm('관리자입니까?');
 					// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
 					// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
@@ -110,6 +96,16 @@
 						alert('관리자만 접근이 허용됩니다.');
 					}*/	
 				});
+				
+			}
+		};
+	})();
+	
+	var members = (()=>{
+		return{
+			main : x=>{
+				box.login(x);
+				box.menu(x);
 				
 				// retrieve
 				for(var i of document.querySelectorAll('.retrieve-butt')){
@@ -208,7 +204,21 @@
 								form.method ='post';
 								form.submit();
 								break;
-							case 'file-upload-btn' : break;
+								
+							case 'file-upload-btn' :
+								var form = document.getElementById('file-upload-form');
+								var node = document.createElement('input');
+								node.setAttribute('type', 'hidden');
+								node.setAttribute('name', 'action');
+								node.setAttribute('value', 'fileUpload');
+								form.appendChild(node);
+								form.enctype = "multipart/form-data" ;
+								form.action = x + '/member.do';
+								form.method = 'post';
+								alert(form.action.value);
+								form.submit();
+								break;
+								
 							case 'delete-btn' :
 								var form = document.getElementById('delete-form');
 								if(form.confirm.value === form.confirm.id){
@@ -227,135 +237,23 @@
 								}
 								break;
 						}
-					}) /* Click function end */
-				}
-				
-				//modify script
-				
-				
-
-				/* 	var teamid = document.getElementById('teamid');
-				for(var i = 0; i < teamid.options.length ; i++){
-					if((teamid.teamid_i.value === '${user.teamId}')){
-						document.getElementById('teamid_' + i).checked = true;
-					}
-				} */
-			}
+					}) 
+				} // form butt script end
+			}// members main end
 		};
 	})();
 	var common = (()=>{
 		return{
 			main : x=>{
-				
-				// login box script
-				for(var i of document.querySelectorAll('.login-box')){
-					i.addEventListener('click', function(){
-						switch(this.getAttribute('id')){
-						case 'move-login':
-							router.move({
-								context: x,
-								domain : 'member',
-								action : 'move',
-								page : 'login'})
-							break;
-						case 'logout':
-							location.href = x + "/member.do?action=login&log=logout";
-							break;
-						case 'move-add':
-							router.move({
-								context: x,
-								domain : 'member',
-								action : 'move',
-								page : 'add'})
-							break;
-						}
-					})
-				}
-					
-					// menu box script
-					document.getElementById('move-home').addEventListener('click',function(){ 
-						router.move({context:x,
-									domain : 'common',
-									action : '',
-									page : ''})
-					});
-					
-					document.getElementById('move-about').addEventListener('click',function(){ 
-						router.move({context:x,
-									domain : 'member',
-									action : 'move',
-									page : 'retrieve'})
-					});
-					
-					document.getElementById('move-admin').addEventListener('click',function(){ 
-						router.move({
-							context : x,
-							domain : 'admin',
-							action : 'search',
-							page : 'main'})
-						/*var isAdmin = confirm('관리자입니까?');
-						// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
-						// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
-						if(isAdmin){
-							var password = prompt('관리자 코드를 입력하세요.');
-							if(password == 93){
-								router.move({
-									context : x,
-									domain : 'admin',
-									action : 'list',
-									page : 'main'})
-							}else{
-								alert('비밀번호가 정확하지 않습니다.');
-							}
-						}else{
-							alert('관리자만 접근이 허용됩니다.');
-						}*/	
-					});
-					
+				box.login(x);
+				box.menu(x);
 			}
 		};	
 	})();
 	var admin = (()=>{
 		return{
 			main : x=> {
-				document.getElementById('move-home').addEventListener('click',function(){ 
-					router.move({context:x,
-								domain : 'common',
-								action : '',
-								page : ''})
-				});
-				
-				document.getElementById('move-about').addEventListener('click',function(){ 
-					router.move({context:x,
-								domain : 'member',
-								action : 'move',
-								page : 'retrieve'})
-				});
-				
-				document.getElementById('move-admin').addEventListener('click',function(){ 
-					router.move({
-						context : x,
-						domain : 'admin',
-						action : 'search',
-						page : 'main'})
-					/*var isAdmin = confirm('관리자입니까?');
-					// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
-					// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
-					if(isAdmin){
-						var password = prompt('관리자 코드를 입력하세요.');
-						if(password == 93){
-							router.move({
-								context : x,
-								domain : 'admin',
-								action : 'list',
-								page : 'main'})
-						}else{
-							alert('비밀번호가 정확하지 않습니다.');
-						}
-					}else{
-						alert('관리자만 접근이 허용됩니다.');
-					}*/	
-				});
+				box.menu(x);
 				
 				service.addClass(
 						document.getElementById('content-box-search'),

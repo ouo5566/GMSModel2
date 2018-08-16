@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="content-box">
 	<c:choose>
-			<c:when test="${word eq ''}">
+			<c:when test="${word ne user.memberId}">
 			<h2>◆My Page◆</h2>
 			</c:when>
 	</c:choose>
@@ -37,7 +37,7 @@
 		</table>
 		<br>
 		<c:choose>
-			<c:when test="${word eq ''}">
+			<c:when test="${word ne user.memberId}">
 				<a class="retrieve-butt" id="logout"><button>LOGOUT</button></a>
 				<a class="retrieve-butt" id="update"><button>UPDATE</button></a>
 				<a class="retrieve-butt" id="delete"><button>DELETE</button></a>
