@@ -21,10 +21,12 @@ public class ModifyCommand extends Command{
 		switch (Domain.valueOf(domain.toUpperCase())) {
 		case MEMBER:
 			MemberBean member = (MemberBean) request.getSession().getAttribute("user");
+			System.out.println(request.getParameter("password"));
 			member.setPassword(request.getParameter("password"));
 			member.setTeamId(request.getParameter("teamid"));
 			member.setRoll(request.getParameter("roll"));
-			Map<?, ?> map = new HashMap<>();
+			Map<String, Object> map = new HashMap<>();
+			map.put("value", member);
 			MemberServiceImpl.getInstance().modify(map);
 			super.execute();
 			break;

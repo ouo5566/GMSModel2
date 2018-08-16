@@ -13,10 +13,10 @@ public class UpdateQuery extends QueryTemplate{
 	void startPlay() {
 		try {
 			int i = 1;
-			pstmt.setString(i++, ((MemberBean) map.get("value")).getMemberId());
+			pstmt.setString(i++, ((MemberBean) map.get("value")).getPassword());
 			pstmt.setString(i++, ((MemberBean) map.get("value")).getTeamId());
-			pstmt.setString(i++, ((MemberBean) map.get("value")).getName());
-			pstmt.setString(i++, ((MemberBean) map.get("value")).getSsn());
+			pstmt.setString(i++, ((MemberBean) map.get("value")).getRoll());
+			pstmt.setString(i++, ((MemberBean) map.get("value")).getMemberId());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

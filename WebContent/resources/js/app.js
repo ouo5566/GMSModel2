@@ -130,6 +130,20 @@
 					})
 				}
 				
+				var team = document.getElementById('team');
+				for(var i of document.querySelectorAll('.team-opt')){
+					if(i.getAttribute('value') === team.getAttribute('class')){
+						i.setAttribute("selected","selected");
+					}
+				}
+					
+				var roll = document.getElementById('roll');
+				for(var i of document.querySelectorAll('.roll-opt')){
+					if(i.getAttribute('value') === roll.getAttribute('class')){
+						i.setAttribute("selected","selected");
+					}
+				}	
+				
 				// form-butt script
 				for(var i of document.querySelectorAll('.form-butt')){
 					i.addEventListener('click', function(){
@@ -172,46 +186,33 @@
 									alert(z.text);
 								}
 								break;
-							case 'update-btn' : break;
-								var form = document.getElementById('update-form'); // DOM 객체
-								var team = document.getElementById('team');
-									for(var i = 0; i < team.options.length ; i++){
-										if(team.options[i].value === '${user.teamId}'){
-											team.options[i].setAttribute("selected","selected");
-										}
-									}
-									var roll = document.getElementById('roll');
-									for(var i = 0; i < roll.options.length ; i++){
-										if(roll.options[i].value === '${user.roll}'){
-											roll.options[i].setAttribute("selected","selected");
-										}
-									}
-									document.getElementById('update-butt').addEventListener('click', function(){
-										alert('CLICK');
-										if(form.password.value === ""){
-											form.password.value = '${user.password}';
-										}
-										
-										var node = document.createElement('input');
-										node.innerHTML = '<input type="hidden" name="action" value="update"/>'
-										form.appendChild(node);
-										
-										form.action=x+'/member.do';
-										form.method='post';
-										form.submit();
-									});
+							case 'update-btn' :
+								var form = document.getElementById('update-form');
+								alert(form.password.value)
+								if(form.password.value === ""){
+									form.password.value = form.password.placeholder;
+								}
+								var node = document.createElement('input');
+								node.setAttribute('type', 'hidden');
+								node.setAttribute('name', 'action');
+								node.setAttribute('value', 'modify');
+								form.appendChild(node);
+								form.action = x + '/member.do';
+								form.method ='post';
+								form.submit();
+								break;
 							case 'file-upload-btn' : break;
 							case 'delete-btn' :
 								var form = document.getElementById('delete-form');
-								if(form.confirm.value === '${user.password}'){
+								if(form.confirm.value === form.confirm.id){
 									form.action = x + '/member.do';
 									form.method = 'post';
 									
 									var node = document.createElement("input"); // 없던 속성을 만든다.
-									node.innerHTML = '<input type="hidden" name="action" value="delete"/>'; // input 속성에 html 코드를 추가한다.
+									node.setAttribute("type","hidden");
+									node.setAttribute("name","action");
+									node.setAttribute("value","remove");
 									form.appendChild(node); // form 에 node를 자식속성으로 추가한다.
-									
-									alert(form.action.value); // form에서 추가한 node의 action을 출력하면 value값인 delete가 출력된다.
 									
 									form.submit();
 								}else{
@@ -219,7 +220,7 @@
 								}
 								break;
 						}
-					})
+					}) /* Click function end */
 				}
 				
 				//modify script

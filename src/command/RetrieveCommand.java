@@ -16,15 +16,15 @@ public class RetrieveCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		System.out.println("==Retrieve Command==");
 		String word = request.getParameter("a");
+		ImageBean pf = null;
 		if(word != null) {
 			request.setAttribute("user", MemberServiceImpl.getInstance().retrieve(word));
+			pf = ImageServiceImpl.getInstance().searchOne(word);
+		}else {
+			pf = ImageServiceImpl.getInstance().searchOne(
+					((MemberBean)request.getSession().getAttribute("user")).getMemberId());
 		}
-		
-		ImageBean pf = ImageServiceImpl.getInstance().searchOne(
-													((MemberBean)request.getSession().getAttribute("user")).getMemberId());
-		System.out.println(pf);
 		request.setAttribute("profile",
 				(pf == null) ?
 					"/mypage/vanilla.jpg"	:

@@ -22,8 +22,7 @@ public class LoginCommand extends Command{
 				request.getSession().setAttribute("user", MemberServiceImpl.getInstance().login(member));
 				ImageBean pf = ImageServiceImpl.getInstance().searchOne(
 						((MemberBean)request.getSession().getAttribute("user")).getMemberId());
-				System.out.println(pf);
-				request.setAttribute("profile",
+				request.getSession().setAttribute("profile",
 						(pf == null) ?
 							"/mypage/vanilla.jpg"	:
 								String.format("/upload/%s.%s", pf.getImgName(), pf.getExtension()));

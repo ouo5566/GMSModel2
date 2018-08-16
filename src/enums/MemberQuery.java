@@ -56,7 +56,7 @@ public enum MemberQuery {
 			break;
 		case UPDATE:
 			s = " UPDATE MEMBER SET "
-					+ " MEMBER_PW = ? , "
+					+ " PASSWORD = ? , "
 					+ " TEAM_ID = ? ,"
 					+ " ROLL = ? "
 					+ " WHERE MEMBER_ID LIKE ? ";

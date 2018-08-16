@@ -1,5 +1,6 @@
 package template;
 
+import domain.MemberBean;
 import enums.MemberQuery;
 
 public class DeleteQuery extends QueryTemplate{
@@ -12,8 +13,7 @@ public class DeleteQuery extends QueryTemplate{
 	void startPlay() {
 		try {
 			int i = 1;
-			pstmt.setString(i++, map.get("value").toString());
-			
+			pstmt.setString(i++,((MemberBean) map.get("value")).getMemberId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
