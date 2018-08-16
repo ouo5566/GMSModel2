@@ -16,9 +16,9 @@ public class RetrieveCommand extends Command{
 	}
 	@Override
 	public void execute() {
-		String word = request.getParameter("a");
+		String word = (request.getParameter("a") == null)? "" : request.getParameter("a");
 		ImageBean pf = null;
-		if(word != null) {
+		if(!word.equals("")) {
 			request.setAttribute("user", MemberServiceImpl.getInstance().retrieve(word));
 			pf = ImageServiceImpl.getInstance().searchOne(word);
 		}else {
@@ -29,6 +29,7 @@ public class RetrieveCommand extends Command{
 				(pf == null) ?
 					"/mypage/vanilla.jpg"	:
 						String.format("/upload/%s.%s", pf.getImgName(), pf.getExtension()));
+		request.setAttribute("word", word);
 		super.execute();
 	}
 }

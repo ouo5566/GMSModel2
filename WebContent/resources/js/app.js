@@ -51,25 +51,29 @@
 			main : x=>{
 				// login box script
 				
-				document.getElementById('move-login')
-				.addEventListener('click',function(){ //콜백함수 : 연이어서 호출되는 함수
-					// var x = ['${context}','member','move','user-login-form'];
-					router.move({
+				for(var i of document.querySelectorAll('.login-box')){
+					i.addEventListener('click', function(){
+						switch(this.getAttribute('id')){
+						case 'move-login':
+							router.move({
 								context: x,
 								domain : 'member',
 								action : 'move',
 								page : 'login'})
-								//JSON으로 넘겨준다. 배열은 loop을 돌릴때에나 쓴다.
-				});
-				
-				document.getElementById('move-add')
-				.addEventListener('click',function(){ 
-					router.move({
+							break;
+						case 'logout':
+							location.href = x + "/member.do?action=login&log=logout";
+							break;
+						case 'move-add':
+							router.move({
 								context: x,
 								domain : 'member',
 								action : 'move',
 								page : 'add'})
-				});
+							break;
+						}
+					})
+				}
 				
 				// menu box script
 				document.getElementById('move-home').addEventListener('click',function(){ 
@@ -87,11 +91,7 @@
 				});
 				
 				document.getElementById('move-admin').addEventListener('click',function(){ 
-					router.move({
-						context : x,
-						domain : 'admin',
-						action : 'search',
-						page : 'main'})
+					location.href = x = "/admin.do?action=search&select=all";
 					/*var isAdmin = confirm('관리자입니까?');
 					// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
 					// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
@@ -153,6 +153,13 @@
 								var form = document.getElementById('login-form');
 								var z = service.nullChecker([form.userid.value, form.password.value]);
 								if(z.checker){
+									
+									var node = document.createElement('input');
+									node.setAttribute("type","hidden");
+									node.setAttribute("name","log");
+									node.setAttribute("value","login");
+									form.appendChild(node);
+									
 									form.action = x + "/member.do";
 									form.method = "post";
 									form.submit();
@@ -240,26 +247,30 @@
 		return{
 			main : x=>{
 				
-					// login box script
-					document.getElementById('move-login')
-					.addEventListener('click',function(){ //콜백함수 : 연이어서 호출되는 함수
-						// var x = ['${context}','member','move','user-login-form'];
-						router.move({
-									context: x,
-									domain : 'member',
-									action : 'move',
-									page : 'login'})
-									//JSON으로 넘겨준다. 배열은 loop을 돌릴때에나 쓴다.
-					});
-					
-					document.getElementById('move-add')
-					.addEventListener('click',function(){ 
-						router.move({
-									context: x,
-									domain : 'member',
-									action : 'move',
-									page : 'add'})
-					});
+				// login box script
+				for(var i of document.querySelectorAll('.login-box')){
+					i.addEventListener('click', function(){
+						switch(this.getAttribute('id')){
+						case 'move-login':
+							router.move({
+								context: x,
+								domain : 'member',
+								action : 'move',
+								page : 'login'})
+							break;
+						case 'logout':
+							location.href = x + "/member.do?action=login&log=logout";
+							break;
+						case 'move-add':
+							router.move({
+								context: x,
+								domain : 'member',
+								action : 'move',
+								page : 'add'})
+							break;
+						}
+					})
+				}
 					
 					// menu box script
 					document.getElementById('move-home').addEventListener('click',function(){ 
@@ -307,6 +318,45 @@
 	var admin = (()=>{
 		return{
 			main : x=> {
+				document.getElementById('move-home').addEventListener('click',function(){ 
+					router.move({context:x,
+								domain : 'common',
+								action : '',
+								page : ''})
+				});
+				
+				document.getElementById('move-about').addEventListener('click',function(){ 
+					router.move({context:x,
+								domain : 'member',
+								action : 'move',
+								page : 'retrieve'})
+				});
+				
+				document.getElementById('move-admin').addEventListener('click',function(){ 
+					router.move({
+						context : x,
+						domain : 'admin',
+						action : 'search',
+						page : 'main'})
+					/*var isAdmin = confirm('관리자입니까?');
+					// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
+					// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
+					if(isAdmin){
+						var password = prompt('관리자 코드를 입력하세요.');
+						if(password == 93){
+							router.move({
+								context : x,
+								domain : 'admin',
+								action : 'list',
+								page : 'main'})
+						}else{
+							alert('비밀번호가 정확하지 않습니다.');
+						}
+					}else{
+						alert('관리자만 접근이 허용됩니다.');
+					}*/	
+				});
+				
 				service.addClass(
 						document.getElementById('content-box-search'),
 						"margin-auto width-635px");

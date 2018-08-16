@@ -25,18 +25,14 @@ public class SearchCommand extends Command{
 		String word = request.getParameter("word");
 		String sOpt = (request.getSession().getAttribute("opt") == null) ? "" : request.getSession().getAttribute("opt").toString();
 		String sWord = (request.getSession().getAttribute("w") == null) ? "" : request.getSession().getAttribute("w").toString();
+		String sel = (request.getParameter("select") == null) ? "" : request.getParameter("select");
 		
-		System.out.println("[option] session : "+sOpt+" / option : "+option);
-		System.out.println("[word] session : "+sWord+" / word : "+word);
-		
-		if(option == null && sOpt != null) {
-			System.out.println("== session 의 값 할당 ==");
-			option = sOpt;
-			word = sWord;
-		} 
-		
-		System.out.println("[option] session : "+sOpt+" / option : "+option);
-		System.out.println("[word] session : "+sWord+" / word : "+word);
+		if(sel.equals("all")) {
+			if(option == null && sOpt != null) {
+				option = sOpt;
+				word = sWord;
+			} 
+		}
 		
 		param.put("pageNum", (pNum == null) ? 1 : pNum);
 		param.put("column", (option == null) ? "" : option);
