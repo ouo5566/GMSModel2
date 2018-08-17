@@ -37,7 +37,7 @@ public class RetrieveQuery extends QueryTemplate{
 				pstmt.setString(i++, ((MemberBean) map.get("user")).getPassword());
 				System.out.println("==login setString==");
 			}else {
-				pstmt.setString(i++, map.get("value").toString());
+				pstmt.setString(i++,  map.get("value").toString());
 				System.out.println("==value setString==");
 			}
 		} catch (Exception e) {
@@ -53,20 +53,22 @@ public class RetrieveQuery extends QueryTemplate{
 			while(rs.next()) {
 				switch (Domain.valueOf(map.get("table").toString())) {
 				case MEMBER:
-					o = new MemberBean();
-					((MemberBean) o).setMemberId(rs.getString("MEMBER_ID"));
-					((MemberBean) o).setTeamId(rs.getString("TEAM_ID"));
-					((MemberBean) o).setName(rs.getString("NAME"));
-					((MemberBean) o).setSsn(rs.getString("SSN"));
-					((MemberBean) o).setRoll(rs.getString("ROLL"));
-					((MemberBean) o).setPassword(rs.getString("PASSWORD"));
-					((MemberBean) o).setGender(rs.getString("GENDER"));
-					((MemberBean) o).setAge(rs.getString("AGE"));
+					MemberBean mem = new MemberBean();
+					mem.setMemberId(rs.getString("MEMBER_ID"));
+					mem.setTeamId(rs.getString("TEAM_ID"));
+					mem.setName(rs.getString("NAME"));
+					mem.setSsn(rs.getString("SSN"));
+					mem.setRoll(rs.getString("ROLL"));
+					mem.setPassword(rs.getString("PASSWORD"));
+					mem.setGender(rs.getString("GENDER"));
+					mem.setAge(rs.getString("AGE"));
+					o = mem;
 					break;
 				case IMAGE:
-					o = new ImageBean();
-					((ImageBean) o).setImgName(rs.getString("IMG_NAME"));
-					((ImageBean) o).setExtension(rs.getString("EXTENSION"));
+					ImageBean img = new ImageBean();
+					img.setImgName(rs.getString("IMG_NAME"));
+					img.setExtension(rs.getString("EXTENSION"));
+					o = img;
 					break;
 				default:
 					break;

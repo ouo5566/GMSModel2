@@ -21,14 +21,20 @@ public class RetrieveCommand extends Command{
 		if(!word.equals("")) {
 			request.setAttribute("user", MemberServiceImpl.getInstance().retrieve(word));
 			pf = ImageServiceImpl.getInstance().searchOne(word);
+			request.setAttribute("profile",
+					(pf == null) ?
+							"/mypage/vanilla.jpg"	:
+								String.format("/upload/%s.%s", pf.getImgName(), pf.getExtension()));
+			
 		}else {
 			pf = ImageServiceImpl.getInstance().searchOne(
 					((MemberBean)request.getSession().getAttribute("user")).getMemberId());
+			request.getSession().setAttribute("profile",
+					(pf == null) ?
+							"/mypage/vanilla.jpg"	:
+								String.format("/upload/%s.%s", pf.getImgName(), pf.getExtension()));
 		}
-		request.setAttribute("profile",
-				(pf == null) ?
-					"/mypage/vanilla.jpg"	:
-						String.format("/upload/%s.%s", pf.getImgName(), pf.getExtension()));
+		System.out.println(pf);
 		request.setAttribute("word", word);
 		super.execute();
 	}

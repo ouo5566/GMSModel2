@@ -62,41 +62,44 @@
 				}
 			},
 			menu : x=>{
-				document.getElementById('move-home').addEventListener('click',function(){ 
-					router.move({context:x,
+				for(var i of document.querySelectorAll('.menu-li')){
+					i.addEventListener('click', function(){
+						switch(this.getAttribute('id')){
+						case 'home' : 
+							router.move({context:x,
 								domain : 'common',
 								action : '',
 								page : ''})
-				});
-				
-				document.getElementById('move-about').addEventListener('click',function(){ 
-					router.move({context:x,
+							break;
+						case 'about' :
+							router.move({context:x,
 								domain : 'member',
 								action : 'move',
 								page : 'retrieve'})
-				});
-				
-				document.getElementById('move-admin').addEventListener('click',function(){ 
-					location.href = x + "/admin.do?action=search&select=all";
-					/*var isAdmin = confirm('관리자입니까?');
-					// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
-					// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
-					if(isAdmin){
-						var password = prompt('관리자 코드를 입력하세요.');
-						if(password == 93){
-							router.move({
-								context : x,
-								domain : 'admin',
-								action : 'list',
-								page : 'main'})
-						}else{
-							alert('비밀번호가 정확하지 않습니다.');
+							break;
+						case 'admin' :
+							location.href = x + "/admin.do?action=search&select=all";
+							/*var isAdmin = confirm('관리자입니까?');
+							// confirm은 window객체, BOM의 메소드 : 단독으로 쓰일 수 있으며 객체생성이 필요없다.
+							// DOM은 앞에 document를 통해 만들어지는데, 이것도 나중엔 생략할 수 있게 될 것.
+							if(isAdmin){
+								var password = prompt('관리자 코드를 입력하세요.');
+								if(password == 93){
+									router.move({
+										context : x,
+										domain : 'admin',
+										action : 'list',
+										page : 'main'})
+								}else{
+									alert('비밀번호가 정확하지 않습니다.');
+								}
+							}else{
+								alert('관리자만 접근이 허용됩니다.');
+							}*/	
+							break;
 						}
-					}else{
-						alert('관리자만 접근이 허용됩니다.');
-					}*/	
-				});
-				
+					});
+				}
 			}
 		};
 	})();
@@ -143,8 +146,7 @@
 				// form-butt script
 				for(var i of document.querySelectorAll('.form-butt')){
 					i.addEventListener('click', function(){
-						var y = this.getAttribute('id');
-						switch(y){
+						switch(this.getAttribute('id')){
 							case 'login-form-btn':
 								var form = document.getElementById('login-form');
 								var z = service.nullChecker([form.userid.value, form.password.value]);
@@ -175,8 +177,6 @@
 									
 									for(var i in arr){
 										var node = document.createElement('input');
-										// node.innerHTML = '<input type="hidden" name="'+arr[i].name+'" value="'+arr[i].value+'"/>';
-										// String값은 덜 쓰도록 한다.
 										node.setAttribute('type', 'hidden');
 										node.setAttribute('name', arr[i].name);
 										node.setAttribute('value', arr[i].value);
@@ -207,15 +207,9 @@
 								
 							case 'file-upload-btn' :
 								var form = document.getElementById('file-upload-form');
-								var node = document.createElement('input');
-								node.setAttribute('type', 'hidden');
-								node.setAttribute('name', 'action');
-								node.setAttribute('value', 'fileUpload');
-								form.appendChild(node);
 								form.enctype = "multipart/form-data" ;
-								form.action = x + '/member.do';
+								form.action = x + '/member.do?action=fileUpload&page=retrieve';
 								form.method = 'post';
-								alert(form.action.value);
 								form.submit();
 								break;
 								
@@ -275,8 +269,8 @@
 					}else if(word.value === ""){
 						alert('검색할 단어를 입력해주세요');
 					}else{
-						location.href = (option === "userid")?
-							 x + "/admin.do?action=retrieve&page=main&a="
+						location.href = (option.value === "userid")?
+							 x + "/member.do?action=retrieve&page=main&a="
 								+ word.value
 									: x +"/admin.do?action=search&page=main&word="
 										+ word.value + "&option="+option.value;

@@ -27,7 +27,7 @@ public class SearchCommand extends Command{
 		String sWord = (request.getSession().getAttribute("w") == null) ? "" : request.getSession().getAttribute("w").toString();
 		String sel = (request.getParameter("select") == null) ? "" : request.getParameter("select");
 		
-		if(sel.equals("all")) {
+		if(!sel.equals("all")) {
 			if(option == null && sOpt != null) {
 				option = sOpt;
 				word = sWord;

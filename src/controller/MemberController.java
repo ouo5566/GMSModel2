@@ -15,6 +15,8 @@ import enums.Action;
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Member Controller");
+		System.out.println(request.getParameter("action")+"/"+request.getParameter("page"));
 		Receiver.init(request);
 		switch(Action.valueOf(Receiver.cmd.getAction().toUpperCase())) { 
 			case ADD:
@@ -41,6 +43,7 @@ public class MemberController extends HttpServlet {
 				Carrier.forward(request, response); // JSP에서 request를 통해 데이터를 유지한 채 페이지 이동한다.
 				break;
 			case FILEUPLOAD :
+				System.out.println("File Upload");
 				Carrier.redirect(request, response, "/member.do?action=retrieve&page=retrieve");
 				break;
 			default:

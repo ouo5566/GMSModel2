@@ -3,7 +3,7 @@ package enums;
 import template.ColumnFinder;
 
 public enum ImageQuery {
-	INSERT, SEARCH;
+	INSERT, SEARCH,;
 	@Override
 	public String toString() {
 		String s = "";

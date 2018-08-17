@@ -59,7 +59,7 @@
 		<input type="button" class="form-butt" id="update-btn" value="UPDATE" />
 		</form>
 </div>
-<form id="file-upload-form">
+<form id="file-upload-form" >
 	  파일 업로드: <input type="file" name="upfile"><br/>
 	  <input class="form-butt" id="file-upload-btn" type="button" value="업로드">
 </form>
